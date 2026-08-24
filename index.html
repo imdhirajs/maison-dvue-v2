@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<title>MAISON D'VUE — The House of Affinity Compositions™</title>
+<meta name="description" content="Where rare ingredients become a composition. Vue 14™ — fourteen essences, composed in small monthly allocations.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MAISON D'VUE — The House of Affinity Compositions™">
+<meta property="og:description" content="Where rare ingredients become a composition. Vue 14™ — fourteen essences, composed in small monthly allocations.">
+<meta property="og:image" content="photos/social-preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="photos/social-preview.jpg">
+<link rel="preload" as="image" href="assets/hero-poster/hero-poster.webp" fetchpriority="high">
+<script src="https://unpkg.com/lenis/dist/lenis.min.js" defer></script>
+<script src="./image-slot.js"></script>
+<style>
+  /* FIX (verified by actually rendering the page in a browser and inspecting computed styles): the
+     previous rule set overflow-x:hidden AND overflow-y:visible on the SAME elements (html, body, #dc-root,
+     .sc-host). Per the CSS spec, when overflow-x and overflow-y differ and one side is "visible", the
+     visible side is silently forced to compute as "auto" instead — you cannot actually mix hidden/visible
+     on one element. On <html> alone that's harmless (its overflow is handed to the real viewport). But the
+     same rule was ALSO applied to #dc-root and .sc-host — ordinary nested divs, not the viewport — so each
+     one silently became its own real (if invisible) scrolling container. position:sticky always sticks
+     relative to the nearest such container, and since #dc-root/.sc-host never actually receive a scroll
+     event themselves (the page scrolls the true viewport, one level further out), every sticky element
+     inside them — the nav header AND the scroll-scrub hero — never got to reposition and just scrolled
+     away with the page like plain static content. That's what made the whole page look "broken": the nav
+     and hero visibly vanished after the first screen of scrolling. Confirmed fixed by keeping overflow-x
+     hidden ONLY on <html> (the one safe place for this trick) and leaving body/#dc-root/.sc-host with no
+     overflow override at all — do not re-add overflow-x/overflow-y to those three. */
+  html { overflow-x:hidden; scroll-behavior:smooth; }
+  body { margin:0; padding:0; }
+  #dc-root, #dc-root > .sc-host { margin:0; padding:0; background:#fff; height:auto !important; min-height:100% !important; }
+  section[id] { scroll-margin-top: calc(var(--mdv-header-h, 82px) + 8px); }
+  * { box-sizing:border-box; }
+  a { color:#8A6C2E; text-decoration:none; }
+  a:hover { color:#5f4a1f; }
+  ::selection { background:#0F1738; color:#fff; }
+  @keyframes dvRise { from { opacity:0; transform:translateY(14px) } to { opacity:1; transform:none } }
+  [data-reveal].dv-in { animation:dvRise 900ms cubic-bezier(.2,.6,.2,1) both; }
+  @media (prefers-reduced-motion: reduce) { [data-reveal].dv-in { animation:none } }
+  @keyframes dvDrift { 0%,100% { transform:translateY(0); opacity:.55 } 50% { transform:translateY(9px); opacity:1 } }
+  @media (max-height: 780px) { .dv-cue { display:none !important } }
+  .dv-kenburns { animation:dvKenBurns 16s ease-in-out infinite alternate; display:block; width:100%; height:100%; }
+  @keyframes dvKenBurns { from { transform:scale(1) } to { transform:scale(1.08) } }
+  @media (prefers-reduced-motion: reduce) { .dv-kenburns { animation:none !important } }
+  input::placeholder { color:rgba(239,233,223,0.4); }
+  .dv-ritual-scroll::-webkit-scrollbar { display:none; }
+
+  /* Scroll-scrub hero engine — ported from the original site's MdvHeroEngine, same structure/behavior, V2 palette. */
+  .dv-hero-sticky { position:sticky; top:var(--mdv-header-h, 82px); height:calc(100vh - var(--mdv-header-h, 82px)); overflow:hidden; background:#0A0A0C url('data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAABwBACdASoYAA4APu1iqU2ppaOiMAgBMB2JbACdMoRwAB8aaiBaskZRoEtpAAD+7p9CyiudmrWopqFpf29+Xg2bEXYsfrz+TkYCBXhBqiS1DvtXUMNjIQIzKyzDN+DllvSevlzwyZlAZe3J0p0Qt9++GGzQHBXpQs0wlo8uckDwcnz2AAA=') center/cover no-repeat; }
+  .dv-hero-canvas { position:absolute; inset:0; width:100%; height:100%; display:block; background:url('assets/hero-poster/hero-poster.webp') center/cover no-repeat; }
+  .dv-hero-fallback-media { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:none; }
+  .dv-hero-ctas { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:6px }
+  @media (max-width: 480px) {
+    .dv-hero-ctas { width:100%; flex-direction:column }
+    .dv-hero-ctas a { flex:1 1 100%; text-align:center }
+  }
+  .dv-toast { position:fixed; left:20px; bottom:calc(20px + env(safe-area-inset-bottom)); z-index:79; width:min(340px, calc(100vw - 40px)); }
+  @media (max-width: 600px) {
+    .dv-toast { left:16px; right:16px; bottom:calc(86px + env(safe-area-inset-bottom)); width:auto }
+  }
+  .dv-chat-wrap { position:fixed; right:20px; bottom:calc(20px + env(safe-area-inset-bottom)); z-index:80 }
+  .dv-navlogo { font-size:26px }
+  @media (max-width: 640px) {
+    .dv-navbar { height:auto; flex-wrap:wrap; row-gap:10px; padding-top:14px; padding-bottom:14px }
+    .dv-navlogo { font-size:clamp(16px,5vw,22px); letter-spacing:.12em; order:1; flex:1 1 auto; text-align:center }
+    .dv-navmenu { order:0 }
+    .dv-navmeta { order:2; gap:14px }
+    .dv-nav-optional { display:none }
+  }
+</style>
+</helmet>
+
+<div style="background:#fff;color:#14141A;font-family:'Jost',system-ui,sans-serif;font-weight:300">
+
+<div style="height:7px;background:#0F1738"></div>
+
+<sc-if value="{{ annOpen }}" hint-placeholder-val="{{ true }}">
+  <div style="background:#F5F1E8;border-bottom:1px solid rgba(20,20,26,.1);display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 44px;position:relative;font-size:11.5px;letter-spacing:.05em;color:#14141A">
+    <span>New — Vue 14™ Hair Elixir</span>
+    <a href="#shop" style="border-bottom:1px solid #8A6C2E;color:#8A6C2E">Purchase the Elixir</a>
+    <button onClick="{{ closeAnn }}" aria-label="Dismiss" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:15px;color:rgba(20,20,26,.5);cursor:pointer;line-height:1;padding:4px" style-hover="color:#14141A">✕</button>
+  </div>
+</sc-if>
+
+<div id="siteNav" ref="{{ navRef }}" style="position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid rgba(20,20,26,.1)">
+  <div class="dv-navbar" style="display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,56px);height:82px;max-width:1400px;margin:0 auto">
+    <!-- NOTE: proposal references "the same format of the menu with the black square on world" — the exact reference screenshot isn't in this asset set. Kept the nav simple/text-led with a minimal square icon as the closest reasonable read; correct against Masiela's screenshot once available. -->
+    <div class="dv-navmenu" style="display:flex;align-items:center;line-height:1;gap:9px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(20,20,26,.6);cursor:default">
+      <span style="width:8px;height:8px;background:#14141A;display:inline-block"></span>
+      Menu
+    </div>
+    <a href="#top" class="dv-navlogo" style="display:block;line-height:1;font-family:'Bodoni Moda',serif;font-weight:500;letter-spacing:.22em;color:#14141A;text-transform:uppercase">Maison D'Vue</a>
+    <div class="dv-navmeta" style="display:flex;align-items:center;line-height:1;gap:22px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(20,20,26,.65)">
+      <span class="dv-nav-optional" style="cursor:default">Search</span>
+      <span class="dv-nav-optional" style="cursor:default">Account</span>
+      <a href="#reserve" style="color:#14141A;border-bottom:1px solid rgba(20,20,26,.4)">Allocation</a>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:clamp(18px,3vw,40px);padding:14px clamp(20px,4vw,56px);border-top:1px solid rgba(20,20,26,.08);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(20,20,26,.55);flex-wrap:wrap">
+    <a href="#composition" style="color:rgba(20,20,26,.55)" style-hover="color:#14141A">Haircare</a>
+    <a href="#matrix" style="color:rgba(20,20,26,.55)" style-hover="color:#14141A">Fourteen Essences</a>
+    <a href="#house" style="color:rgba(20,20,26,.55)" style-hover="color:#14141A">The House</a>
+    <span title="Coming soon" style="color:rgba(20,20,26,.4);cursor:default">Fragrance<sup style="font-size:55%;letter-spacing:.12em;color:#8A6C2E;margin-left:2px;vertical-align:super">SOON</sup></span>
+    <span title="Coming soon" style="color:rgba(20,20,26,.4);cursor:default">Journal<sup style="font-size:55%;letter-spacing:.12em;color:#8A6C2E;margin-left:2px;vertical-align:super">SOON</sup></span>
+    <a href="#shop" style="color:rgba(20,20,26,.55)" style-hover="color:#14141A">Boutique</a>
+  </div>
+</div>
+
+<!-- Scroll-scrubbed hero, ported from the original site's MdvHeroEngine (../MAISON D'VUE/Maison D'Vue luxury website design/index.html) — same engine, re-skinned in V2's palette/copy and re-sourced from the real hero footage. See MdvHeroEngine + MDV_HERO_* constants in the script block below. Three fallback layers, exactly mirroring the original: canvas (desktop, full scroll-scrub) -> looping video (phones) -> static poster (prefers-reduced-motion). -->
+<section id="top" data-hero-region style="position:relative;height:100vh;background:#0A0A0C">
+  <div id="heroSticky" class="dv-hero-sticky">
+    <canvas id="heroCanvas" class="dv-hero-canvas" aria-hidden="true"></canvas>
+    <video id="heroMobileVideo" class="dv-hero-fallback-media" muted loop playsinline preload="none" aria-hidden="true"></video>
+    <img id="heroStaticPoster" class="dv-hero-fallback-media" src="assets/hero-poster/hero-poster.webp" alt="MAISON D'VUE Hair Elixir — face, eye, hands with the elixir, mirror reveal">
+
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,.8) 0%,rgba(10,10,12,.4) 38%,rgba(10,10,12,.86) 100%);pointer-events:none"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 42%,rgba(15,23,56,.4) 0%,rgba(10,10,12,0) 62%);pointer-events:none"></div>
+
+    <!-- Simple/persistent-overlay option (see MDV_HERO_BEATS comment below): V2's existing hero copy stays as one always-visible block rather than being forced into the original's six sequential story beats — it wasn't written for staged reveals, and the source footage is an unmatched rough cut, not yet scene-mapped for precise staging. -->
+    <div style="position:relative;z-index:2;height:100%;display:flex;align-items:center;justify-content:center;padding:96px clamp(20px,5vw,64px) 132px">
+      <div style="max-width:1080px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:32px;color:#EFE9DF">
+        <div data-reveal style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#C2A15B">Beverly Hills · Est. MMXXVI</div>
+        <h1 data-reveal style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(42px,8.6vw,124px);line-height:.96;letter-spacing:.1em;text-transform:uppercase">Maison D'Vue</h1>
+        <div data-reveal style="display:flex;align-items:center;gap:20px;width:min(560px,86vw)">
+          <div style="height:1px;flex:1;background:linear-gradient(90deg,rgba(194,161,91,0),rgba(194,161,91,.7))"></div>
+          <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(239,233,223,.82);white-space:nowrap">The House of Affinity Compositions™</div>
+          <div style="height:1px;flex:1;background:linear-gradient(90deg,rgba(194,161,91,.7),rgba(194,161,91,0))"></div>
+        </div>
+        <p data-reveal style="margin:0;max-width:620px;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.8vw,32px);line-height:1.4;font-weight:300;font-style:italic;color:rgba(239,233,223,.92);text-wrap:pretty">Where <span style="color:#C2A15B;font-style:normal;font-weight:400">rare</span> ingredients<br>become a <span style="color:#C2A15B;font-style:normal;font-weight:400">composition</span>.</p>
+        <div data-reveal class="dv-hero-ctas">
+          <a href="#shop" style="padding:17px 38px;background:#C2A15B;color:#0A0A0C;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase" style-hover="background:#EFE9DF">Purchase the Elixir</a>
+          <a href="#composition" style="padding:17px 38px;border:1px solid rgba(239,233,223,.34);color:#EFE9DF;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase" style-hover="border-color:#C2A15B;color:#C2A15B">Discover Vue 14™</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dv-cue" style="position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px;z-index:2">
+      <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(239,233,223,.42)">Scroll</div>
+      <div style="width:1px;height:52px;background:linear-gradient(180deg,rgba(194,161,91,.85),rgba(194,161,91,0));animation:dvDrift 3.4s ease-in-out infinite"></div>
+    </div>
+  </div>
+</section>
+
+<section id="shop" style="padding:clamp(80px,10vh,120px) clamp(20px,5vw,64px);background:#F5F1E8">
+  <div style="max-width:1320px;margin:0 auto">
+    <div data-reveal style="text-align:center;max-width:640px;margin:0 auto 56px;display:flex;flex-direction:column;gap:16px">
+      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">Vue 14™ Hair Elixir</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.15">Composed in small allocations</h2>
+      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.62)">Anhydrous. Free of silicones, sulfates, parabens and mineral oils. Released monthly, not continuously stocked.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,4vw,56px);max-width:900px;margin:0 auto">
+      <div data-reveal style="background:#fff;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:16px;height:100%">
+        <div style="position:relative;aspect-ratio:4/5;background:#F5F1E8">
+          <div style="position:absolute;inset:18px">
+            <image-slot id="mdv-shop-signature" shape="rect" fit="cover" placeholder="Vue 14™ Signature 30ml bottle, studio" src="photos/shop-signature.jpg"></image-slot>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;flex:1">
+          <div style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.45)">Anhydrous · Monthly Allocation</div>
+          <div style="font-family:'Bodoni Moda',serif;font-size:22px">The Signature</div>
+          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.5)">30ml · 1 fl oz</div>
+          <sc-if value="{{ showPricing }}" hint-placeholder-val="{{ true }}">
+            <div style="font-family:'Bodoni Moda',serif;font-size:19px;color:#8A6C2E">$125</div>
+          </sc-if>
+        </div>
+        <a href="#reserve" style="margin-top:auto;text-align:center;padding:14px;border:1px solid #14141A;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#14141A" style-hover="background:#14141A;color:#fff">Purchase the Elixir</a>
+      </div>
+      <div data-reveal style="background:#fff;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:16px;height:100%">
+        <div style="position:relative;aspect-ratio:4/5;background:#F5F1E8">
+          <div style="position:absolute;inset:18px">
+            <!-- Swapped off the previous "Hold - Liquid Color Pending Client Reshoot/10.jpg" per Masiela's Aug 20 note ("disregard 9, 10, and 11 for now, the videographer will darken the liquid a bit more") — that file is still on disk at photos/shop-voyage.jpg but no longer referenced. This is a real approved photo (closed gift box, "Approved - Ready to Use/3.jpg") standing in until a genuine Voyage-only bottle shot is delivered. -->
+            <image-slot id="mdv-shop-voyage" shape="rect" fit="cover" placeholder="Vue 14™ Voyage packaging detail, studio — full product photo pending client reshoot" src="photos/shop-voyage-coming-soon.jpg"></image-slot>
+          </div>
+          <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Full reveal coming soon</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;flex:1">
+          <div style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.45)">Anhydrous · Travel Allocation</div>
+          <div style="font-family:'Bodoni Moda',serif;font-size:22px">The Voyage</div>
+          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.5)">10ml · 0.33 fl oz</div>
+          <sc-if value="{{ showPricing }}" hint-placeholder-val="{{ true }}">
+            <div style="font-family:'Bodoni Moda',serif;font-size:19px;color:#8A6C2E">$68</div>
+          </sc-if>
+        </div>
+        <!-- TODO: confirm with client whether "Purchase the Elixir" is still correct on a card marked "coming soon", or whether this should be a waitlist/notify action instead -->
+        <a href="#reserve" style="margin-top:auto;text-align:center;padding:14px;border:1px solid #14141A;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#14141A" style-hover="background:#14141A;color:#fff">Purchase the Elixir</a>
+      </div>
+    </div>
+    <div data-reveal style="text-align:center;margin-top:28px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.42)">Complimentary shipping within the United States</div>
+  </div>
+</section>
+
+<section id="composition" style="padding:clamp(90px,11vh,140px) clamp(20px,5vw,64px);background:#fff">
+  <div style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:clamp(40px,5vw,64px)">
+    <div data-reveal style="display:flex;flex-direction:column;gap:22px">
+      <div style="position:relative;aspect-ratio:5/4;background:#F5F1E8">
+        <!-- TODO: no real "14 essences on dark linen" flatlay has been delivered yet. Using a blue-lit product macro as the nearest real stand-in per the asset map — replace with an actual ingredients flatlay once the client/videographer supplies one. -->
+        <image-slot id="mdv-editorial-1" shape="rect" fit="cover" placeholder="The 14 essences laid out on dark linen, overhead" src="photos/editorial-essences.jpeg"></image-slot>
+      </div>
+      <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#8A6C2E">The Composition</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,3vw,38px);line-height:1.15">Selection over addition.</h2>
+      <p style="margin:0;font-size:14.5px;line-height:1.8;color:rgba(20,20,26,.66);max-width:440px">Fourteen rare botanical essences, held in an anhydrous composition — no water, no filler, nothing to dilute the intent.</p>
+      <a href="#matrix" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #8A6C2E;width:fit-content">Discover the Matrix</a>
+    </div>
+    <div data-reveal style="display:flex;flex-direction:column;gap:22px">
+      <div style="position:relative;aspect-ratio:5/4;background:#F5F1E8">
+        <!-- TODO: no real "Masiela at her writing desk" photo has been delivered yet. Using a solo studio portrait as the nearest real stand-in per the asset map — replace once a proper desk/candid shot arrives. -->
+        <image-slot id="mdv-editorial-2" shape="rect" fit="cover" placeholder="Masiela Lusha at her writing desk, candid" src="photos/editorial-founder-desk.jpeg"></image-slot>
+      </div>
+      <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#8A6C2E">The House</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,3vw,38px);line-height:1.15">Written before it was formulated.</h2>
+      <p style="margin:0;font-size:14.5px;line-height:1.8;color:rgba(20,20,26,.66);max-width:440px">Founder Masiela Lusha brings the same discipline of selection — six books of poetry, one composition of botany — to MAISON D'VUE.</p>
+      <a href="#house" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #8A6C2E;width:fit-content">Meet the Founder</a>
+    </div>
+  </div>
+</section>
+
+<section style="position:relative;height:82vh;min-height:520px;overflow:hidden;background:#0A0A0C">
+  <div style="position:absolute;inset:0">
+    <image-slot id="mdv-banner-product" class="dv-kenburns" shape="rect" fit="cover" placeholder="MAISON D'VUE Hair Elixir, water reflection, studio" src="photos/banner-product.jpg" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,12,.72) 0%,rgba(10,10,12,.15) 55%,rgba(10,10,12,0) 100%)"></div>
+  <div data-reveal style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;max-width:560px;padding:0 clamp(24px,5vw,72px) clamp(48px,7vh,80px);color:#EFE9DF">
+    <h3 style="margin:0 0 14px;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,3.4vw,42px);line-height:1.15">Âme de Vue™</h3>
+    <p style="margin:0 0 18px;font-size:14.5px;line-height:1.8;color:rgba(239,233,223,.82);max-width:440px">Sandalwood at the base, rose lifted above it. The scent thread that will carry through every chapter of the maison.</p>
+    <a href="#matrix" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#EFE9DF;border-bottom:1px solid rgba(239,233,223,.5)" style-hover="border-color:#C2A15B;color:#C2A15B">Discover more</a>
+  </div>
+</section>
+
+<section id="matrix" style="padding:clamp(90px,11vh,140px) clamp(20px,5vw,64px);background:#fff">
+  <div style="max-width:1180px;margin:0 auto">
+    <div data-reveal style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:clamp(44px,6vh,72px)">
+      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">The VUE Affinity Matrix™</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.15">Fourteen essences, each one chosen twice</h2>
+      <p style="margin:0;max-width:560px;font-size:14px;line-height:1.8;color:rgba(20,20,26,.6)">Once for its origin. Once for its biology. Select an essence to read its provenance.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,5vw,72px);align-items:start">
+      <div data-reveal style="display:flex;flex-direction:column">
+        <sc-for list="{{ essences }}" as="e" hint-placeholder-count="14">
+          <div onClick="{{ e.select }}" onMouseEnter="{{ e.select }}" style="display:flex;align-items:baseline;gap:18px;padding:14px 6px;border-bottom:1px solid rgba(20,20,26,.1);cursor:pointer;transition:padding-left 260ms cubic-bezier(.2,.6,.2,1)" style-hover="padding-left:14px">
+            <span style="font-size:10px;letter-spacing:.2em;color:rgba(138,108,46,.75);min-width:26px">{{ e.num }}</span>
+            <span style="font-family:'Bodoni Moda',serif;font-size:19px;letter-spacing:.01em;color:rgba(20,20,26,.88)">{{ e.name }}</span>
+            <sc-if value="{{ e.isActive }}" hint-placeholder-val="{{ false }}">
+              <span style="margin-left:auto;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#8A6C2E">Selected</span>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+
+      <div data-reveal style="position:sticky;top:120px;border:1px solid rgba(20,20,26,.12);padding:clamp(28px,4vw,44px);background:#F5F1E8">
+        <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#8A6C2E;margin-bottom:22px">Essence {{ active.num }} of 14</div>
+        <h3 style="margin:0 0 10px;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,3.2vw,40px);line-height:1.15">{{ active.name }}</h3>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:rgba(20,20,26,.55);margin-bottom:24px">{{ active.latin }}</div>
+        <div style="width:44px;height:1px;background:rgba(138,108,46,.6);margin-bottom:24px"></div>
+        <div style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,20,26,.5);margin-bottom:10px">Origin</div>
+        <div style="font-size:15px;line-height:1.7;margin-bottom:24px;color:rgba(20,20,26,.85)">{{ active.origin }}</div>
+        <div style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,20,26,.5);margin-bottom:10px">Why it was chosen</div>
+        <p style="margin:0;font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.65;color:rgba(20,20,26,.9);text-wrap:pretty">{{ active.note }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:clamp(80px,10vh,120px) clamp(20px,5vw,64px);background:#F5F1E8">
+  <div style="max-width:1180px;margin:0 auto">
+    <div data-reveal style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;margin-bottom:clamp(44px,6vh,72px)">
+      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">The Ritual</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,4vw,46px);line-height:1.15">Five drops. Three motions.</h2>
+      <p style="margin:0;max-width:500px;font-size:14px;line-height:1.8;color:rgba(20,20,26,.6)">Worn on damp lengths after washing, or dry through the day. The composition asks nothing of your schedule.</p>
+    </div>
+    <div style="position:relative">
+      <div class="dv-ritual-scroll" style="display:flex;gap:clamp(20px,3vw,32px);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 4px clamp(20px,3vw,28px);margin:0 -4px;scrollbar-width:none">
+        <div data-reveal style="flex:0 0 auto;width:min(400px,80vw);scroll-snap-align:center;background:#fff">
+          <div style="position:relative;aspect-ratio:4/5">
+            <image-slot id="mdv-ritual-01" class="dv-kenburns" shape="rect" fit="cover" placeholder="Dropper releasing a bead above the bottle neck" src="photos/ritual-five-drops.jpg"></image-slot>
+            <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Real still — motion cut coming</div>
+          </div>
+          <div style="padding:24px">
+            <div style="font-family:'Bodoni Moda',serif;font-size:32px;color:#8A6C2E;line-height:1">I</div>
+            <div style="font-family:'Bodoni Moda',serif;font-size:21px;margin:12px 0 8px">Five drops</div>
+            <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.62)">Into the palm. The dropper meters the composition so you never over-give.</p>
+          </div>
+        </div>
+        <div data-reveal style="flex:0 0 auto;width:min(400px,80vw);scroll-snap-align:center;background:#fff">
+          <div style="position:relative;aspect-ratio:4/5">
+            <image-slot id="mdv-ritual-02" class="dv-kenburns" shape="rect" fit="cover" placeholder="Hands in motion, warming the composition" src="photos/ritual-warm-palms.jpg"></image-slot>
+            <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Editorial still — motion cut coming</div>
+          </div>
+          <div style="padding:24px">
+            <div style="font-family:'Bodoni Moda',serif;font-size:32px;color:#8A6C2E;line-height:1">II</div>
+            <div style="font-family:'Bodoni Moda',serif;font-size:21px;margin:12px 0 8px">Warm between palms</div>
+            <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.62)">Body heat opens the essences. Sandalwood arrives first, rose lifts behind it.</p>
+          </div>
+        </div>
+        <div data-reveal style="flex:0 0 auto;width:min(400px,80vw);scroll-snap-align:center;background:#fff">
+          <div style="position:relative;aspect-ratio:4/5">
+            <image-slot id="mdv-ritual-03" class="dv-kenburns" shape="rect" fit="cover" placeholder="Hair in motion, drawing through the lengths" src="photos/ritual-draw-through.jpg"></image-slot>
+            <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Editorial still — motion cut coming</div>
+          </div>
+          <div style="padding:24px">
+            <div style="font-family:'Bodoni Moda',serif;font-size:32px;color:#8A6C2E;line-height:1">III</div>
+            <div style="font-family:'Bodoni Moda',serif;font-size:21px;margin:12px 0 8px">Draw through</div>
+            <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.62)">Mid-length to ends, then whatever remains over the surface. Nothing to rinse.</p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.4);margin-top:8px">Scroll to see all three</div>
+    </div>
+  </div>
+</section>
+
+<section id="house" style="padding:clamp(80px,10vh,120px) clamp(20px,5vw,64px);background:#fff">
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:clamp(44px,6vw,80px);align-items:center">
+    <div data-reveal style="position:relative;aspect-ratio:4/5;background:#F5F1E8;overflow:hidden">
+      <image-slot id="mdv-founder-main" shape="rect" fit="cover" placeholder="Masiela Lusha, Founder &amp; Creative Director" src="photos/founder-portrait-light.jpg"></image-slot>
+    </div>
+    <div data-reveal style="display:flex;flex-direction:column;gap:22px">
+      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">The House &amp; Founder</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(32px,4vw,52px);line-height:1.1;color:#14141A">Written before it was formulated.</h2>
+      <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(20,20,26,.5)">Masiela Lusha — Founder &amp; Creative Director</div>
+      <blockquote style="margin:8px 0 0;padding-left:22px;border-left:1px solid #8A6C2E;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,2.4vw,28px);line-height:1.55;color:rgba(20,20,26,.88);text-wrap:pretty">A poem is what remains after everything unnecessary is removed. So is a composition.</blockquote>
+      <p style="margin:6px 0 0;font-size:14.5px;line-height:1.8;color:rgba(20,20,26,.65);max-width:520px">Author of seven published works and first UN-affiliated Goodwill Ambassador, founder Masiela Lusha brings the same discipline of selection — six books of poetry, one composition of botany — to MAISON D'VUE.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding:clamp(80px,10vh,120px) clamp(20px,5vw,64px);background:#F5F1E8">
+  <div style="max-width:1180px;margin:0 auto">
+    <div data-reveal style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;margin-bottom:clamp(44px,6vh,72px)">
+      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">The Face of the House</div>
+      <p style="margin:0;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(20,20,26,.5)">Founder &amp; Creative Director</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(20px,3vw,32px)">
+      <div data-reveal style="position:relative;aspect-ratio:4/5">
+        <image-slot id="mdv-founder-campaign-01" shape="rect" fit="cover" placeholder="Masiela Lusha, studio portrait, tweed jacket, holding the Elixir" src="photos/founder-campaign-01.jpg"></image-slot>
+      </div>
+      <div data-reveal style="position:relative;aspect-ratio:4/5">
+        <image-slot id="mdv-founder-campaign-02" shape="rect" fit="cover" placeholder="Masiela Lusha, studio close-up, holding the Elixir" src="photos/founder-campaign-02.jpg"></image-slot>
+      </div>
+      <div data-reveal style="position:relative;aspect-ratio:4/5">
+        <image-slot id="mdv-founder-campaign-03" shape="rect" fit="cover" placeholder="Masiela Lusha, candid studio moment, holding the Elixir" src="photos/founder-campaign-03.jpg"></image-slot>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" style="padding:clamp(90px,11vh,140px) clamp(20px,5vw,64px);background:#fff">
+  <div style="max-width:1180px;margin:0 auto">
+    <div data-reveal style="text-align:center;max-width:640px;margin:0 auto clamp(44px,6vh,72px);display:flex;flex-direction:column;gap:16px">
+      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">In Her Words</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.15">The Reviews Wall</h2>
+      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.6)">Real testimonials only. Click a card to read the full review, sound on.</p>
+    </div>
+    <!-- TODO: real testimonials from the client — no content has been delivered yet. Do not fabricate quotes or attribute them to real customers; these two cards are structural placeholders only. -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(24px,3vw,40px)">
+      <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="2">
+        <div data-reveal onClick="{{ r.toggle }}" style="border:1px solid rgba(20,20,26,.12);padding:clamp(26px,3vw,36px);display:flex;flex-direction:column;gap:16px;cursor:pointer;background:#F5F1E8">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <div style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.4)">{{ r.name }}</div>
+            <span aria-label="Sound on" title="Sound on" style="flex:none;width:26px;height:26px;border-radius:50%;border:1px solid rgba(20,20,26,.25);display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(20,20,26,.5)">♪)</span>
+          </div>
+          <p style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;line-height:1.6;color:rgba(20,20,26,.85)">{{ r.quote }}</p>
+          <sc-if value="{{ r.expanded }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0;font-size:13.5px;line-height:1.8;color:rgba(20,20,26,.55)">Full testimonial — text, or video with sound — replaces this once the client delivers her approved review.</p>
+          </sc-if>
+          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8A6C2E">{{ r.toggleLabel }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="films" style="padding:clamp(90px,11vh,140px) clamp(20px,5vw,64px);background:#0A0A0C">
+  <div style="max-width:1320px;margin:0 auto">
+    <div data-reveal style="text-align:center;max-width:640px;margin:0 auto clamp(44px,6vh,72px);display:flex;flex-direction:column;gap:16px;color:#EFE9DF">
+      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#C2A15B">The House Films</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.15">Two films, one composition</h2>
+    </div>
+    <!-- Everyday/paparazzi content Masiela asked for — deliberately NOT part of the hero (that's a separate, single continuous macro/intimate sequence). These are approved stills with a slow Ken Burns pan standing in for real motion until video clips are generated for them (prompts for that already exist in "Founder Fragments Hero - Video Generation Prompts.md" — Video 4 and Video 5). -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(24px,3vw,40px)">
+      <div data-reveal style="position:relative;aspect-ratio:16/10;background:#000;overflow:hidden">
+        <image-slot id="mdv-film-street" class="dv-kenburns" shape="rect" fit="cover" placeholder="Everyday / paparazzi — night street walk" src="photos/film-street.jpg"></image-slot>
+        <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Candid still — motion cut coming</div>
+      </div>
+      <div data-reveal style="position:relative;aspect-ratio:16/10;background:#000;overflow:hidden">
+        <!-- TODO: this is the best available take of the backstage/car candid shot, but internal review flagged it as still reading slightly more "editorial" than a genuine paparazzi catch — see the "-v3" retry prompt in the Image Generation Prompts doc before treating this as the final pick. -->
+        <image-slot id="mdv-film-backstage" class="dv-kenburns" shape="rect" fit="cover" placeholder="Everyday / paparazzi — backstage / car candid" src="photos/film-backstage.jpg"></image-slot>
+        <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Candid still — pending final pick</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reserve" style="position:relative;padding:clamp(96px,13vh,168px) clamp(20px,5vw,64px);background:#0F1738;overflow:hidden">
+  <div style="position:absolute;inset:0;opacity:.16;mix-blend-mode:soft-light;pointer-events:none">
+    <image-slot shape="rect" fit="cover" placeholder="Wax seal macro, subtle background texture" src="photos/wax-seal-detail.jpg" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+  </div>
+  <div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 0%,rgba(194,161,91,.14),rgba(15,23,56,0) 70%);pointer-events:none"></div>
+  <div style="position:relative;max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px;color:#EFE9DF">
+    <div data-reveal style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#C2A15B">{{ allocationLabel }}</div>
+    <h2 data-reveal style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(32px,5vw,60px);line-height:1.1">Composed in small allocations</h2>
+    <p data-reveal style="margin:0;max-width:520px;font-size:14.5px;line-height:1.85;color:rgba(239,233,223,.72)">The maison releases in monthly batches rather than continuous inventory. Purchase within the open allocation, or leave your name and we will write to you the moment the next one opens.</p>
+
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ onSubmit }}" data-reveal style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;width:min(560px,100%);margin-top:14px">
+        <input type="email" required placeholder="Your email address" value="{{ email }}" onChange="{{ onEmail }}" style="flex:1 1 260px;background:transparent;border:1px solid rgba(239,233,223,.28);color:#EFE9DF;padding:17px 20px;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.06em;outline:none" style-focus="border-color:#C2A15B">
+        <button type="submit" style="padding:17px 34px;background:#C2A15B;color:#0A0A0C;border:none;font-family:'Jost',sans-serif;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;cursor:pointer" style-hover="background:#EFE9DF">Join the List</button>
+      </form>
+    </sc-if>
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <div data-reveal style="margin-top:18px;border:1px solid rgba(194,161,91,.45);padding:28px 34px;max-width:520px">
+        <div style="font-family:'Bodoni Moda',serif;font-size:23px;margin-bottom:10px">Your place is held.</div>
+        <p style="margin:0;font-size:13.5px;line-height:1.8;color:rgba(239,233,223,.7)">We will write to <span style="color:#C2A15B">{{ email }}</span> before the allocation opens. Nothing else — the maison writes rarely.</p>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<footer style="background:#fff;padding:clamp(64px,8vh,96px) clamp(20px,5vw,64px) 44px;border-top:1px solid rgba(20,20,26,.1)">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:44px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="font-family:'Bodoni Moda',serif;font-weight:500;font-size:17px;letter-spacing:.2em;text-transform:uppercase">Maison D'Vue</div>
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(20,20,26,.45);line-height:2">The House of Affinity Compositions™</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;font-size:13px;color:rgba(20,20,26,.62);line-height:1.9">
+      <div style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,20,26,.4)">The Maison</div>
+      <a href="mailto:hello@maisondvue.com" style="color:#8A6C2E">hello@maisondvue.com</a>
+      <a href="tel:+13109851449" style="color:rgba(20,20,26,.62)" style-hover="color:#8A6C2E">+1 (310) 985-1449</a>
+      <div>132 S Lasky Dr, Floor 2<br>Beverly Hills, CA 90212</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;font-size:13px;color:rgba(20,20,26,.62);line-height:1.9">
+      <div style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,20,26,.4)">Follow</div>
+      <a href="https://instagram.com/maisondvue" style="color:rgba(20,20,26,.62)" style-hover="color:#8A6C2E">Instagram — @maisondvue</a>
+      <a href="https://instagram.com/masielalusha" style="color:rgba(20,20,26,.62)" style-hover="color:#8A6C2E">@masielalusha</a>
+      <a href="https://shop.maisondvue.com" style="color:rgba(20,20,26,.62)" style-hover="color:#8A6C2E">The Boutique</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;font-size:13px;color:rgba(20,20,26,.62);line-height:1.9">
+      <div style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,20,26,.4)">Care</div>
+      <div>Complimentary US shipping, 5–10 business days</div>
+      <div>Express, $25 flat — 1–2 business days</div>
+      <div>All sales final except damage or defect</div>
+    </div>
+  </div>
+  <div style="max-width:1180px;margin:52px auto 0;padding-top:24px;border-top:1px solid rgba(20,20,26,.08);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(20,20,26,.4)">
+    <div>© MMXXVI Maison D'Vue — Beverly Hills</div>
+    <div>Âme de Vue™ · VUE Affinity Matrix™ · Affinity Compositions™</div>
+  </div>
+</footer>
+
+<!-- Fast newsletter prompt: appears a few seconds after load, dismissible, shares the same email/sent state as the #reserve form so a conversion here also resolves that section. Mailchimp is NOT wired — this is a working front-end capture only, per the client's "not yet" on credentials. -->
+<sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-reveal class="dv-toast" style="background:#0F1738;color:#EFE9DF;border:1px solid rgba(194,161,91,.3);padding:22px;box-shadow:0 12px 32px rgba(0,0,0,.35)">
+    <button onClick="{{ closeToast }}" aria-label="Dismiss" style="position:absolute;top:10px;right:10px;background:none;border:none;color:rgba(239,233,223,.5);font-size:14px;cursor:pointer;line-height:1;padding:4px">✕</button>
+    <div style="font-family:'Bodoni Moda',serif;font-size:17px;margin-bottom:8px;padding-right:20px">Join the composition.</div>
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <p style="margin:0 0 14px;font-size:12.5px;line-height:1.7;color:rgba(239,233,223,.7)">Be first to know when the next allocation opens.</p>
+      <form onSubmit="{{ onSubmit }}" style="display:flex;gap:8px">
+        <input type="email" required placeholder="Email address" value="{{ email }}" onChange="{{ onEmail }}" style="flex:1;min-width:0;background:transparent;border:1px solid rgba(239,233,223,.28);color:#EFE9DF;padding:10px 12px;font-family:'Jost',sans-serif;font-size:12px;outline:none" style-focus="border-color:#C2A15B">
+        <button type="submit" style="flex:none;padding:10px 16px;background:#C2A15B;color:#0A0A0C;border:none;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Join</button>
+      </form>
+    </sc-if>
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:0;font-size:12.5px;line-height:1.7;color:rgba(239,233,223,.75)">You're on the list. The maison writes rarely.</p>
+    </sc-if>
+  </div>
+</sc-if>
+
+<!-- AI concierge affordance: visual placeholder per the signed proposal (restyled black & soft white). No live backend yet. -->
+<div class="dv-chat-wrap">
+  <sc-if value="{{ chatOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-reveal style="position:absolute;bottom:64px;right:0;width:min(300px,80vw);background:#14141A;color:#F5F1E8;border:1px solid rgba(245,241,232,.15);padding:20px;font-size:13px;line-height:1.7;box-shadow:0 12px 32px rgba(0,0,0,.35)">
+      <div style="font-family:'Bodoni Moda',serif;font-size:16px;margin-bottom:8px">MdV Concierge</div>
+      <p style="margin:0;color:rgba(245,241,232,.7)">The maison's AI concierge arrives with the full site. For now, write to <a href="mailto:hello@maisondvue.com" style="color:#C2A15B">hello@maisondvue.com</a>.</p>
+    </div>
+  </sc-if>
+  <button onClick="{{ toggleChat }}" aria-label="Chat with the maison" style="width:54px;height:54px;border-radius:50%;background:#14141A;color:#F5F1E8;border:1px solid rgba(245,241,232,.2);font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.32)" style-hover="background:#252530">✦</button>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;allocationMonth&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;August&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;reserveOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showPricing&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+// Hero scroll-scrub engine — ported essentially as-is from the original site's MdvHeroEngine
+// (../MAISON D'VUE/Maison D'Vue luxury website design/index.html). Only the constants below were
+// re-pointed at V2's real hero footage; the class body is unmodified from the proven original.
+//
+// Source: "Generated Videos - Hero Sequence (Aug 2026)/PREVIEW - Face-Eye-Hands-Mirror (rough assembly).mp4"
+// (1920x1080, 24fps, 12.04s) — extracted via ffprobe -count_frames to the exact number below, not
+// assumed. This preview is an unmatched rough assembly (three clips, no color pass, no audio) — when
+// the polished final export lands, re-run the same ffmpeg commands against the new filename and update
+// only MDV_HERO_TOTAL_FRAMES (re-verify with ffprobe, don't hand-edit the number) — no rebuild needed:
+//   ffmpeg -i "<final.mp4>" -vsync 0 -c:v libwebp -q:v 82 "assets/hero-frames-webp/frame-%04d.webp"
+//   ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of csv=p=0 "<final.mp4>"
+//   cp assets/hero-frames-webp/frame-0001.webp assets/hero-poster/hero-poster.webp
+//   ffmpeg -i "<final.mp4>" -vf "scale=960:-2" -c:v libx264 -b:v 2500k -an "assets/hero-fallback/hero-mobile.mp4"
+const MDV_HERO_TOTAL_FRAMES = 289;
+const MDV_HERO_FRAME_PATH = (n) => "assets/hero-frames-webp/frame-" + String(n).padStart(4, "0") + ".webp";
+const MDV_HERO_MOBILE_VIDEO_SRC = "assets/hero-fallback/hero-mobile.mp4";
+// Roughly half the original site's clamp(2400px,440vh,6200px) — that pacing suited the original's much
+// longer overall page; V2 is shorter and Masiela's own direction was "let's just get into it," so the
+// scrub should read as responsive within a screen or two of scrolling, not take 3-4 screens to notice.
+const MDV_HERO_SCROLL_HEIGHT = "clamp(1400px, 220vh, 3000px)";
+const MDV_HERO_PRELOAD_CONCURRENCY = 16;
+// Simple/persistent-overlay option (see the hero markup comment above #top): V2's hero copy is one
+// always-visible block, not staged narrative beats like the original's six — so this stays empty.
+// updateNarrative()/beatEls handle an empty array safely (no-op), which is exactly what "no staging"
+// needs. To switch to the staged option later, populate this with { id, from, to } ranges lined up to
+// where the footage actually changes scene (face -> eye -> hands+product -> mirror) in the 289-frame
+// sequence, and give each range's target element the id it names.
+const MDV_HERO_BEATS = [];
+
+class MdvHeroEngine {
+  constructor(stickyEl) {
+    this.sticky = stickyEl;
+    this.section = stickyEl.closest("[data-hero-region]");
+    this.canvas = stickyEl.querySelector("#heroCanvas");
+    this.video = stickyEl.querySelector("#heroMobileVideo");
+    this.poster = stickyEl.querySelector("#heroStaticPoster");
+    this.ctx = this.canvas ? this.canvas.getContext("2d", { alpha: false, desynchronized: true }) : null;
+    this.frameBitmaps = new Array(MDV_HERO_TOTAL_FRAMES + 1);
+    this.lastDrawnFrame = 0;
+    this.targetProgress = 0;
+    this.drawRafId = null;
+    this.resizeRafId = null;
+    this.lenis = null;
+    this.lenisRafId = null;
+    this.beatEls = [];
+    this.ctaEl = null;
+    this.activeBeatId = null;
+    this.destroyed = false;
+  }
+
+  isMobilePhone() {
+    const ua = navigator.userAgent || "";
+    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const narrow = window.innerWidth <= 820;
+    const uaMobile = /Android|iPhone|iPod|Mobile/i.test(ua);
+    return uaMobile || (isTouch && narrow);
+  }
+
+  async init() {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reducedMotion) {
+      this.showStaticPoster();
+      return;
+    }
+    if (this.isMobilePhone()) {
+      this.showMobileVideo();
+      return;
+    }
+
+    this.runCanvasEngine();
+  }
+
+  showStaticPoster() {
+    if (this.canvas) this.canvas.style.display = "none";
+    if (this.video) this.video.style.display = "none";
+    if (this.poster) this.poster.style.display = "block";
+  }
+
+  showMobileVideo() {
+    if (this.canvas) this.canvas.style.display = "none";
+    if (this.poster) this.poster.style.display = "none";
+    if (!this.video) return;
+    this.video.src = MDV_HERO_MOBILE_VIDEO_SRC;
+    this.video.style.display = "block";
+    this.video.play().catch(() => {});
+  }
+
+  async runCanvasEngine() {
+    if (!this.canvas || !this.ctx) return;
+    if (this.section) this.section.style.height = MDV_HERO_SCROLL_HEIGHT;
+
+    this.beatEls = MDV_HERO_BEATS.map((b) => ({ ...b, el: this.sticky.querySelector("#" + b.id) }));
+    this.ctaEl = this.sticky.querySelector("#heroCta");
+    this.activeBeatId = null;
+
+    this.onResize = () => this.scheduleResize();
+    window.addEventListener("resize", this.onResize);
+    this.resizeCanvas();
+
+    await this.loadFrame(1);
+    this.drawFrame(1, true);
+
+    this.setupLenis();
+    this.onScroll = () => this.updateTargetProgress();
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    window.addEventListener("touchmove", this.onScroll, { passive: true });
+    this.updateTargetProgress();
+
+    this.preloadAll();
+  }
+
+  scheduleResize() {
+    if (this.resizeRafId) return;
+    this.resizeRafId = requestAnimationFrame(() => {
+      this.resizeRafId = null;
+      this.resizeCanvas();
+    });
+  }
+
+  resizeCanvas() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const box = this.sticky.getBoundingClientRect();
+    this.canvas.width = Math.round(box.width * dpr);
+    this.canvas.height = Math.round(box.height * dpr);
+    if (this.lastDrawnFrame) this.drawFrame(this.lastDrawnFrame, true);
+  }
+
+  loadFrame(n) {
+    if (this.frameBitmaps[n]) return Promise.resolve(this.frameBitmaps[n]);
+    return fetch(MDV_HERO_FRAME_PATH(n))
+      .then((r) => r.blob())
+      .then((b) => createImageBitmap(b))
+      .then((bmp) => {
+        this.frameBitmaps[n] = bmp;
+        return bmp;
+      })
+      .catch(() => null);
+  }
+
+  findNearestLoadedFrame(requested) {
+    if (this.frameBitmaps[requested]) return requested;
+    for (let d = 1; d < MDV_HERO_TOTAL_FRAMES; d++) {
+      const lo = requested - d;
+      const hi = requested + d;
+      if (lo >= 1 && this.frameBitmaps[lo]) return lo;
+      if (hi <= MDV_HERO_TOTAL_FRAMES && this.frameBitmaps[hi]) return hi;
+    }
+    return null;
+  }
+
+  drawFrame(n, force) {
+    const target = this.frameBitmaps[n] ? n : this.findNearestLoadedFrame(n);
+    if (target === null || target === undefined) return;
+    if (!force && target === this.lastDrawnFrame) return;
+    const bmp = this.frameBitmaps[target];
+    if (!bmp) return;
+
+    const cw = this.canvas.width;
+    const ch = this.canvas.height;
+    const canvasRatio = cw / ch;
+    const imgRatio = bmp.width / bmp.height;
+    let dw, dh, dx, dy;
+    if (imgRatio > canvasRatio) {
+      dh = ch; dw = ch * imgRatio; dx = (cw - dw) / 2; dy = 0;
+    } else {
+      dw = cw; dh = cw / imgRatio; dx = 0; dy = 0;
+    }
+    this.ctx.clearRect(0, 0, cw, ch);
+    this.ctx.drawImage(bmp, dx, dy, dw, dh);
+    this.lastDrawnFrame = target;
+  }
+
+  setupLenis() {
+    if (typeof Lenis === "undefined") return;
+    this.lenis = new Lenis({
+      lerp: 0.1,
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.6
+    });
+    const raf = (time) => {
+      if (this.destroyed) return;
+      this.lenis.raf(time);
+      this.lenisRafId = requestAnimationFrame(raf);
+    };
+    this.lenisRafId = requestAnimationFrame(raf);
+  }
+
+  updateTargetProgress() {
+    if (!this.section) return;
+    const rect = this.section.getBoundingClientRect();
+    const heroTop = rect.top + window.scrollY;
+    const heroHeight = this.section.offsetHeight;
+    const viewportH = window.innerHeight;
+    const raw = (window.scrollY - heroTop) / (heroHeight - viewportH);
+    this.targetProgress = Math.min(1, Math.max(0, raw || 0));
+    this.scheduleDraw();
+  }
+
+  scheduleDraw() {
+    if (this.drawRafId || this.destroyed) return;
+    this.drawRafId = requestAnimationFrame(() => {
+      this.drawRafId = null;
+      const frame = Math.min(MDV_HERO_TOTAL_FRAMES, Math.max(1, Math.round(this.targetProgress * (MDV_HERO_TOTAL_FRAMES - 1)) + 1));
+      this.drawFrame(frame);
+      this.updateNarrative(this.targetProgress);
+    });
+  }
+
+  updateNarrative(progress) {
+    const beat = this.beatEls.find((b) => progress >= b.from && progress < b.to) || this.beatEls[this.beatEls.length - 1];
+    if (!beat || beat.id === this.activeBeatId) return;
+    this.activeBeatId = beat.id;
+    this.beatEls.forEach((b) => {
+      if (b.el) b.el.classList.toggle("mdv-hero-beat-active", b.id === beat.id);
+    });
+    if (this.ctaEl) this.ctaEl.classList.toggle("mdv-hero-cta-hidden", beat.id === "heroBeat5");
+  }
+
+  preloadAll() {
+    const order = [];
+    for (let i = 1; i <= MDV_HERO_TOTAL_FRAMES; i += 4) order.push(i);
+    for (let i = 1; i <= MDV_HERO_TOTAL_FRAMES; i++) if (i % 4 !== 1) order.push(i);
+
+    let idx = 0;
+    const worker = () => {
+      if (this.destroyed || idx >= order.length) return;
+      const n = order[idx++];
+      this.loadFrame(n).finally(worker);
+    };
+    for (let i = 0; i < MDV_HERO_PRELOAD_CONCURRENCY; i++) worker();
+  }
+
+  destroy() {
+    this.destroyed = true;
+    if (this.drawRafId) cancelAnimationFrame(this.drawRafId);
+    if (this.resizeRafId) cancelAnimationFrame(this.resizeRafId);
+    if (this.lenisRafId) cancelAnimationFrame(this.lenisRafId);
+    if (this.onResize) window.removeEventListener("resize", this.onResize);
+    if (this.onScroll) {
+      window.removeEventListener("scroll", this.onScroll);
+      window.removeEventListener("touchmove", this.onScroll);
+    }
+    this.lenis?.destroy();
+  }
+}
+
+class Component extends DCLogic {
+  state = { active: 0, email: '', sent: false, annOpen: true, toastOpen: false, toastDismissed: false, chatOpen: false, expandedReview: null };
+
+  essences = [
+    { name: "Ungurahua", latin: "Oenocarpus bataua", origin: "Amazon Rainforest, Ecuador", note: "Oleic-rich and close in profile to the hair's own lipids — it enters rather than sits." },
+    { name: "Bulgarian Rose", latin: "Rosa damascena", origin: "Valley of Roses, Bulgaria", note: "Gathered before the heat of the day. The lift and light of Âme de Vue™." },
+    { name: "Camellia", latin: "Camellia japonica", origin: "Japan", note: "Carried for centuries in the geisha's comb. Weightless slip, high oleic clarity." },
+    { name: "Prickly Pear", latin: "Opuntia ficus-indica", origin: "Atlas Mountains, Morocco", note: "One of the highest tocopherol concentrations in the botanical world — from a fruit that survives drought." },
+    { name: "Rosehip", latin: "Rosa moschata", origin: "Andes & Southern Chile", note: "Linoleic and restorative. It softens the memory of heat." },
+    { name: "Meadowfoam", latin: "Limnanthes alba", origin: "Pacific Northwest", note: "Extraordinarily stable long-chain esters. It seals what the others deliver." },
+    { name: "Sweet Almond", latin: "Prunus dulcis", origin: "Mediterranean Basin", note: "Ancient, uncomplicated, quietly conditioning — the oldest name on the list." },
+    { name: "Argan", latin: "Argania spinosa", origin: "Sous Valley, Morocco", note: "Cold-pressed from the kernel by hand. Shine without weight." },
+    { name: "Pomegranate", latin: "Punica granatum", origin: "Persia & Anatolia", note: "Punicic acid — rare, conjugated, protective at the cuticle." },
+    { name: "Sea Buckthorn", latin: "Hippophae rhamnoides", origin: "Himalayan Foothills", note: "Carotenoid-dense. Colour held longer, warmth kept." },
+    { name: "Black Seed", latin: "Nigella sativa", origin: "Nile Delta", note: "Thymoquinone — calm at the root, balance at the scalp." },
+    { name: "Castor", latin: "Ricinus communis", origin: "Indian Subcontinent", note: "Ricinoleic viscosity. It gives the composition its body." },
+    { name: "Vitamin E Complex", latin: "α-, β-, γ-, δ-tocopherol", origin: "Full-spectrum tocopherols", note: "The composition's own guardian — it protects the other thirteen." },
+    { name: "Australian Sandalwood", latin: "Santalum spicatum", origin: "Western Australia", note: "Warmth and depth. The base note of Âme de Vue™, and the thread through every chapter to come." }
+  ];
+
+  reviews = [
+    { name: "Verified client — copy pending" },
+    { name: "Verified client — copy pending" }
+  ];
+
+  componentDidMount() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('dv-in');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+    const observeAll = () => document.querySelectorAll('[data-reveal]:not(.dv-in)').forEach(el => io.observe(el));
+    observeAll();
+    this._observeAll = observeAll;
+    this._io = io;
+
+    // Instant-ish newsletter prompt per Masiela's feedback ("within a couple seconds") — dismissible, doesn't block, and defers if she's already subscribed via the main #reserve form.
+    this._toastTimer = setTimeout(() => {
+      if (!this.state.sent && !this.state.toastDismissed) this.setState({ toastOpen: true });
+    }, 3000);
+
+    // .dv-hero-sticky pins just below the sticky nav (not raw top:0), same approach as the original —
+    // measure the nav's real rendered height rather than hardcoding it, so it stays correct if the nav
+    // wraps to two rows (see the dv-navbar mobile media query) or its content changes.
+    //
+    // BUG FIXED HERE: a single synchronous measurement at mount runs before the Google Fonts (Bodoni
+    // Moda / Cormorant Garamond) finish loading — verified this was capturing ~294-318px instead of the
+    // real ~126px, which broke .dv-hero-sticky's calc(100vh - var(--mdv-header-h)) and made the
+    // scroll-scrub hero read as static / leave a blank gap. Re-measure after fonts settle, on resize, and
+    // via ResizeObserver so a wrong one-time snapshot can't stick.
+    const navEl = document.getElementById('siteNav');
+    const setHeaderH = () => {
+      if (navEl) document.documentElement.style.setProperty('--mdv-header-h', navEl.getBoundingClientRect().height + 'px');
+    };
+    setHeaderH();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(setHeaderH);
+    this._onHeaderResize = setHeaderH;
+    window.addEventListener('resize', this._onHeaderResize);
+    if (navEl && window.ResizeObserver) {
+      this._navRO = new ResizeObserver(setHeaderH);
+      this._navRO.observe(navEl);
+    }
+
+    const heroSticky = document.getElementById('heroSticky');
+    if (heroSticky) {
+      this._heroEngine = new MdvHeroEngine(heroSticky);
+      this._heroEngine.init();
+    }
+  }
+
+  componentDidUpdate() { if (this._observeAll) this._observeAll(); }
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    if (this._toastTimer) clearTimeout(this._toastTimer);
+    if (this._onHeaderResize) window.removeEventListener('resize', this._onHeaderResize);
+    this._navRO?.disconnect();
+    this._heroEngine?.destroy();
+  }
+
+  renderVals() {
+    const month = this.props.allocationMonth ?? 'August';
+    const open = this.props.reserveOpen ?? true;
+    const i = this.state.active;
+    const a = this.essences[i];
+    return {
+      annOpen: this.state.annOpen,
+      closeAnn: () => this.setState({ annOpen: false }),
+      allocationLabel: open ? month + ' allocation — open' : month + ' allocation — closed',
+      allocationMonth: month,
+      showPricing: this.props.showPricing ?? true,
+      essences: this.essences.map((e, n) => ({
+        name: e.name,
+        num: String(n + 1).padStart(2, '0'),
+        isActive: n === i,
+        select: () => this.setState({ active: n })
+      })),
+      active: { name: a.name, latin: a.latin, origin: a.origin, note: a.note, num: String(i + 1).padStart(2, '0') },
+      reviews: this.reviews.map((r, n) => ({
+        name: r.name,
+        quote: "Real client testimony to be inserted here once received — do not fabricate a quote or attribute one to a real customer.",
+        expanded: this.state.expandedReview === n,
+        toggle: () => this.setState({ expandedReview: this.state.expandedReview === n ? null : n }),
+        toggleLabel: this.state.expandedReview === n ? 'Show less' : 'Read the full review'
+      })),
+      email: this.state.email,
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      onEmail: (ev) => this.setState({ email: ev.target.value }),
+      onSubmit: (ev) => { ev.preventDefault(); if (this.state.email) this.setState({ sent: true, toastOpen: false }); },
+      toastOpen: this.state.toastOpen && !this.state.sent,
+      closeToast: () => this.setState({ toastOpen: false, toastDismissed: true }),
+      chatOpen: this.state.chatOpen,
+      toggleChat: () => this.setState({ chatOpen: !this.state.chatOpen })
+    };
+  }
+}
+</script>
+</body>
+</html>

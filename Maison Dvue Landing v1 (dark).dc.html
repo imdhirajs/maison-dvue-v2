@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  html, body, #dc-root, #dc-root > .sc-host { margin:0; padding:0; background:#0A0A0C; height:auto !important; min-height:100% !important; overflow-x:hidden !important; overflow-y:visible !important; }
+  * { box-sizing:border-box; }
+  a { color:#C2A15B; text-decoration:none; }
+  a:hover { color:#E0C489; }
+  ::selection { background:#17265E; color:#EFE9DF; }
+  @keyframes dvDrift { 0%,100% { transform:translateY(0); opacity:.55 } 50% { transform:translateY(9px); opacity:1 } }
+  @keyframes dvRise { from { opacity:0; transform:translateY(14px) } to { opacity:1; transform:none } }
+  [data-reveal].dv-in { animation:dvRise 900ms cubic-bezier(.2,.6,.2,1) both; }
+  @media (prefers-reduced-motion: reduce) { [data-reveal].dv-in { animation:none } }
+  input::placeholder { color:rgba(239,233,223,0.34); }
+  @media (max-height: 780px) { .dv-cue { display:none !important } }
+</style>
+</helmet>
+
+<div style="background:#0A0A0C;color:#EFE9DF;font-family:'Jost',system-ui,sans-serif;font-weight:300;overflow-x:hidden">
+
+<div ref="{{ navRef }}" style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,56px);height:78px;background:rgba(10,10,12,0);backdrop-filter:blur(0px);border-bottom:1px solid rgba(194,161,91,0);transition:background 420ms cubic-bezier(.2,.6,.2,1),backdrop-filter 420ms,border-color 420ms">
+  <a href="#top" style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:18px;letter-spacing:.36em;color:#EFE9DF;text-transform:uppercase">Maison D'Vue</a>
+  <div style="display:flex;align-items:center;gap:clamp(18px,3vw,40px);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase">
+    <a href="#composition" style="color:rgba(239,233,223,.7)" style-hover="color:#C2A15B">The Composition</a>
+    <a href="#matrix" style="color:rgba(239,233,223,.7)" style-hover="color:#C2A15B">Fourteen Essences</a>
+    <a href="#house" style="color:rgba(239,233,223,.7)" style-hover="color:#C2A15B">The House</a>
+    <a href="#reserve" style="border:1px solid rgba(194,161,91,.5);padding:11px 20px;color:#C2A15B;letter-spacing:.24em" style-hover="background:#C2A15B;color:#0A0A0C">Reserve</a>
+  </div>
+</div>
+
+<section id="top" style="position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:120px clamp(20px,5vw,64px) 132px">
+  <div style="position:absolute;inset:0">
+    <image-slot id="mdv-hero" shape="rect" fit="cover" placeholder="Hero — dark studio macro of the cobalt elixir bottle"></image-slot>
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,.82) 0%,rgba(10,10,12,.42) 38%,rgba(10,10,12,.88) 100%);pointer-events:none"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 42%,rgba(23,38,94,.34) 0%,rgba(10,10,12,0) 62%);pointer-events:none"></div>
+
+  <div style="position:relative;z-index:2;max-width:1080px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:34px">
+    <div data-reveal style="font-size:10px;letter-spacing:.44em;text-transform:uppercase;color:#C2A15B">Beverly Hills · Est. MMXXVI</div>
+    <h1 data-reveal style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(42px,8.6vw,124px);line-height:.94;letter-spacing:.13em;text-transform:uppercase;text-indent:.13em">Maison D'Vue</h1>
+    <div data-reveal style="display:flex;align-items:center;gap:20px;width:min(560px,86vw)">
+      <div style="height:1px;flex:1;background:linear-gradient(90deg,rgba(194,161,91,0),rgba(194,161,91,.7))"></div>
+      <div style="font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:rgba(239,233,223,.82);white-space:nowrap">The House of Affinity Compositions™</div>
+      <div style="height:1px;flex:1;background:linear-gradient(90deg,rgba(194,161,91,.7),rgba(194,161,91,0))"></div>
+    </div>
+    <p data-reveal style="margin:0;max-width:640px;font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.4vw,27px);line-height:1.55;font-weight:300;color:rgba(239,233,223,.86);text-wrap:pretty">Anhydrous botanical compositions, engineered for affinity with the body that receives them. Skincare's rigour — brought first to hair.</p>
+    <div data-reveal style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:6px">
+      <a href="#reserve" style="padding:17px 38px;background:#C2A15B;color:#0A0A0C;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase" style-hover="background:#EFE9DF">{{ ctaLabel }}</a>
+      <a href="#composition" style="padding:17px 38px;border:1px solid rgba(239,233,223,.34);color:#EFE9DF;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase" style-hover="border-color:#C2A15B;color:#C2A15B">Discover Vue 14™</a>
+    </div>
+  </div>
+
+  <div class="dv-cue" style="position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px;z-index:2">
+    <div style="font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:rgba(239,233,223,.42)">Scroll</div>
+    <div style="width:1px;height:52px;background:linear-gradient(180deg,rgba(194,161,91,.85),rgba(194,161,91,0));animation:dvDrift 3.4s ease-in-out infinite"></div>
+  </div>
+</section>
+
+<section id="composition" style="padding:clamp(96px,13vh,168px) clamp(20px,5vw,64px);background:#0A0A0C;border-top:1px solid rgba(194,161,91,.14)">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(48px,7vw,110px);align-items:start">
+    <div data-reveal>
+      <div style="font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:#C2A15B;margin-bottom:34px">Chapter I — The Philosophy</div>
+      <h2 style="margin:0 0 30px;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(32px,4.3vw,58px);line-height:1.1;letter-spacing:.01em">Selection over addition.<br><em style="font-style:italic;color:#C2A15B">Affinity over ornament.</em></h2>
+      <div style="width:56px;height:1px;background:rgba(194,161,91,.6)"></div>
+    </div>
+    <div data-reveal style="display:flex;flex-direction:column;gap:26px;font-size:15px;line-height:1.85;color:rgba(239,233,223,.74);max-width:520px;text-wrap:pretty">
+      <p style="margin:0">Conventional beauty treats hair and skin as separate territories. Skincare is named, traceable, proportioned with care. Haircare is blended — rarely with the same ceremony.</p>
+      <p style="margin:0">We began at the other end. Fourteen rare botanical essences, chosen for what they are and what they do, held in an anhydrous composition — no water, no filler, nothing to dilute the intent.</p>
+      <p style="margin:0;color:rgba(239,233,223,.95);font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1.65;font-style:italic">A composition made with care earns the right to be used freely.</p>
+    </div>
+  </div>
+</section>
+
+<section style="position:relative;background:#0F1738;padding:clamp(88px,11vh,140px) clamp(20px,5vw,64px);border-top:1px solid rgba(194,161,91,.14)">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(40px,6vw,88px);align-items:center">
+    <div data-reveal style="position:relative;aspect-ratio:4/5;min-height:380px">
+      <image-slot id="mdv-product" shape="rect" fit="cover" placeholder="Vue 14™ — cobalt frosted bottle, matte gold cap"></image-slot>
+    </div>
+    <div data-reveal style="display:flex;flex-direction:column;gap:28px">
+      <div style="font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:#C2A15B">Chapter II — The Composition</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(34px,4.6vw,60px);line-height:1.06">Vue 14™<br>Hair Elixir</h2>
+      <p style="margin:0;font-size:15px;line-height:1.85;color:rgba(239,233,223,.76);max-width:480px;text-wrap:pretty">Fourteen essences held in the patent-pending VUE Affinity Matrix™. Free of silicones, sulfates, parabens and mineral oils. Not a growth serum — a restoration of condition: devitalised lengths revived, the cuticle smoothed to shine, weightless volume, protection against the friction, heat and dryness that cost you length.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <span style="border:1px solid rgba(194,161,91,.4);padding:9px 16px;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(239,233,223,.8)">Anhydrous</span>
+        <span style="border:1px solid rgba(194,161,91,.4);padding:9px 16px;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(239,233,223,.8)">Patent-pending</span>
+        <span style="border:1px solid rgba(194,161,91,.4);padding:9px 16px;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(239,233,223,.8)">Âme de Vue™ scent</span>
+      </div>
+      <sc-if value="{{ showPricing }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-top:6px">
+          <div style="border:1px solid rgba(239,233,223,.16);padding:24px">
+            <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:25px;letter-spacing:.04em">The Signature</div>
+            <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(239,233,223,.5);margin:8px 0 16px">30ml · 1 fl oz</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#C2A15B">$125</div>
+          </div>
+          <div style="border:1px solid rgba(239,233,223,.16);padding:24px">
+            <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:25px;letter-spacing:.04em">The Voyage</div>
+            <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(239,233,223,.5);margin:8px 0 16px">10ml · 0.33 fl oz</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#C2A15B">$68</div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<section id="matrix" style="padding:clamp(96px,13vh,168px) clamp(20px,5vw,64px);background:#0A0A0C">
+  <div style="max-width:1180px;margin:0 auto">
+    <div data-reveal style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px;margin-bottom:clamp(48px,7vh,84px)">
+      <div style="font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:#C2A15B">The VUE Affinity Matrix™</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(32px,4.6vw,60px);line-height:1.06">Fourteen essences,<br>each one chosen twice</h2>
+      <p style="margin:0;max-width:560px;font-size:14px;line-height:1.8;color:rgba(239,233,223,.6)">Once for its origin. Once for its biology. Select an essence to read its provenance.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,5vw,72px);align-items:start">
+      <div data-reveal style="display:flex;flex-direction:column">
+        <sc-for list="{{ essences }}" as="e" hint-placeholder-count="14">
+          <div onClick="{{ e.select }}" onMouseEnter="{{ e.select }}" style="display:flex;align-items:baseline;gap:18px;padding:14px 6px;border-bottom:1px solid rgba(239,233,223,.09);cursor:pointer;transition:padding-left 260ms cubic-bezier(.2,.6,.2,1)" style-hover="padding-left:14px">
+            <span style="font-size:10px;letter-spacing:.2em;color:rgba(194,161,91,.75);min-width:26px">{{ e.num }}</span>
+            <span style="font-family:'Cormorant Garamond',serif;font-size:21px;letter-spacing:.03em;color:rgba(239,233,223,.88)">{{ e.name }}</span>
+            <sc-if value="{{ e.isActive }}" hint-placeholder-val="{{ false }}">
+              <span style="margin-left:auto;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#C2A15B">Selected</span>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+
+      <div data-reveal style="position:sticky;top:120px;border:1px solid rgba(194,161,91,.24);padding:clamp(28px,4vw,44px);background:linear-gradient(160deg,rgba(23,38,94,.5),rgba(10,10,12,.4))">
+        <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#C2A15B;margin-bottom:22px">Essence {{ active.num }} of 14</div>
+        <h3 style="margin:0 0 10px;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,3.4vw,44px);line-height:1.1">{{ active.name }}</h3>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:rgba(239,233,223,.6);margin-bottom:26px">{{ active.latin }}</div>
+        <div style="width:44px;height:1px;background:rgba(194,161,91,.6);margin-bottom:26px"></div>
+        <div style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(239,233,223,.5);margin-bottom:10px">Origin</div>
+        <div style="font-size:15px;line-height:1.7;margin-bottom:26px">{{ active.origin }}</div>
+        <div style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(239,233,223,.5);margin-bottom:10px">Why it was chosen</div>
+        <p style="margin:0;font-family:'Cormorant Garamond',serif;font-size:20px;line-height:1.65;color:rgba(239,233,223,.9);text-wrap:pretty">{{ active.note }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#EFE9DF;color:#14141A;padding:clamp(96px,13vh,168px) clamp(20px,5vw,64px)">
+  <div style="max-width:1180px;margin:0 auto">
+    <div data-reveal style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;margin-bottom:clamp(48px,7vh,80px)">
+      <div style="font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:#8A6C2E">Chapter III — The Ritual</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(34px,5vw,62px);line-height:1.05">Five drops. Three motions.</h2>
+      <p style="margin:0;max-width:520px;font-size:14px;line-height:1.8;color:rgba(20,20,26,.62)">Worn on damp lengths after washing, or dry through the day. Morning, evening, or both — the composition asks nothing of your schedule.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(28px,4vw,56px)">
+      <div data-reveal style="border-top:1px solid rgba(20,20,26,.18);padding-top:26px">
+        <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:42px;color:#8A6C2E;line-height:1">I</div>
+        <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:23px;margin:14px 0 12px">Five drops</div>
+        <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.66)">Into the palm. The dropper meters the composition so you never over-give.</p>
+      </div>
+      <div data-reveal style="border-top:1px solid rgba(20,20,26,.18);padding-top:26px">
+        <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:42px;color:#8A6C2E;line-height:1">II</div>
+        <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:23px;margin:14px 0 12px">Warm between palms</div>
+        <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.66)">Body heat opens the essences. Sandalwood arrives first, rose lifts behind it.</p>
+      </div>
+      <div data-reveal style="border-top:1px solid rgba(20,20,26,.18);padding-top:26px">
+        <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:42px;color:#8A6C2E;line-height:1">III</div>
+        <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:23px;margin:14px 0 12px">Draw through</div>
+        <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.66)">Mid-length to ends, then whatever remains over the surface. Nothing to rinse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="house" style="background:#0A0A0C;padding:clamp(96px,13vh,168px) clamp(20px,5vw,64px)">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(44px,6vw,96px);align-items:center">
+    <div data-reveal style="position:relative;aspect-ratio:3/4;min-height:400px">
+      <image-slot id="mdv-founder" shape="rect" fit="cover" placeholder="Masiela Lusha — portrait, dark studio"></image-slot>
+    </div>
+    <div data-reveal style="display:flex;flex-direction:column;gap:26px">
+      <div style="font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:#C2A15B">Chapter IV — The House</div>
+      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(32px,4.3vw,54px);line-height:1.08">Masiela Lusha<br><span style="font-size:.42em;letter-spacing:.24em;text-transform:uppercase;color:rgba(239,233,223,.55);font-family:'Jost',sans-serif">Founder &amp; Creative Director</span></h2>
+      <p style="margin:0;font-size:15px;line-height:1.85;color:rgba(239,233,223,.74);max-width:500px;text-wrap:pretty">Tirana, Budapest, Vienna, then Michigan — English her fourth language, poetry her first. Published at twelve. Seven books since: five collections, a novel, translations of Mother Teresa from the Albanian.</p>
+      <p style="margin:0;font-size:15px;line-height:1.85;color:rgba(239,233,223,.74);max-width:500px;text-wrap:pretty">MAISON D'VUE is her seventh book — the same discipline of selection, applied to botany rather than language.</p>
+      <blockquote style="margin:8px 0 0;padding-left:24px;border-left:1px solid rgba(194,161,91,.55);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(21px,2.4vw,27px);line-height:1.6;color:rgba(239,233,223,.95);text-wrap:pretty">A poem is what remains after everything unnecessary is removed. So is a composition.</blockquote>
+    </div>
+  </div>
+</section>
+
+<section id="reserve" style="position:relative;padding:clamp(100px,14vh,180px) clamp(20px,5vw,64px);background:#0F1738;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 0%,rgba(194,161,91,.14),rgba(15,23,56,0) 70%);pointer-events:none"></div>
+  <div style="position:relative;max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px">
+    <div data-reveal style="font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:#C2A15B">{{ allocationLabel }}</div>
+    <h2 data-reveal style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(34px,5.2vw,64px);line-height:1.04">Composed in small<br>allocations</h2>
+    <p data-reveal style="margin:0;max-width:520px;font-size:14.5px;line-height:1.85;color:rgba(239,233,223,.72)">The maison releases in monthly batches rather than continuous inventory. June and July are closed. Leave your name and we will write to you when the next allocation opens.</p>
+
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ onSubmit }}" data-reveal style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;width:min(560px,100%);margin-top:14px">
+        <input type="email" required placeholder="Your email address" value="{{ email }}" onChange="{{ onEmail }}" style="flex:1 1 260px;background:transparent;border:1px solid rgba(239,233,223,.28);color:#EFE9DF;padding:17px 20px;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.06em;outline:none" style-focus="border-color:#C2A15B">
+        <button type="submit" style="padding:17px 34px;background:#C2A15B;color:#0A0A0C;border:none;font-family:'Jost',sans-serif;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;cursor:pointer" style-hover="background:#EFE9DF">Reserve</button>
+      </form>
+    </sc-if>
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <div data-reveal style="margin-top:18px;border:1px solid rgba(194,161,91,.45);padding:28px 34px;max-width:520px">
+        <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:24px;margin-bottom:10px">Your place is held.</div>
+        <p style="margin:0;font-size:13.5px;line-height:1.8;color:rgba(239,233,223,.7)">We will write to <span style="color:#C2A15B">{{ email }}</span> before the allocation opens. Nothing else — the maison writes rarely.</p>
+      </div>
+    </sc-if>
+    <div data-reveal style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(239,233,223,.42);margin-top:8px">Complimentary shipping within the United States</div>
+  </div>
+</section>
+
+<section style="background:#0A0A0C;padding:clamp(88px,12vh,150px) clamp(20px,5vw,64px);border-top:1px solid rgba(194,161,91,.14)">
+  <div style="max-width:1180px;margin:0 auto">
+    <div data-reveal style="font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:#C2A15B;margin-bottom:40px">The chapters ahead</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(239,233,223,.12);border:1px solid rgba(239,233,223,.12)">
+      <div data-reveal style="background:#0A0A0C;padding:clamp(28px,3.4vw,44px);display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:#C2A15B">I · Composed</div>
+        <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:28px">Haircare</div>
+        <div style="font-size:13.5px;line-height:1.8;color:rgba(239,233,223,.6)">Vue 14™ Hair Elixir. Released.</div>
+      </div>
+      <div data-reveal style="background:#0A0A0C;padding:clamp(28px,3.4vw,44px);display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:rgba(239,233,223,.45)">II · In formulation</div>
+        <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:28px;color:rgba(239,233,223,.8)">Makeup</div>
+        <div style="font-size:13.5px;line-height:1.8;color:rgba(239,233,223,.6)">The same hand, the same scent thread.</div>
+      </div>
+      <div data-reveal style="background:#0A0A0C;padding:clamp(28px,3.4vw,44px);display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:rgba(239,233,223,.45)">III · Forthcoming</div>
+        <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:28px;color:rgba(239,233,223,.8)">Lifestyle</div>
+        <div style="font-size:13.5px;line-height:1.8;color:rgba(239,233,223,.6)">Entering by composition, by affinity.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#08080A;padding:clamp(64px,8vh,96px) clamp(20px,5vw,64px) 44px;border-top:1px solid rgba(194,161,91,.18)">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:44px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:18px;letter-spacing:.34em;text-transform:uppercase">Maison D'Vue</div>
+      <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(239,233,223,.45);line-height:2">The House of Affinity Compositions™</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;font-size:13px;color:rgba(239,233,223,.6);line-height:1.9">
+      <div style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(239,233,223,.4)">The Maison</div>
+      <a href="mailto:hello@maisondvue.com">hello@maisondvue.com</a>
+      <a href="tel:+13109851449" style="color:rgba(239,233,223,.6)" style-hover="color:#C2A15B">+1 (310) 985-1449</a>
+      <div>132 S Lasky Dr, Floor 2<br>Beverly Hills, CA 90212</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;font-size:13px;color:rgba(239,233,223,.6);line-height:1.9">
+      <div style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(239,233,223,.4)">Follow</div>
+      <a href="https://instagram.com/maisondvue" style="color:rgba(239,233,223,.6)" style-hover="color:#C2A15B">Instagram — @maisondvue</a>
+      <a href="https://instagram.com/masielalusha" style="color:rgba(239,233,223,.6)" style-hover="color:#C2A15B">@masielalusha</a>
+      <a href="https://shop.maisondvue.com" style="color:rgba(239,233,223,.6)" style-hover="color:#C2A15B">The Boutique</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;font-size:13px;color:rgba(239,233,223,.6);line-height:1.9">
+      <div style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(239,233,223,.4)">Care</div>
+      <div>Complimentary US shipping, 5–10 business days</div>
+      <div>Express, $25 flat — 1–2 business days</div>
+      <div>All sales final except damage or defect</div>
+    </div>
+  </div>
+  <div style="max-width:1180px;margin:52px auto 0;padding-top:24px;border-top:1px solid rgba(239,233,223,.1);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(239,233,223,.34)">
+    <div>© MMXXVI Maison D'Vue — Beverly Hills</div>
+    <div>Âme de Vue™ · VUE Affinity Matrix™ · Affinity Compositions™</div>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;allocationMonth&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;August&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;reserveOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showPricing&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { active: 0, email: '', sent: false };
+
+  essences = [
+    { name: "Ungurahua", latin: "Oenocarpus bataua", origin: "Amazon Rainforest, Ecuador", note: "Oleic-rich and close in profile to the hair's own lipids — it enters rather than sits." },
+    { name: "Bulgarian Rose", latin: "Rosa damascena", origin: "Valley of Roses, Bulgaria", note: "Gathered before the heat of the day. The lift and light of Âme de Vue™." },
+    { name: "Camellia", latin: "Camellia japonica", origin: "Japan", note: "Carried for centuries in the geisha's comb. Weightless slip, high oleic clarity." },
+    { name: "Prickly Pear", latin: "Opuntia ficus-indica", origin: "Atlas Mountains, Morocco", note: "One of the highest tocopherol concentrations in the botanical world — from a fruit that survives drought." },
+    { name: "Rosehip", latin: "Rosa moschata", origin: "Andes & Southern Chile", note: "Linoleic and restorative. It softens the memory of heat." },
+    { name: "Meadowfoam", latin: "Limnanthes alba", origin: "Pacific Northwest", note: "Extraordinarily stable long-chain esters. It seals what the others deliver." },
+    { name: "Sweet Almond", latin: "Prunus dulcis", origin: "Mediterranean Basin", note: "Ancient, uncomplicated, quietly conditioning — the oldest name on the list." },
+    { name: "Argan", latin: "Argania spinosa", origin: "Sous Valley, Morocco", note: "Cold-pressed from the kernel by hand. Shine without weight." },
+    { name: "Pomegranate", latin: "Punica granatum", origin: "Persia & Anatolia", note: "Punicic acid — rare, conjugated, protective at the cuticle." },
+    { name: "Sea Buckthorn", latin: "Hippophae rhamnoides", origin: "Himalayan Foothills", note: "Carotenoid-dense. Colour held longer, warmth kept." },
+    { name: "Black Seed", latin: "Nigella sativa", origin: "Nile Delta", note: "Thymoquinone — calm at the root, balance at the scalp." },
+    { name: "Castor", latin: "Ricinus communis", origin: "Indian Subcontinent", note: "Ricinoleic viscosity. It gives the composition its body." },
+    { name: "Vitamin E Complex", latin: "α-, β-, γ-, δ-tocopherol", origin: "Full-spectrum tocopherols", note: "The composition's own guardian — it protects the other thirteen." },
+    { name: "Australian Sandalwood", latin: "Santalum spicatum", origin: "Western Australia", note: "Warmth and depth. The base note of Âme de Vue™, and the thread through every chapter to come." }
+  ];
+
+  componentDidMount() {
+    const nav = this.navEl;
+    const onScroll = () => {
+      if (!nav) return;
+      const on = window.scrollY > 60;
+      nav.style.background = on ? 'rgba(10,10,12,0.86)' : 'rgba(10,10,12,0)';
+      nav.style.backdropFilter = on ? 'blur(14px)' : 'blur(0px)';
+      nav.style.borderBottomColor = on ? 'rgba(194,161,91,0.22)' : 'rgba(194,161,91,0)';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    this._onScroll = onScroll;
+    onScroll();
+
+    // Reveal is additive only: elements are visible by default and gain an
+    // animation class on entry, so a React re-render can never blank them.
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('dv-in');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+    const observeAll = () => document.querySelectorAll('[data-reveal]:not(.dv-in)').forEach(el => io.observe(el));
+    observeAll();
+    this._observeAll = observeAll;
+    this._io = io;
+  }
+
+  componentDidUpdate() { if (this._observeAll) this._observeAll(); }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._io) this._io.disconnect();
+  }
+
+  renderVals() {
+    const month = this.props.allocationMonth ?? 'August';
+    const open = this.props.reserveOpen ?? true;
+    const i = this.state.active;
+    const a = this.essences[i];
+    return {
+      navRef: (el) => { this.navEl = el; },
+      ctaLabel: open ? 'Reserve the ' + month + ' allocation' : 'Join the waitlist',
+      allocationLabel: open ? month + ' allocation — open' : month + ' allocation — closed',
+      showPricing: this.props.showPricing ?? true,
+      essences: this.essences.map((e, n) => ({
+        name: e.name,
+        num: String(n + 1).padStart(2, '0'),
+        isActive: n === i,
+        select: () => this.setState({ active: n })
+      })),
+      active: { name: a.name, latin: a.latin, origin: a.origin, note: a.note, num: String(i + 1).padStart(2, '0') },
+      email: this.state.email,
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      onEmail: (ev) => this.setState({ email: ev.target.value }),
+      onSubmit: (ev) => { ev.preventDefault(); if (this.state.email) this.setState({ sent: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
