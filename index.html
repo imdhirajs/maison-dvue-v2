@@ -109,7 +109,6 @@
   </div>
   <div style="display:flex;align-items:center;justify-content:center;gap:clamp(18px,3vw,40px);padding:14px clamp(20px,4vw,56px);border-top:1px solid rgba(20,20,26,.08);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(20,20,26,.55);flex-wrap:wrap">
     <a href="#composition" style="color:rgba(20,20,26,.55)" style-hover="color:#14141A">Haircare</a>
-    <a href="#matrix" style="color:rgba(20,20,26,.55)" style-hover="color:#14141A">Fourteen Essences</a>
     <a href="#house" style="color:rgba(20,20,26,.55)" style-hover="color:#14141A">The House</a>
     <span title="Coming soon" style="color:rgba(20,20,26,.4);cursor:default">Fragrance<sup style="font-size:55%;letter-spacing:.12em;color:#8A6C2E;margin-left:2px;vertical-align:super">SOON</sup></span>
     <span title="Coming soon" style="color:rgba(20,20,26,.4);cursor:default">Journal<sup style="font-size:55%;letter-spacing:.12em;color:#8A6C2E;margin-left:2px;vertical-align:super">SOON</sup></span>
@@ -210,7 +209,7 @@
       <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#8A6C2E">The Composition</div>
       <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,3vw,38px);line-height:1.15">Selection over addition.</h2>
       <p style="margin:0;font-size:14.5px;line-height:1.8;color:rgba(20,20,26,.66);max-width:440px">Fourteen rare botanical essences, held in an anhydrous composition — no water, no filler, nothing to dilute the intent.</p>
-      <a href="#matrix" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #8A6C2E;width:fit-content">Discover the Matrix</a>
+      <a href="#shop" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #8A6C2E;width:fit-content">Discover the Elixir</a>
     </div>
     <div data-reveal style="display:flex;flex-direction:column;gap:22px">
       <div style="position:relative;aspect-ratio:5/4;background:#F5F1E8">
@@ -233,42 +232,7 @@
   <div data-reveal style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;max-width:560px;padding:0 clamp(24px,5vw,72px) clamp(48px,7vh,80px);color:#EFE9DF">
     <h3 style="margin:0 0 14px;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,3.4vw,42px);line-height:1.15">Âme de Vue™</h3>
     <p style="margin:0 0 18px;font-size:14.5px;line-height:1.8;color:rgba(239,233,223,.82);max-width:440px">Sandalwood at the base, rose lifted above it. The scent thread that will carry through every chapter of the maison.</p>
-    <a href="#matrix" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#EFE9DF;border-bottom:1px solid rgba(239,233,223,.5)" style-hover="border-color:#C2A15B;color:#C2A15B">Discover more</a>
-  </div>
-</section>
-
-<section id="matrix" style="padding:clamp(90px,11vh,140px) clamp(20px,5vw,64px);background:#fff">
-  <div style="max-width:1180px;margin:0 auto">
-    <div data-reveal style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:clamp(44px,6vh,72px)">
-      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">The VUE Affinity Matrix™</div>
-      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.15">Fourteen essences, each one chosen twice</h2>
-      <p style="margin:0;max-width:560px;font-size:14px;line-height:1.8;color:rgba(20,20,26,.6)">Once for its origin. Once for its biology. Select an essence to read its provenance.</p>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,5vw,72px);align-items:start">
-      <div data-reveal style="display:flex;flex-direction:column">
-        <sc-for list="{{ essences }}" as="e" hint-placeholder-count="14">
-          <div onClick="{{ e.select }}" onMouseEnter="{{ e.select }}" style="display:flex;align-items:baseline;gap:18px;padding:14px 6px;border-bottom:1px solid rgba(20,20,26,.1);cursor:pointer;transition:padding-left 260ms cubic-bezier(.2,.6,.2,1)" style-hover="padding-left:14px">
-            <span style="font-size:10px;letter-spacing:.2em;color:rgba(138,108,46,.75);min-width:26px">{{ e.num }}</span>
-            <span style="font-family:'Bodoni Moda',serif;font-size:19px;letter-spacing:.01em;color:rgba(20,20,26,.88)">{{ e.name }}</span>
-            <sc-if value="{{ e.isActive }}" hint-placeholder-val="{{ false }}">
-              <span style="margin-left:auto;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#8A6C2E">Selected</span>
-            </sc-if>
-          </div>
-        </sc-for>
-      </div>
-
-      <div data-reveal style="position:sticky;top:120px;border:1px solid rgba(20,20,26,.12);padding:clamp(28px,4vw,44px);background:#F5F1E8">
-        <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#8A6C2E;margin-bottom:22px">Essence {{ active.num }} of 14</div>
-        <h3 style="margin:0 0 10px;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,3.2vw,40px);line-height:1.15">{{ active.name }}</h3>
-        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:rgba(20,20,26,.55);margin-bottom:24px">{{ active.latin }}</div>
-        <div style="width:44px;height:1px;background:rgba(138,108,46,.6);margin-bottom:24px"></div>
-        <div style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,20,26,.5);margin-bottom:10px">Origin</div>
-        <div style="font-size:15px;line-height:1.7;margin-bottom:24px;color:rgba(20,20,26,.85)">{{ active.origin }}</div>
-        <div style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,20,26,.5);margin-bottom:10px">Why it was chosen</div>
-        <p style="margin:0;font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.65;color:rgba(20,20,26,.9);text-wrap:pretty">{{ active.note }}</p>
-      </div>
-    </div>
+    <a href="#shop" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#EFE9DF;border-bottom:1px solid rgba(239,233,223,.5)" style-hover="border-color:#C2A15B;color:#C2A15B">Discover more</a>
   </div>
 </section>
 
@@ -858,5 +822,6 @@ class Component extends DCLogic {
   }
 }
 </script>
+<script src="assets/chat.js" defer></script>
 </body>
 </html>

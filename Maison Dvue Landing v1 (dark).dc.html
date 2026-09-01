@@ -33,7 +33,6 @@
   <a href="#top" style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:18px;letter-spacing:.36em;color:#EFE9DF;text-transform:uppercase">Maison D'Vue</a>
   <div style="display:flex;align-items:center;gap:clamp(18px,3vw,40px);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase">
     <a href="#composition" style="color:rgba(239,233,223,.7)" style-hover="color:#C2A15B">The Composition</a>
-    <a href="#matrix" style="color:rgba(239,233,223,.7)" style-hover="color:#C2A15B">Fourteen Essences</a>
     <a href="#house" style="color:rgba(239,233,223,.7)" style-hover="color:#C2A15B">The House</a>
     <a href="#reserve" style="border:1px solid rgba(194,161,91,.5);padding:11px 20px;color:#C2A15B;letter-spacing:.24em" style-hover="background:#C2A15B;color:#0A0A0C">Reserve</a>
   </div>
@@ -110,41 +109,6 @@
           </div>
         </div>
       </sc-if>
-    </div>
-  </div>
-</section>
-
-<section id="matrix" style="padding:clamp(96px,13vh,168px) clamp(20px,5vw,64px);background:#0A0A0C">
-  <div style="max-width:1180px;margin:0 auto">
-    <div data-reveal style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px;margin-bottom:clamp(48px,7vh,84px)">
-      <div style="font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:#C2A15B">The VUE Affinity Matrix™</div>
-      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(32px,4.6vw,60px);line-height:1.06">Fourteen essences,<br>each one chosen twice</h2>
-      <p style="margin:0;max-width:560px;font-size:14px;line-height:1.8;color:rgba(239,233,223,.6)">Once for its origin. Once for its biology. Select an essence to read its provenance.</p>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,5vw,72px);align-items:start">
-      <div data-reveal style="display:flex;flex-direction:column">
-        <sc-for list="{{ essences }}" as="e" hint-placeholder-count="14">
-          <div onClick="{{ e.select }}" onMouseEnter="{{ e.select }}" style="display:flex;align-items:baseline;gap:18px;padding:14px 6px;border-bottom:1px solid rgba(239,233,223,.09);cursor:pointer;transition:padding-left 260ms cubic-bezier(.2,.6,.2,1)" style-hover="padding-left:14px">
-            <span style="font-size:10px;letter-spacing:.2em;color:rgba(194,161,91,.75);min-width:26px">{{ e.num }}</span>
-            <span style="font-family:'Cormorant Garamond',serif;font-size:21px;letter-spacing:.03em;color:rgba(239,233,223,.88)">{{ e.name }}</span>
-            <sc-if value="{{ e.isActive }}" hint-placeholder-val="{{ false }}">
-              <span style="margin-left:auto;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#C2A15B">Selected</span>
-            </sc-if>
-          </div>
-        </sc-for>
-      </div>
-
-      <div data-reveal style="position:sticky;top:120px;border:1px solid rgba(194,161,91,.24);padding:clamp(28px,4vw,44px);background:linear-gradient(160deg,rgba(23,38,94,.5),rgba(10,10,12,.4))">
-        <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#C2A15B;margin-bottom:22px">Essence {{ active.num }} of 14</div>
-        <h3 style="margin:0 0 10px;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,3.4vw,44px);line-height:1.1">{{ active.name }}</h3>
-        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:rgba(239,233,223,.6);margin-bottom:26px">{{ active.latin }}</div>
-        <div style="width:44px;height:1px;background:rgba(194,161,91,.6);margin-bottom:26px"></div>
-        <div style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(239,233,223,.5);margin-bottom:10px">Origin</div>
-        <div style="font-size:15px;line-height:1.7;margin-bottom:26px">{{ active.origin }}</div>
-        <div style="font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(239,233,223,.5);margin-bottom:10px">Why it was chosen</div>
-        <p style="margin:0;font-family:'Cormorant Garamond',serif;font-size:20px;line-height:1.65;color:rgba(239,233,223,.9);text-wrap:pretty">{{ active.note }}</p>
-      </div>
     </div>
   </div>
 </section>
