@@ -1,827 +1,2287 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
+<!-- Cache freshness: always serve the current page, never a stale cached copy -->
+<meta http-equiv="Cache-Control" content="no-cache">
+<script>
+  /* If the browser restores this page from its back/forward cache, reload it
+     so the logo and nav never land on an outdated version of the site. */
+  window.addEventListener('pageshow', function (e) { if (e.persisted) window.location.reload(); });
+</script>
+<script src="https://unpkg.com/lenis/dist/lenis.min.js" defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="facebook-domain-verification" content="xovk96y253pwkwx7uffhiztogf5oob" />
+<title>MAISON D&rsquo;VUE &mdash; The House of Affinity Compositions&trade;</title>
+<meta name="description" content="MAISON D'VUE. The house of Affinity Compositions&trade;. A ritual of fourteen rare essences, scented in &Acirc;me de Vue&trade;. Composed in Beverly Hills.">
+
+<link rel="canonical" href="https://maisondvue.com/">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=4">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
+<link rel="shortcut icon" href="/favicon.ico?v=4">
+<meta name="theme-color" content="#FFFFFF">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maisondvue.com/">
+<meta property="og:title" content="MAISON D'VUE — The House of Affinity Compositions™">
+<meta property="og:description" content="A maison of considered haircare. Composed in Beverly Hills.">
+<meta property="og:image" content="https://maisondvue.com/paparazzi-hero.jpg">
+<meta property="og:image:secure_url" content="https://maisondvue.com/paparazzi-hero.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1040">
+<meta property="og:image:alt" content="MAISON D'VUE — paparazzi flashes capture the moment.">
+<meta property="og:video" content="https://maisondvue.com/paparazzi-hero.mp4">
+<meta property="og:video:secure_url" content="https://maisondvue.com/paparazzi-hero.mp4">
+<meta property="og:video:type" content="video/mp4">
+<meta property="og:video:width" content="1920">
+<meta property="og:video:height" content="1040">
+<meta property="og:site_name" content="MAISON D'VUE">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://maisondvue.com/">
+<meta name="twitter:title" content="MAISON D'VUE — The House of Affinity Compositions™">
+<meta name="twitter:description" content="A maison of considered haircare.">
+<meta name="twitter:image" content="https://maisondvue.com/paparazzi-hero.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "MAISON D'VUE",
+  "alternateName": ["Maison d'Vue", "Maison D'Vue"],
+  "url": "https://maisondvue.com",
+  "logo": "https://maisondvue.com/favicon.svg",
+  "image": "https://maisondvue.com/paparazzi-hero.jpg",
+  "description": "The house of Affinity Compositions\u2122. A maison of considered haircare, composed in Beverly Hills.",
+  "founder": { "@type": "Person", "name": "Masiela Lusha" },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "132 S Lasky Dr, Floor 2, Unit #523",
+    "addressLocality": "Beverly Hills",
+    "addressRegion": "CA",
+    "postalCode": "90212",
+    "addressCountry": "US"
+  },
+  "email": "hello@maisondvue.com",
+  "sameAs": ["https://www.instagram.com/maisondvue"]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
-<title>MAISON D'VUE — The House of Affinity Compositions™</title>
-<meta name="description" content="Where rare ingredients become a composition. Vue 14™ — fourteen essences, composed in small monthly allocations.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MAISON D'VUE — The House of Affinity Compositions™">
-<meta property="og:description" content="Where rare ingredients become a composition. Vue 14™ — fourteen essences, composed in small monthly allocations.">
-<meta property="og:image" content="photos/social-preview.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="photos/social-preview.jpg">
-<link rel="preload" as="image" href="assets/hero-poster/hero-poster.webp" fetchpriority="high">
-<script src="https://unpkg.com/lenis/dist/lenis.min.js" defer></script>
-<script src="./image-slot.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-  /* FIX (verified by actually rendering the page in a browser and inspecting computed styles): the
-     previous rule set overflow-x:hidden AND overflow-y:visible on the SAME elements (html, body, #dc-root,
-     .sc-host). Per the CSS spec, when overflow-x and overflow-y differ and one side is "visible", the
-     visible side is silently forced to compute as "auto" instead — you cannot actually mix hidden/visible
-     on one element. On <html> alone that's harmless (its overflow is handed to the real viewport). But the
-     same rule was ALSO applied to #dc-root and .sc-host — ordinary nested divs, not the viewport — so each
-     one silently became its own real (if invisible) scrolling container. position:sticky always sticks
-     relative to the nearest such container, and since #dc-root/.sc-host never actually receive a scroll
-     event themselves (the page scrolls the true viewport, one level further out), every sticky element
-     inside them — the nav header AND the scroll-scrub hero — never got to reposition and just scrolled
-     away with the page like plain static content. That's what made the whole page look "broken": the nav
-     and hero visibly vanished after the first screen of scrolling. Confirmed fixed by keeping overflow-x
-     hidden ONLY on <html> (the one safe place for this trick) and leaving body/#dc-root/.sc-host with no
-     overflow override at all — do not re-add overflow-x/overflow-y to those three. */
-  html { overflow-x:hidden; scroll-behavior:smooth; }
-  body { margin:0; padding:0; }
-  #dc-root, #dc-root > .sc-host { margin:0; padding:0; background:#fff; height:auto !important; min-height:100% !important; }
-  section[id] { scroll-margin-top: calc(var(--mdv-header-h, 82px) + 8px); }
-  * { box-sizing:border-box; }
-  a { color:#8A6C2E; text-decoration:none; }
-  a:hover { color:#5f4a1f; }
-  ::selection { background:#0F1738; color:#fff; }
-  @keyframes dvRise { from { opacity:0; transform:translateY(14px) } to { opacity:1; transform:none } }
-  [data-reveal].dv-in { animation:dvRise 900ms cubic-bezier(.2,.6,.2,1) both; }
-  @media (prefers-reduced-motion: reduce) { [data-reveal].dv-in { animation:none } }
+  :root{
+    /* ── Light editorial palette (matches creators.html) ── */
+    --paper:#FFFFFF;
+    --paper-2:#F6F5F2;
+    --ink:#0A0A0A;
+    --sapphire:#1A1A1A;
+    --soft:rgba(10, 10, 10,0.40);
+    --line-soft:rgba(10, 10, 10,0.08);
+
+    --navy:#0A0A0A;
+    --navy-deep:#000000;
+    --navy-center:#1A1A1A;
+    --cobalt:#1A1A1A;
+
+    --gold:#0A0A0A;
+    --gold-soft:#0A0A0A;
+    --gold-light:#0A0A0A;
+    --gold-muted:#0A0A0A;
+    --gold-deep:#0A0A0A;
+
+    --cream:#FFFFFF;
+    --warm-white:#FFFFFF;
+    --ivory:#FFFFFF;
+
+    --line:rgba(10, 10, 10,0.14);
+    --mid:rgba(10, 10, 10,0.60);
+
+    /* Documentary navy tones - bridge to photograph above */
+    --navy-charcoal:#050505;
+    --navy-deeper:#000000;
+
+    --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-italic:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+
+    --page:1180px;
+    --nav-h:72px;
+
+    --ribbon-h: 44px;
+    --logo-h: 88px;
+    --header-total: calc(var(--ribbon-h) + var(--logo-h) + var(--nav-h));
+  }
+
+  *,*::before,*::after{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+  }
+
+  /* No smooth-scroll on html element — smooth scroll is managed by Lenis JS engine. */
+  html{ scroll-behavior:auto !important; }
+
+  html,body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-sans);
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    min-height:100vh;
+  }
+
+  body{
+    position:relative;
+    font-size:16px;
+    line-height:1.65;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  /* ═══════════════════════════════════════════════════════════
+     PROMO RIBBON — Chanel pattern, dismissible
+     ═══════════════════════════════════════════════════════════ */
+  .promo-ribbon{
+    height:var(--ribbon-h);
+    background:var(--navy-charcoal);
+    color:var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    border-bottom:1px solid rgba(255, 255, 255,0.35);
+    transition:height 360ms ease, opacity 360ms ease;
+    overflow:hidden;
+  }
+
+  .promo-ribbon.dismissed{
+    height:0;
+    opacity:0;
+    border-bottom:0;
+  }
+
+  .promo-ribbon-text{
+    font-family:var(--font-display);
+    font-size:12px;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:rgba(255, 255, 255,0.88);
+    text-align:center;
+    padding:0 60px;
+    line-height:1;
+    white-space:nowrap;
+  }
+
+  .promo-ribbon-text .accent{
+    color:#FFFFFF;
+    margin:0 14px;
+  }
+
+  .promo-ribbon-close{
+    position:absolute;
+    right:22px;
+    top:50%;
+    transform:translateY(-50%);
+    background:transparent;
+    border:0;
+    color:rgba(255, 255, 255,0.7);
+    font-size:18px;
+    cursor:pointer;
+    line-height:1;
+    padding:4px 6px;
+    transition:color 240ms ease;
+  }
+
+  .promo-ribbon-close:hover{
+    color:#FFFFFF;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     HEADER — centered wordmark with utility icons
+     ═══════════════════════════════════════════════════════════ */
+  .header-logo-row{
+    background:var(--warm-white);
+    height:var(--logo-h);
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-bottom:1px solid rgba(10, 10, 10,0.06);
+  }
+
+  .header-logo{
+    font-family:var(--font-display);
+    font-weight:400;
+    font-size:clamp(24px,3vw,40px);
+    letter-spacing:0.5em;
+    text-transform:uppercase;
+    color:var(--navy);
+    line-height:1;
+    white-space:nowrap;
+    text-decoration:none;
+  }
+
+  .header-utility{
+    position:absolute;
+    right:40px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    gap:22px;
+    align-items:center;
+  }
+
+  .header-utility-btn{
+    background:transparent;
+    border:0;
+    color:var(--navy);
+    cursor:pointer;
+    padding:6px;
+    line-height:0;
+    transition:color 240ms ease;
+    text-decoration:none;
+  }
+
+  .header-utility-btn:hover{
+    color:var(--gold-muted);
+  }
+
+  .header-utility-btn svg{
+    width:18px;
+    height:18px;
+    display:block;
+  }
+
+  .site-header{
+    position:sticky;
+    top:0;
+    z-index:90;
+    transition:transform 360ms ease;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     UNIFIED HOUSE NAV — overlaid on full-bleed hero, solid on scroll
+     ═══════════════════════════════════════════════════════════ */
+  .promo-ribbon{ display:none !important; }
+  .site-header{ display:none !important; }
+
+  .mdv-nav{
+    position:fixed; top:0; left:0; right:0; z-index:200; height:72px;
+    display:flex; align-items:center; justify-content:space-between; padding:0 40px;
+    border-bottom:1px solid transparent;
+    transition:background 320ms ease, border-color 320ms ease;
+  }
+  .mdv-nav .nav-logo{
+    font-family:var(--font-display); font-weight:500; font-size:20px;
+    letter-spacing:0.34em; text-transform:uppercase; color:#FFFFFF; white-space:nowrap;
+    transition:color 320ms ease;
+  }
+  .mdv-nav .nav-links{ display:flex; gap:40px; }
+  .mdv-nav .nav-links a, .mdv-nav .nav-right a{
+    font-size:11px; letter-spacing:0.26em; text-transform:uppercase; font-weight:400;
+    color:rgba(255, 255, 255,0.82); transition:color 220ms ease;
+  }
+  .mdv-nav .nav-right{ display:flex; align-items:center; gap:18px; }
+  .mdv-nav .nav-links a:hover, .mdv-nav .nav-right a:hover{ color:#fff; }
+  .mdv-nav.scrolled{
+    background:rgba(255, 255, 255,0.94); backdrop-filter:saturate(140%) blur(8px);
+    border-bottom-color:rgba(10, 10, 10,0.08);
+  }
+  .mdv-nav.scrolled .nav-logo{ color:var(--navy); }
+  .mdv-nav.scrolled .nav-links a, .mdv-nav.scrolled .nav-right a{ color:rgba(10, 10, 10,0.62); }
+  .mdv-nav.scrolled .nav-links a:hover, .mdv-nav.scrolled .nav-right a:hover{ color:var(--navy); }
+  @media (max-width:860px){
+    .mdv-nav{ padding:0 22px; }
+    .mdv-nav .nav-links{ display:none; }
+    .mdv-nav .nav-logo{ font-size:16px; letter-spacing:0.26em; }
+    /* The gate photo's monogram sits right of the frame's midpoint — recenter
+       the crop on narrow screens so it doesn't read as pushed to one side. */
+    #slide-house .slide-media{ object-position:68% center; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     MAIN — photograph band on top (16:9), reservation below
+     ═══════════════════════════════════════════════════════════ */
+  main{
+    position:relative;
+    background:var(--paper);
+  }
+
+  /* ── FULL-BLEED HERO (matches product.html) ──
+     Pinned: the hero holds while the next panel slides up and covers it,
+     like a second photograph drawn over the first. */
+  .photograph-pane{
+    /* Full-bleed: as big and wide as the browser screen, edge to edge. */
+    width: 100%; margin-left: 0;
+    height:100vh;
+    height:100svh;
+    min-height:520px;
+    max-height:none;
+    position:sticky;
+    top:0;
+    z-index:1;
+    overflow:hidden;
+    background:var(--navy-deep);
+  }
+
+  .photograph-pane img,
+  .photograph-pane .hero-video{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center center;
+    z-index:1;
+  }
+
+  .photograph-pane .hero-video{
+    border:0;
+    display:block;
+    background:var(--navy-deep) url('paparazzi-hero.jpg') center center / cover no-repeat;
+  }
+
+  /* Top scrim so the light nav stays legible over bright video frames. */
+  .photograph-pane::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:170px; z-index:3;
+    background:linear-gradient(to bottom, rgba(0, 0, 0,0.46), rgba(0, 0, 0,0));
+    pointer-events:none;
+  }
+
+  /* Bottom gradient floor — anchors hero text and eases into the paper section. */
+  .photograph-pane::after{
+    content:""; position:absolute; inset:0; z-index:2;
+    background:linear-gradient(
+      to bottom,
+      rgba(0, 0, 0,0) 0%,
+      rgba(0, 0, 0,0) 45%,
+      rgba(0, 0, 0,0.40) 72%,
+      rgba(0, 0, 0,0.78) 100%);
+    pointer-events:none;
+  }
+
+  .photo-fallback{ z-index:2; }
+
+  .photo-fallback{
+    position:absolute;
+    inset:0;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+  }
+
+  .photo-fallback .mark{
+    font-family:var(--font-display);
+    font-weight:300;
+    font-style:italic;
+    font-size:clamp(96px,14vw,220px);
+    line-height:1;
+    color:#FFFFFF;
+    opacity:0.5;
+  }
+
+  .photo-fallback .label{
+    margin-top:24px;
+    font-family:var(--font-display);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.5em;
+    text-transform:uppercase;
+    color:#FFFFFF;
+    padding-left:0.5em;
+  }
+
+  /* ── DISCOVER CUE — invites the eye down into the House ── */
+  .hero-discover{
+    position:absolute; left:50%; bottom:38px; transform:translateX(-50%);
+    z-index:4; display:flex; flex-direction:column; align-items:center; gap:14px;
+    text-decoration:none; color:#FFFFFF;
+    -webkit-tap-highlight-color:transparent;
+    animation:heroDrift 3.6s ease-in-out infinite;
+  }
+  .hero-discover-label{
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size:10.5px; font-weight:500; letter-spacing:0.42em; text-transform:uppercase;
+    text-indent:0.42em; color:rgba(255,255,255,0.92); white-space:nowrap;
+    transition:color 240ms ease;
+  }
+  @media (max-width:480px){
+    .hero-discover-label{ font-size:9.5px; letter-spacing:0.3em; text-indent:0.3em; }
+  }
+  .hero-discover-v{ width:30px; height:11px; display:block; overflow:visible; }
+  .hero-discover-v path{
+    fill:none; stroke:rgba(255,255,255,0.88); stroke-width:1;
+    stroke-linecap:round; stroke-linejoin:round; transition:stroke 240ms ease;
+  }
+  .hero-discover:hover .hero-discover-label{ color:#FFFFFF; }
+  .hero-discover:hover .hero-discover-v path{ stroke:#FFFFFF; }
+  /* A slow, weighted drift — a descent, never a bounce. */
+  @keyframes heroDrift{
+    0%,100%{ transform:translateX(-50%) translateY(0); }
+    50%{ transform:translateX(-50%) translateY(7px); }
+  }
+  @media (prefers-reduced-motion: reduce){ .hero-discover{ animation:none; } }
+
+  /* ══ CINEMATIC SLIDE STACK — each full-screen slide slides up over the last ══ */
+  .slides{ position:relative; z-index:1; }
+  .slide{
+    position:relative;
+    height:100vh; height:100svh;
+    overflow:hidden; background:var(--navy-deep);
+    display:flex; align-items:flex-end; justify-content:center;
+    /* Full-screen snap: each slide fills the view and locks firmly into place. */
+    scroll-snap-align:start; scroll-snap-stop:always;
+  }
+  .slide-media{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center center; z-index:1; display:block;
+  }
+  /* Top scrim keeps the transparent nav legible; bottom scrim seats the label. */
+  .slide-scrim{
+    position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:linear-gradient(to bottom,
+      rgba(0,0,0,0.42) 0%, rgba(0,0,0,0) 20%,
+      rgba(0,0,0,0) 64%, rgba(0,0,0,0.58) 100%);
+  }
+  .slide-label{
+    position:relative; z-index:3;
+    /* Seat the label well clear of the bottom edge so it's always on-screen and
+       clickable even if the snap lands a hair off. */
+    margin-bottom:clamp(84px,14vh,160px);
+    display:flex; flex-direction:column; align-items:center; gap:11px;
+    padding:14px 26px;   /* larger, more forgiving hit area */
+    text-decoration:none; text-align:center; -webkit-tap-highlight-color:transparent;
+  }
+  .slide-title{
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight:700; font-size:13px; letter-spacing:0.14em;
+    text-transform:uppercase; color:#FFFFFF;
+  }
+  .slide-tm{ font-size:0.6em; vertical-align:super; letter-spacing:0; margin-left:1px; }
+  .slide-cue{
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight:400; font-size:11px; letter-spacing:0.2em;
+    text-transform:uppercase; color:rgba(255,255,255,0.82);
+    transition:color 200ms ease;
+  }
+  .slide-label:hover .slide-cue{ color:#FFFFFF; }
+
+  /* RESERVATION PANE — light paper palette.
+     A soft shadow on the leading (top) edge so the panel reads as a sheet
+     gliding up over the pinned hero — an overlay, not a scroll into white. */
+  .reservation-pane{
+    position:relative;
+    z-index:3;
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    padding:100px 56px;
+    background:var(--paper);
+    box-shadow:0 -22px 60px -10px rgba(0,0,0,0.42);
+    scroll-snap-align:start;
+  }
+  footer{ scroll-snap-align:start; }
+
+  .reservation-pane::before{
+    display:none;
+  }
+
+  .reservation-frame{
+    position:relative;
+    width:100%;
+    max-width:1200px;
+    padding:0;
+    text-align:left;
+    background:transparent;
+    border:0;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:120px;
+    align-items:start;
+  }
+
+  /* Left column - editorial caption.
+     padding-top aligns the eyebrow's top edge with the
+     first form input's top edge across the gap. */
+  .res-caption{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    text-align:left;
+    padding-top:23px;
+  }
+
+  /* Right column - form panel */
+  .res-action{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    padding-top:36px;
+  }
+
+  .reservation-frame::before,
+  .reservation-frame::after,
+  .res-corner-tr,
+  .res-corner-bl{
+    display:none;
+  }
+
+  .res-eyebrow{
+    font-family:var(--font-sans);
+    font-weight:400;
+    font-size:11px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    margin-top:0;
+    margin-bottom:32px;
+    line-height:1.4;
+  }
+
+  .res-eyebrow .tm{
+    font-size:0.7em;
+    vertical-align:super;
+    letter-spacing:0.05em;
+    margin-left:2px;
+  }
+
+  .res-headline{
+    font-family:var(--font-display);
+    font-weight:300;
+    font-size:clamp(48px,5.4vw,84px);
+    line-height:1.0;
+    letter-spacing:-0.01em;
+    color:var(--navy);
+    margin-bottom:32px;
+  }
+
+  .res-headline em{
+    display:inline;
+    font-family:var(--font-display);
+    font-style:normal;
+    font-weight:300;
+    color:var(--navy);
+    letter-spacing:-0.01em;
+  }
+
+  .res-scent{
+    font-family:var(--font-italic);
+    font-style:italic;
+    font-weight:400;
+    font-size:18px;
+    letter-spacing:0.01em;
+    text-transform:none;
+    line-height:1.5;
+    color:var(--gold-deep);
+    margin:0 0 28px;
+    max-width:42ch;
+  }
+
+  .res-promo{
+    margin-top:28px;
+    font-family:var(--font-sans);
+    font-weight:400;
+    font-size:12px;
+    letter-spacing:0.04em;
+    line-height:1.6;
+    color:var(--mid);
+  }
+
+  .res-promo .res-promo-caps{
+    font-weight:500;
+    letter-spacing:0.18em;
+    color:var(--gold-deep);
+  }
+
+  .inline-shop{
+    color:var(--navy);
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+    padding-bottom:1px;
+    transition:border-color 280ms ease, color 280ms ease;
+  }
+
+  .inline-shop:hover{
+    border-bottom-color:var(--navy);
+    color:var(--navy);
+  }
+
+  form.reservation{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    max-width:100%;
+    margin:0;
+  }
+
+  form.reservation .field{
+    position:relative;
+  }
+
+  form.reservation input[type="text"],
+  form.reservation input[type="email"]{
+    width:100%;
+    background:transparent;
+    border:0;
+    border-bottom:1px solid var(--line);
+    color:var(--navy);
+    font-family:var(--font-sans);
+    font-weight:400;
+    font-size:14px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    padding:14px 2px;
+    outline:none;
+    border-radius:0;
+    transition:border-color 320ms ease;
+  }
+
+  form.reservation input::placeholder{
+    color:var(--soft);
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    font-weight:400;
+  }
+
+  form.reservation input:focus{
+    border-bottom-color:var(--navy);
+  }
+
+  form.reservation .hp{
+    position:absolute;
+    left:-9999px;
+    opacity:0;
+  }
+
+  form.reservation button{
+    margin-top:16px;
+    background:var(--navy);
+    color:var(--paper);
+    border:1px solid var(--navy);
+    font-family:var(--font-sans);
+    font-weight:500;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    font-size:11px;
+    padding:17px 32px;
+    cursor:pointer;
+    transition:background 320ms ease, color 320ms ease, border-color 320ms ease;
+  }
+
+  form.reservation button:hover{
+    background:var(--sapphire);
+    border-color:var(--sapphire);
+  }
+
+  form.reservation button:disabled{
+    opacity:0.55;
+    cursor:not-allowed;
+  }
+
+  /* Consent line - sits beneath the Reserve button.
+     11-12px gold-muted italic, single line where possible. */
+  .res-consent{
+    margin-top:18px;
+    font-family:var(--font-italic);
+    font-style:italic;
+    font-weight:400;
+    font-size:13px;
+    line-height:1.55;
+    letter-spacing:0.02em;
+    color:var(--mid);
+  }
+
+  .res-consent a{
+    color:var(--navy);
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+    padding-bottom:1px;
+    transition:border-color 240ms ease, color 240ms ease;
+  }
+
+  .res-consent a:hover{
+    color:var(--navy);
+    border-bottom-color:var(--navy);
+  }
+
+  /* Three-line subscriber promise - sits beneath the consent line.
+     Italic Cormorant, single thin gold rule above, three short
+     phrases on separate lines. The Aesop / Le Labo pattern. */
+  .res-promise{
+    margin-top:32px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-family:var(--font-italic);
+    font-style:italic;
+    font-weight:400;
+    font-size:14px;
+    line-height:1.9;
+    letter-spacing:0.01em;
+    color:var(--mid);
+  }
+
+  .res-promise span{
+    display:block;
+  }
+
+  .invitation-block{
+    margin-top:36px;
+    padding-top:28px;
+    border-top:1px solid var(--line);
+    max-width:100%;
+  }
+
+  .invitation-label{
+    display:block;
+    font-family:var(--font-sans);
+    font-weight:400;
+    font-size:11px;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--mid);
+    margin-bottom:14px;
+    padding-left:0.28em;
+  }
+
+  .invitation-form{
+    display:flex;
+    align-items:stretch;
+    gap:0;
+    width:100%;
+  }
+
+  .invitation-form input{
+    flex:1;
+    background:transparent;
+    border:0;
+    border-bottom:1px solid var(--line);
+    color:var(--navy);
+    font-family:var(--font-sans);
+    font-weight:400;
+    font-size:14px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    padding:12px 2px;
+    outline:none;
+    border-radius:0;
+    transition:border-color 320ms ease;
+  }
+
+  .invitation-form input::placeholder{
+    color:var(--soft);
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    font-size:12px;
+  }
+
+  .invitation-form input:focus{
+    border-bottom-color:var(--navy);
+  }
+
+  .invitation-form button{
+    background:transparent;
+    color:var(--navy);
+    border:0;
+    border-bottom:1px solid var(--line);
+    font-family:var(--font-sans);
+    font-weight:500;
+    font-size:16px;
+    padding:12px 14px;
+    cursor:pointer;
+    transition:color 320ms ease, border-color 320ms ease;
+  }
+
+  .invitation-form button:hover{
+    color:var(--gold-deep);
+    border-bottom-color:var(--navy);
+  }
+
+  .invitation-feedback{
+    display:block;
+    margin-top:10px;
+    min-height:18px;
+    font-family:var(--font-sans);
+    font-style:normal;
+    font-weight:300;
+    font-size:12px;
+    letter-spacing:0.04em;
+    color:#B26A6A;
+  }
+
+  .res-message{
+    margin-top:24px;
+    padding-top:20px;
+    min-height:24px;
+    font-family:var(--font-sans);
+    font-style:normal;
+    font-weight:300;
+    font-size:14px;
+    letter-spacing:0.04em;
+    line-height:1.55;
+    border-top:0.5px solid var(--line);
+  }
+
+  .res-message.success{ color:var(--navy); }
+  .res-message.error{ color:#B26A6A; }
+
+  /* House-voice confirmation state.
+     When the form is submitted successfully, .res-action gets the
+     'submitted' class. The form, consent, promise, and message all
+     fade out; the confirmation message fades in beneath the headline. */
+  .res-confirm{
+    display:none;
+    margin-top:8px;
+    font-family:var(--font-italic);
+    font-style:italic;
+    font-weight:400;
+    line-height:1.5;
+    letter-spacing:0.01em;
+    color:var(--navy);
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity 600ms ease, transform 600ms ease;
+  }
+
+  .res-confirm-line{
+    font-size:22px;
+    color:var(--navy);
+    margin-bottom:14px;
+  }
+
+  .res-confirm-sub{
+    font-size:15px;
+    color:var(--gold-deep);
+    letter-spacing:0.02em;
+  }
+
+  .res-action.submitted form.reservation,
+  .res-action.submitted .res-consent,
+  .res-action.submitted .res-promise,
+  .res-action.submitted .invitation-block,
+  .res-action.submitted .res-message{
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 480ms ease;
+    height:0;
+    overflow:hidden;
+    margin:0;
+    padding:0;
+    border:0;
+  }
+
+  .res-action.submitted .res-confirm{
+    display:block;
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity 800ms ease, transform 800ms ease;
+  }
+
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ── FOOTER (light editorial) ── */
+  footer{
+    border-top:1px solid var(--line);
+    padding:30px 40px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:18px; flex-wrap:wrap;
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--soft);
+    background:var(--paper);
+  }
+  footer a{ color:var(--mid); }
+  footer a:hover{ color:var(--navy); }
+  @media (max-width:860px){ footer{ padding:26px 22px; } }
+
+  /* ═══════════════════════════════════════════════════════════
+     RESPONSIVE
+     ═══════════════════════════════════════════════════════════ */
+  @media (max-width:960px){
+    :root{
+      --logo-h:68px;
+      --nav-h:0px;
+    }
+
+    .promo-ribbon-text{
+      font-size:10px;
+      letter-spacing:0.16em;
+      padding:0 52px;
+      white-space:normal;
+      line-height:1.3;
+    }
+
+    .header-utility{
+      right:14px;
+      gap:10px;
+    }
+
+    .header-utility-btn svg{
+      width:15px;
+      height:15px;
+    }
+
+    .header-utility-btn[aria-label="Contact"]{
+      display:none;
+    }
+
+    .header-logo{
+      font-size:18px;
+      letter-spacing:0.34em;
+    }
+
+    /* Two-column layout collapses to single column */
+    .reservation-pane{
+      padding:88px 32px 96px;
+    }
+
+    .reservation-frame{
+      max-width:560px;
+      grid-template-columns:1fr;
+      gap:48px;
+    }
+
+    .res-caption{
+      padding-top:0;
+    }
+
+    .res-action{
+      padding-top:0;
+    }
+
+    .res-headline{
+      font-size:56px;
+    }
+
+  }
+
+  /* ─── PHONE (under 640px) ─── */
+  @media (max-width:640px){
+    .reservation-pane{
+      padding:104px 24px 80px;
+    }
+
+    .reservation-frame{
+      max-width:100%;
+      gap:36px;
+    }
+
+    .res-eyebrow{
+      font-size:10px;
+      letter-spacing:0.32em;
+      margin-bottom:22px;
+    }
+
+    .res-headline{
+      font-size:44px;
+      margin-bottom:22px;
+      line-height:1.0;
+    }
+
+    .res-scent{
+      font-size:10px;
+      letter-spacing:0.28em;
+      margin-bottom:22px;
+    }
+
+    form.reservation{
+      gap:10px;
+    }
+
+    form.reservation input[type="text"],
+    form.reservation input[type="email"]{
+      padding:14px 14px;
+      font-size:16px;
+      letter-spacing:0.2em;
+    }
+
+    form.reservation input::placeholder{
+      letter-spacing:0.2em;
+    }
+
+    form.reservation button{
+      padding:15px 16px;
+      font-size:10px;
+      letter-spacing:0.28em;
+    }
+
+    .res-consent{
+      font-size:11px;
+      margin-top:12px;
+    }
+
+    .res-promise{
+      font-size:12px;
+      margin-top:24px;
+      padding-top:20px;
+      line-height:1.85;
+    }
+
+    .invitation-block{
+      margin-top:28px;
+      padding-top:24px;
+    }
+
+    .invitation-label{
+      font-size:9px;
+      letter-spacing:0.28em;
+      margin-bottom:12px;
+    }
+
+    .invitation-form input{
+      padding:11px 12px;
+      font-size:16px;
+      letter-spacing:0.2em;
+    }
+
+    .invitation-form button{
+      padding:11px 14px;
+      font-size:13px;
+    }
+
+    .invitation-feedback{
+      font-size:12px;
+    }
+
+    .res-message{
+      margin-top:20px;
+      padding-top:18px;
+      font-size:14px;
+    }
+
+    .res-confirm-line{
+      font-size:19px;
+    }
+
+    .res-confirm-sub{
+      font-size:14px;
+    }
+  }
+
+  @media (max-width:380px){
+    .reservation-pane{
+      padding:96px 18px 64px;
+    }
+
+    .reservation-frame{
+      max-width:100%;
+    }
+
+    .res-headline{
+      font-size:36px;
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     THE WALL — mosaic of testimonial film + real reviews
+     ═══════════════════════════════════════════════════════════ */
+  .wall{
+    background:var(--paper); padding:100px 0 96px;
+    /* Register the wall's own top as a snap point — otherwise the page's
+       mandatory y-snap jumps straight from the reservation pane to the
+       footer, cutting off the wall's head and its first row of tiles. */
+    scroll-snap-align:start; scroll-snap-stop:always;
+  }
+  .wall-head{ max-width:720px; margin:0 auto 48px; padding:0 24px; text-align:center; }
+  .wall-eyebrow{
+    font-family:var(--font-display); font-size:11px; font-weight:500;
+    letter-spacing:0.32em; text-transform:uppercase; color:var(--soft);
+    margin-bottom:18px;
+  }
+  .wall-title{
+    font-family:'Bodoni Moda','Didot','Bodoni MT',Georgia,serif;
+    font-weight:500; font-size:clamp(32px,4.6vw,52px);
+    letter-spacing:0.01em; color:var(--ink); margin-bottom:20px;
+  }
+  .wall-summary{ display:inline-flex; align-items:center; gap:12px; font-size:14px; }
+  .wall-summary .stars{ color:var(--ink); letter-spacing:2px; }
+  .wall-summary span:last-child{
+    font-family:var(--font-display); font-size:12px; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--mid);
+  }
+
+  .wall-grid{
+    max-width:1120px; margin:0 auto; padding:0 24px;
+    display:grid; grid-template-columns:repeat(3, 1fr);
+    grid-auto-rows:clamp(380px, 34vw, 480px); gap:20px;
+  }
+  .wall-tile{ position:relative; overflow:hidden; background:var(--paper-2); }
+  .wall-tile--tall{ grid-row:span 2; }
+  .wall-tile--full-review{ }
+  .wall-sound-btn{
+    position:absolute; left:50%; bottom:16px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:8px;
+    background:rgba(10,10,12,0.72); color:#fff; border:1px solid rgba(255,255,255,0.4);
+    border-radius:999px; padding:8px 16px; font-size:12px; letter-spacing:0.04em;
+    cursor:pointer; z-index:2; backdrop-filter:blur(4px);
+  }
+  .wall-sound-btn:hover{ background:rgba(10,10,12,0.9); }
+  .wall-sound-icon{ font-size:10px; }
+  .wall-tile--full-review.is-playing-full .wall-sound-btn{ display:none; }
+  /* These are vertical selfie-style clips; their subjects sit in the upper
+     third of the frame, so a plain center-center crop lops off foreheads
+     in the shorter single-row cells. Anchor toward the top instead. */
+  .wall-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 22%; display:block; }
+  /* This clip's hair-clip prop sits higher in frame than the others, and in
+     the near-square dense-mobile cells the default anchor crops right into
+     it. Anchor further up so the clip and full smile stay in view. */
+  .wall-video--t5{ object-position:center 8%; }
+
+  .wall-quote{
+    grid-column:span 2; padding:36px 40px;
+    display:flex; flex-direction:column; justify-content:center; gap:18px;
+  }
+  .wall-quote--ink{ background:var(--navy-deep); color:#FFFFFF; }
+  .wall-quote--paper{ background:var(--paper-2); color:var(--ink); border:1px solid var(--line); }
+  .wall-quote-stars{ font-size:14px; letter-spacing:3px; }
+  .wall-quote--ink .wall-quote-stars{ color:#FFFFFF; }
+  .wall-quote--paper .wall-quote-stars{ color:var(--ink); }
+  .wall-quote-text{
+    font-family:'Bodoni Moda','Didot',Georgia,serif; font-style:italic; font-weight:400;
+    font-size:clamp(16px,1.4vw,19px); line-height:1.55;
+  }
+  .wall-quote-name{
+    font-family:var(--font-display); font-size:11px; font-weight:500;
+    letter-spacing:0.2em; text-transform:uppercase; opacity:0.66;
+  }
+
+  .wall-name{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; text-align:center; padding:20px;
+    background:rgba(253,251,248,0.6); border:1px solid var(--line);
+  }
+  .wall-name .wall-quote-stars{ color:var(--ink); }
+  .wall-name .wall-quote-name{ color:var(--mid); opacity:1; }
+
+  .wall-cta{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:18px; text-align:center; padding:24px; background:var(--ink);
+  }
+  .wall-cta-label{
+    font-family:'Bodoni Moda',Georgia,serif; font-style:italic; font-size:17px;
+    color:#FFFFFF; line-height:1.4;
+  }
+  .wall-cta-btn{
+    display:inline-block; padding:12px 20px; border:1px solid rgba(255,255,255,0.55);
+    color:#FFFFFF; font-family:var(--font-display); font-size:10.5px; font-weight:500;
+    letter-spacing:0.2em; text-transform:uppercase; transition:background 220ms ease, color 220ms ease;
+  }
+  .wall-cta-btn:hover{ background:#FFFFFF; color:var(--ink); }
+
+  @media (max-width:980px){
+    .wall-grid{ grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); grid-auto-rows:clamp(360px, 50vw, 440px); gap:16px; }
+  }
+  @media (max-width:620px){
+    .wall{ padding:80px 0 40px; }
+    .wall-head{ margin:0 auto 24px; padding:0 20px; text-align:center; }
+    .wall-eyebrow{ font-size:9.5px; letter-spacing:0.2em; margin-bottom:8px; }
+    .wall-title{ font-size:24px; margin-bottom:8px; line-height:1.15; }
+    .wall-summary span:last-child{ font-size:10px; letter-spacing:0.14em; }
+
+    .wall-grid{
+      grid-template-columns:1fr; grid-auto-rows:clamp(380px, 90vw, 500px); gap:16px; padding:0 20px;
+    }
+    .wall-cta{ padding:36px 20px; }
+    .wall-cta-label{ font-size:16px; line-height:1.4; }
+    .wall-cta-btn{ padding:11px 18px; font-size:10px; letter-spacing:0.18em; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     PURCHASE SECTION (PORTED FROM PRODUCT.HTML)
+     ═══════════════════════════════════════════════════════════ */
+  .purchase-section {
+    background: radial-gradient(ellipse at 50% 25%, #FAF8F4 0%, #F1EBE0 100%);
+    padding: clamp(64px, 8vh, 96px) 0 clamp(80px, 10vh, 120px);
+    text-align: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: relative;
+    border-top: 1px solid rgba(194, 161, 91, 0.18);
+  }
+
+  .purchase-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 3.5vw, 48px);
+  }
+
+  .purchase-label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.44em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+
+  .purchase-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(32px, 3.8vw, 48px);
+    color: var(--navy);
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+    margin-bottom: 10px;
+  }
+
+  .purchase-scent {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--gold-muted);
+    margin-bottom: clamp(36px, 5vh, 52px);
+    letter-spacing: 0.02em;
+  }
+
+  .purchase-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(24px, 3.5vw, 48px);
+    max-width: 1020px;
+    margin: 0 auto;
+    align-items: stretch;
+  }
+
+  .purchase-card {
+    border: 1px solid rgba(194, 161, 91, 0.22);
+    border-radius: 3px;
+    padding: 0;
+    background: #FFFFFF;
+    box-shadow: 0 16px 40px -14px rgba(10, 10, 12, 0.07), 0 0 0 1px rgba(194, 161, 91, 0.06);
+    transition: border-color 380ms ease, transform 380ms cubic-bezier(0.2, 0.6, 0.2, 1), box-shadow 380ms ease;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .purchase-card:hover {
+    border-color: rgba(194, 161, 91, 0.48);
+    transform: translateY(-5px);
+    box-shadow: 0 28px 64px -16px rgba(10, 10, 12, 0.14), 0 0 0 1px rgba(194, 161, 91, 0.3);
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 4;
+    background: rgba(10, 10, 12, 0.85);
+    color: #EFE9DF;
+    border: 1px solid rgba(194, 161, 91, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    font-family: var(--font-display);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+
+  .card-badge--light {
+    background: rgba(253, 251, 248, 0.9);
+    color: var(--ink);
+    border-color: rgba(10, 10, 12, 0.18);
+  }
+
+  .card-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 4.4;
+    background-color: var(--ivory);
+    overflow: hidden;
+    border-bottom: 1px solid rgba(194, 161, 91, 0.16);
+  }
+
+  .card-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 600ms cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+
+  .purchase-card:hover .card-image img {
+    transform: scale(1.03);
+  }
+
+  .purchase-card.featured .card-image {
+    background-color: #0A0A0C;
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+  }
+
+  /* ─── CARD CAROUSEL ─── */
+  .card-carousel { cursor: grab; }
+  .card-carousel:active { cursor: grabbing; }
+
+  .card-carousel .carousel-track {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    will-change: transform;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.1, 1);
+    touch-action: pan-y;
+  }
+
+  .card-carousel .carousel-track img {
+    position: static;
+    inset: auto;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(10, 10, 12, 0.55);
+    color: var(--cream);
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: 1;
+    padding-bottom: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    opacity: 0.85;
+    transition: background 0.3s ease, opacity 0.3s ease, transform 0.2s ease;
+  }
+
+  .carousel-arrow:hover { background: rgba(10, 10, 12, 0.85); opacity: 1; transform: translateY(-50%) scale(1.05); }
+  .carousel-arrow.prev { left: 14px; }
+  .carousel-arrow.next { right: 14px; }
+
+  .carousel-dots {
+    position: absolute;
+    left: 0; right: 0; bottom: 14px;
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    z-index: 3;
+  }
+
+  .carousel-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.42);
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .carousel-dot.active { background: #FFFFFF; transform: scale(1.3); }
+
+  @media (hover: none) {
+    .carousel-arrow { width: 34px; height: 34px; font-size: 20px; }
+  }
+
+  .card-body {
+    padding: clamp(28px, 3.5vw, 40px) clamp(24px, 3vw, 36px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    background: #FFFFFF;
+  }
+
+  .purchase-card.featured .card-body {
+    background: #0A0A0C;
+    color: var(--cream);
+  }
+
+  .purchase-card.featured .card-name,
+  .purchase-card.featured .card-price,
+  .purchase-card.featured .card-tag {
+    color: #FFFFFF;
+  }
+
+  .purchase-card.featured .card-size {
+    color: rgba(239, 233, 223, 0.72);
+  }
+
+  .card-tag {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .card-name {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--mid);
+    margin-bottom: 6px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+
+  .purchase-card.featured .card-name {
+    color: rgba(239, 233, 223, 0.65);
+  }
+
+  .card-size {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 22px;
+    line-height: 1;
+  }
+
+  .card-price {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 36px;
+    color: var(--navy);
+    margin-bottom: 26px;
+    line-height: 1;
+  }
+
+  .card-cta-form {
+    width: 100%;
+    margin-top: auto;
+  }
+
+  .card-cta {
+    width: 100%;
+    border: 1px solid var(--navy);
+    background: var(--navy);
+    color: var(--cream);
+    padding: 16px 24px;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 11.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    transition: background 260ms ease, color 260ms ease, border-color 260ms ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .card-cta:hover {
+    background: #000000;
+    border-color: #000000;
+    color: #FFFFFF;
+  }
+
+  .purchase-card.featured .card-cta {
+    background: #FFFFFF;
+    border-color: #FFFFFF;
+    color: #0A0A0C;
+  }
+
+  .purchase-card.featured .card-cta:hover {
+    background: rgba(239, 233, 223, 0.9);
+    border-color: rgba(239, 233, 223, 0.9);
+    color: #0A0A0C;
+  }
+
+  .purchase-provenance {
+    margin-top: 48px;
+    font-family: var(--font-display);
+    font-size: 10.5px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold-muted);
+    line-height: 1;
+  }
+
+  @media (max-width: 860px) {
+    .purchase-section {
+      padding: 56px 0 84px;
+    }
+
+    .purchase-options {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 440px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .purchase-title { font-size: 28px; }
+    .card-tag { font-size: 17px; }
+    .card-price { font-size: 30px; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     SCROLL-SCRUB HERO (PORTED FROM V2)
+     ═══════════════════════════════════════════════════════════ */
+  .dv-hero-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    background: #0A0A0C url('data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAABwBACdASoYAA4APu1iqU2ppaOiMAgBMB2JbACdMoRwAB8aaiBaskZRoEtpAAD+7p9CyiudmrWopqFpf29+Xg2bEXYsfrz+TkYCBXhBqiS1DvtXUMNjIQIzKyzDN+DllvSevlzwyZlAZe3J0p0Qt9++GGzQHBXpQs0wlo8uckDwcnz2AAA=') center/cover no-repeat;
+  }
+  .dv-hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: url('assets/hero-poster/hero-poster.webp') center/cover no-repeat;
+  }
+  .dv-hero-fallback-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: none;
+  }
+  .dv-cue {
+    position: absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+  }
   @keyframes dvDrift { 0%,100% { transform:translateY(0); opacity:.55 } 50% { transform:translateY(9px); opacity:1 } }
   @media (max-height: 780px) { .dv-cue { display:none !important } }
-  .dv-kenburns { animation:dvKenBurns 16s ease-in-out infinite alternate; display:block; width:100%; height:100%; }
-  @keyframes dvKenBurns { from { transform:scale(1) } to { transform:scale(1.08) } }
-  @media (prefers-reduced-motion: reduce) { .dv-kenburns { animation:none !important } }
-  input::placeholder { color:rgba(239,233,223,0.4); }
-  .dv-ritual-scroll::-webkit-scrollbar { display:none; }
-
-  /* Scroll-scrub hero engine — ported from the original site's MdvHeroEngine, same structure/behavior, V2 palette. */
-  .dv-hero-sticky { position:sticky; top:var(--mdv-header-h, 82px); height:calc(100vh - var(--mdv-header-h, 82px)); overflow:hidden; background:#0A0A0C url('data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAABwBACdASoYAA4APu1iqU2ppaOiMAgBMB2JbACdMoRwAB8aaiBaskZRoEtpAAD+7p9CyiudmrWopqFpf29+Xg2bEXYsfrz+TkYCBXhBqiS1DvtXUMNjIQIzKyzDN+DllvSevlzwyZlAZe3J0p0Qt9++GGzQHBXpQs0wlo8uckDwcnz2AAA=') center/cover no-repeat; }
-  .dv-hero-canvas { position:absolute; inset:0; width:100%; height:100%; display:block; background:url('assets/hero-poster/hero-poster.webp') center/cover no-repeat; }
-  .dv-hero-fallback-media { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:none; }
-  .dv-hero-ctas { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:6px }
-  @media (max-width: 480px) {
-    .dv-hero-ctas { width:100%; flex-direction:column }
-    .dv-hero-ctas a { flex:1 1 100%; text-align:center }
-  }
-  .dv-toast { position:fixed; left:20px; bottom:calc(20px + env(safe-area-inset-bottom)); z-index:79; width:min(340px, calc(100vw - 40px)); }
-  @media (max-width: 600px) {
-    .dv-toast { left:16px; right:16px; bottom:calc(86px + env(safe-area-inset-bottom)); width:auto }
-  }
-  .dv-chat-wrap { position:fixed; right:20px; bottom:calc(20px + env(safe-area-inset-bottom)); z-index:80 }
-  .dv-navlogo { font-size:26px }
-  @media (max-width: 640px) {
-    .dv-navbar { height:auto; flex-wrap:wrap; row-gap:10px; padding-top:14px; padding-bottom:14px }
-    .dv-navlogo { font-size:clamp(16px,5vw,22px); letter-spacing:.12em; order:1; flex:1 1 auto; text-align:center }
-    .dv-navmenu { order:0 }
-    .dv-navmeta { order:2; gap:14px }
-    .dv-nav-optional { display:none }
-  }
 </style>
-</helmet>
+<link rel="stylesheet" href="assets/nav.css?v=13">
+<link rel="stylesheet" href="assets/house.css?v=4">
+</head>
+<body>
 
-<div style="background:#fff;color:#14141A;font-family:'Jost',system-ui,sans-serif;font-weight:300">
-
-<div style="height:7px;background:#0F1738"></div>
-
-<sc-if value="{{ annOpen }}" hint-placeholder-val="{{ true }}">
-  <div style="background:#F5F1E8;border-bottom:1px solid rgba(20,20,26,.1);display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 44px;position:relative;font-size:11.5px;letter-spacing:.05em;color:#14141A">
-    <span>New — Vue 14™ Hair Elixir</span>
-    <a href="#shop" style="border-bottom:1px solid #8A6C2E;color:#8A6C2E">Purchase the Elixir</a>
-    <button onClick="{{ closeAnn }}" aria-label="Dismiss" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:15px;color:rgba(20,20,26,.5);cursor:pointer;line-height:1;padding:4px" style-hover="color:#14141A">✕</button>
-  </div>
-</sc-if>
-
-<div id="siteNav" ref="{{ navRef }}" style="position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid rgba(20,20,26,.1)">
-  <div class="dv-navbar" style="display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,56px);height:82px;max-width:1400px;margin:0 auto">
-    <!-- NOTE: proposal references "the same format of the menu with the black square on world" — the exact reference screenshot isn't in this asset set. Kept the nav simple/text-led with a minimal square icon as the closest reasonable read; correct against Masiela's screenshot once available. -->
-    <div class="dv-navmenu" style="display:flex;align-items:center;line-height:1;gap:9px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(20,20,26,.6);cursor:default">
-      <span style="width:8px;height:8px;background:#14141A;display:inline-block"></span>
-      Menu
-    </div>
-    <a href="#top" class="dv-navlogo" style="display:block;line-height:1;font-family:'Bodoni Moda',serif;font-weight:500;letter-spacing:.22em;color:#14141A;text-transform:uppercase">Maison D'Vue</a>
-    <div class="dv-navmeta" style="display:flex;align-items:center;line-height:1;gap:22px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(20,20,26,.65)">
-      <span class="dv-nav-optional" style="cursor:default">Search</span>
-      <span class="dv-nav-optional" style="cursor:default">Account</span>
-      <a href="#reserve" style="color:#14141A;border-bottom:1px solid rgba(20,20,26,.4)">Allocation</a>
-    </div>
-  </div>
-  <div style="display:flex;align-items:center;justify-content:center;gap:clamp(18px,3vw,40px);padding:14px clamp(20px,4vw,56px);border-top:1px solid rgba(20,20,26,.08);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(20,20,26,.55);flex-wrap:wrap">
-    <a href="#composition" style="color:rgba(20,20,26,.55)" style-hover="color:#14141A">Haircare</a>
-    <a href="#house" style="color:rgba(20,20,26,.55)" style-hover="color:#14141A">The House</a>
-    <span title="Coming soon" style="color:rgba(20,20,26,.4);cursor:default">Fragrance<sup style="font-size:55%;letter-spacing:.12em;color:#8A6C2E;margin-left:2px;vertical-align:super">SOON</sup></span>
-    <span title="Coming soon" style="color:rgba(20,20,26,.4);cursor:default">Journal<sup style="font-size:55%;letter-spacing:.12em;color:#8A6C2E;margin-left:2px;vertical-align:super">SOON</sup></span>
-    <a href="#shop" style="color:rgba(20,20,26,.55)" style-hover="color:#14141A">Boutique</a>
-  </div>
+<!-- ═══ PROMO RIBBON ═══ -->
+<div class="promo-ribbon" id="promoRibbon">
+  <p class="promo-ribbon-text">
+    Complimentary shipping on every Allocation
+  </p>
+  <button class="promo-ribbon-close" type="button" aria-label="Dismiss" onclick="dismissPromoRibbon()">&times;</button>
 </div>
 
-<!-- Scroll-scrubbed hero, ported from the original site's MdvHeroEngine (../MAISON D'VUE/Maison D'Vue luxury website design/index.html) — same engine, re-skinned in V2's palette/copy and re-sourced from the real hero footage. See MdvHeroEngine + MDV_HERO_* constants in the script block below. Three fallback layers, exactly mirroring the original: canvas (desktop, full scroll-scrub) -> looping video (phones) -> static poster (prefers-reduced-motion). -->
-<section id="top" data-hero-region style="position:relative;height:100vh;background:#0A0A0C">
-  <div id="heroSticky" class="dv-hero-sticky">
-    <canvas id="heroCanvas" class="dv-hero-canvas" aria-hidden="true"></canvas>
-    <video id="heroMobileVideo" class="dv-hero-fallback-media" muted loop playsinline preload="none" aria-hidden="true"></video>
-    <img id="heroStaticPoster" class="dv-hero-fallback-media" src="assets/hero-poster/hero-poster.webp" alt="MAISON D'VUE Hair Elixir — face, eye, hands with the elixir, mirror reveal">
-
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,.8) 0%,rgba(10,10,12,.4) 38%,rgba(10,10,12,.86) 100%);pointer-events:none"></div>
-    <div style="position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 42%,rgba(15,23,56,.4) 0%,rgba(10,10,12,0) 62%);pointer-events:none"></div>
-
-    <!-- Simple/persistent-overlay option (see MDV_HERO_BEATS comment below): V2's existing hero copy stays as one always-visible block rather than being forced into the original's six sequential story beats — it wasn't written for staged reveals, and the source footage is an unmatched rough cut, not yet scene-mapped for precise staging. -->
-    <div style="position:relative;z-index:2;height:100%;display:flex;align-items:center;justify-content:center;padding:96px clamp(20px,5vw,64px) 132px">
-      <div style="max-width:1080px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:32px;color:#EFE9DF">
-        <div data-reveal style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#C2A15B">Beverly Hills · Est. MMXXVI</div>
-        <h1 data-reveal style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(42px,8.6vw,124px);line-height:.96;letter-spacing:.1em;text-transform:uppercase">Maison D'Vue</h1>
-        <div data-reveal style="display:flex;align-items:center;gap:20px;width:min(560px,86vw)">
-          <div style="height:1px;flex:1;background:linear-gradient(90deg,rgba(194,161,91,0),rgba(194,161,91,.7))"></div>
-          <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(239,233,223,.82);white-space:nowrap">The House of Affinity Compositions™</div>
-          <div style="height:1px;flex:1;background:linear-gradient(90deg,rgba(194,161,91,.7),rgba(194,161,91,0))"></div>
-        </div>
-        <p data-reveal style="margin:0;max-width:620px;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.8vw,32px);line-height:1.4;font-weight:300;font-style:italic;color:rgba(239,233,223,.92);text-wrap:pretty">Where <span style="color:#C2A15B;font-style:normal;font-weight:400">rare</span> ingredients<br>become a <span style="color:#C2A15B;font-style:normal;font-weight:400">composition</span>.</p>
-        <div data-reveal class="dv-hero-ctas">
-          <a href="#shop" style="padding:17px 38px;background:#C2A15B;color:#0A0A0C;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase" style-hover="background:#EFE9DF">Purchase the Elixir</a>
-          <a href="#composition" style="padding:17px 38px;border:1px solid rgba(239,233,223,.34);color:#EFE9DF;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase" style-hover="border-color:#C2A15B;color:#C2A15B">Discover Vue 14™</a>
-        </div>
-      </div>
+<!-- ═══ UNIFIED NAV (overlaid on full-bleed hero) ═══ -->
+<nav class="mdv-nav mdv-nav-split mdv-nav--overlay" id="mdvNav">
+  <div class="nav-group nav-group-left">
+    <a href="product.html">The Elixir</a>
+    <a href="product.html#ritual">The Ritual</a>
+  </div>
+  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+  <div class="nav-right-cluster">
+    <div class="nav-group nav-group-right">
+      <a href="about.html">The House</a>
+      <a href="gallery.html">World</a>
     </div>
+    <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
+  </div>
+</nav>
+<script>
+  (function () {
+    var nav = document.getElementById('mdvNav');
+    var lightSection = null;
+    /* Transparent (white) over every cinematic slide — the Saint Laurent way —
+       and only solid once the first light section rises to meet the nav.
+       (It is parsed after this script, so look it up lazily.) */
+    function onScroll() {
+      if (!lightSection) lightSection = document.getElementById('testimonials');
+      var solid = lightSection && lightSection.getBoundingClientRect().top <= 72;
+      nav.classList.toggle('scrolled', !!solid);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('DOMContentLoaded', onScroll);
+    onScroll();
+  })();
+</script>
 
-    <div class="dv-cue" style="position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px;z-index:2">
-      <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(239,233,223,.42)">Scroll</div>
-      <div style="width:1px;height:52px;background:linear-gradient(180deg,rgba(194,161,91,.85),rgba(194,161,91,0));animation:dvDrift 3.4s ease-in-out infinite"></div>
+<!-- ═══ STICKY HEADER (retained in DOM, hidden) ═══ -->
+<header class="site-header">
+
+  <div class="header-logo-row">
+
+    <a href="/" class="header-logo">MAISON D&rsquo;VUE</a>
+
+    <div class="header-utility">
+      <button class="header-utility-btn" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+        </svg>
+      </button>
+      <a href="mailto:hello@maisondvue.com" class="header-utility-btn" aria-label="Contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+        </svg>
+      </a>
+      <a href="https://shop.maisondvue.com/cart" class="header-utility-btn" aria-label="Bag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M6 7h12l-1 14H7L6 7z"/>
+          <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+        </svg>
+      </a>
     </div>
   </div>
-</section>
 
-<section id="shop" style="padding:clamp(80px,10vh,120px) clamp(20px,5vw,64px);background:#F5F1E8">
-  <div style="max-width:1320px;margin:0 auto">
-    <div data-reveal style="text-align:center;max-width:640px;margin:0 auto 56px;display:flex;flex-direction:column;gap:16px">
-      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">Vue 14™ Hair Elixir</div>
-      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.15">Composed in small allocations</h2>
-      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.62)">Anhydrous. Free of silicones, sulfates, parabens and mineral oils. Released monthly, not continuously stocked.</p>
+</header>
+
+<!-- ═══ MAIN — full-bleed hero then reservation ═══ -->
+<main id="top">
+
+
+  <!-- ═══ SCROLL-SCRUB HERO REGION (PORTED FROM V2) ═══ -->
+  <section id="slide-elixir" data-hero-region style="position:relative;height:100vh;background:#0A0A0C;scroll-snap-align:start;scroll-snap-stop:always;">
+    <div id="heroSticky" class="dv-hero-sticky">
+      <canvas id="heroCanvas" class="dv-hero-canvas" aria-hidden="true"></canvas>
+      <video id="heroMobileVideo" class="dv-hero-fallback-media" muted loop playsinline preload="none" aria-hidden="true"></video>
+      <img id="heroStaticPoster" class="dv-hero-fallback-media" src="assets/hero-poster/hero-poster.webp" alt="MAISON D'VUE Hair Elixir — face, eye, hands with the elixir, mirror reveal">
+
+      <div class="slide-scrim" aria-hidden="true"></div>
+      <a class="slide-label" href="reserve.html">
+        <span class="slide-title">The Elixir</span>
+        <span class="slide-cue">Explore</span>
+      </a>
+
+      <div class="dv-cue">
+        <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(239,233,223,.42);font-family:var(--font-display)">Scroll</div>
+        <div style="width:1px;height:52px;background:linear-gradient(180deg,rgba(194,161,91,.85),rgba(194,161,91,0));animation:dvDrift 3.4s ease-in-out infinite"></div>
+      </div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,4vw,56px);max-width:900px;margin:0 auto">
-      <div data-reveal style="background:#fff;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:16px;height:100%">
-        <div style="position:relative;aspect-ratio:4/5;background:#F5F1E8">
-          <div style="position:absolute;inset:18px">
-            <image-slot id="mdv-shop-signature" shape="rect" fit="cover" placeholder="Vue 14™ Signature 30ml bottle, studio" src="photos/shop-signature.jpg"></image-slot>
+  </section>
+
+  <!-- ═══ PURCHASE SECTION ═══ -->
+  <section class="purchase-section" id="buy">
+    <div class="purchase-inner">
+
+      <p class="purchase-label">The Allocations &middot; Vue 14&trade;</p>
+      <h2 class="purchase-title">The Hair Elixir</h2>
+      <p class="purchase-scent">Scented in &Acirc;me de Vue&trade; &middot; Small Batch Release</p>
+
+      <div class="purchase-options">
+
+        <div class="purchase-card featured">
+          <span class="card-badge">Flagship Edition</span>
+          <div class="card-image card-carousel" data-carousel aria-roledescription="carousel" aria-label="The Signature Hair Elixir photographs">
+            <div class="carousel-track">
+              <img src="maison-dvue-elixir-studio.jpg" alt="The Signature &mdash; 30ml MAISON D'VUE Hair Elixir in cobalt frosted glass with matte gold cap on a dark studio background" draggable="false">
+              <img src="maison-dvue-elixir-dropper-drop.jpg" alt="A single golden drop of MAISON D'VUE Hair Elixir suspended from the dropper above the bottle's gold cap" loading="lazy" draggable="false">
+              <img src="signature-open-poster.jpg" alt="Opening the box on the MAISON D'VUE Hair Elixir" loading="lazy" draggable="false">
+              <img src="signature-apply-poster.jpg" alt="Applying the MAISON D'VUE Hair Elixir" loading="lazy" draggable="false">
+              <img src="maison-dvue-elixir-bedside.jpg" alt="The MAISON D'VUE Hair Elixir on a bedside table beside a lit lamp, a hand reaching for it" loading="lazy" draggable="false">
+            </div>
+            <button type="button" class="carousel-arrow prev" aria-label="Previous photo">&#8249;</button>
+            <button type="button" class="carousel-arrow next" aria-label="Next photo">&#8250;</button>
+            <div class="carousel-dots" aria-hidden="true"></div>
+          </div>
+          <div class="card-body">
+            <p class="card-tag">The Signature</p>
+            <p class="card-name">Flagship Coffret</p>
+            <p class="card-size">30 ml &middot; 1.0 fl oz</p>
+            <p class="card-price">$125</p>
+            <form class="card-cta-form" method="post" action="https://shop.maisondvue.com/cart/add">
+              <input type="hidden" name="id" value="48287241339128">
+              <input type="hidden" name="quantity" value="1">
+              <input type="hidden" name="return_to" value="/checkout">
+              <button type="submit" class="card-cta">Reserve</button>
+            </form>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:16px;flex:1">
-          <div style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.45)">Anhydrous · Monthly Allocation</div>
-          <div style="font-family:'Bodoni Moda',serif;font-size:22px">The Signature</div>
-          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.5)">30ml · 1 fl oz</div>
-          <sc-if value="{{ showPricing }}" hint-placeholder-val="{{ true }}">
-            <div style="font-family:'Bodoni Moda',serif;font-size:19px;color:#8A6C2E">$125</div>
-          </sc-if>
-        </div>
-        <a href="#reserve" style="margin-top:auto;text-align:center;padding:14px;border:1px solid #14141A;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#14141A" style-hover="background:#14141A;color:#fff">Purchase the Elixir</a>
-      </div>
-      <div data-reveal style="background:#fff;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:16px;height:100%">
-        <div style="position:relative;aspect-ratio:4/5;background:#F5F1E8">
-          <div style="position:absolute;inset:18px">
-            <!-- Swapped off the previous "Hold - Liquid Color Pending Client Reshoot/10.jpg" per Masiela's Aug 20 note ("disregard 9, 10, and 11 for now, the videographer will darken the liquid a bit more") — that file is still on disk at photos/shop-voyage.jpg but no longer referenced. This is a real approved photo (closed gift box, "Approved - Ready to Use/3.jpg") standing in until a genuine Voyage-only bottle shot is delivered. -->
-            <image-slot id="mdv-shop-voyage" shape="rect" fit="cover" placeholder="Vue 14™ Voyage packaging detail, studio — full product photo pending client reshoot" src="photos/shop-voyage-coming-soon.jpg"></image-slot>
+
+        <div class="purchase-card">
+          <span class="card-badge card-badge--light">Travel Edition</span>
+          <div class="card-image">
+            <img src="maison-dvue-elixir-voyage.jpg" alt="A hand holding the Voyage &mdash; 10ml MAISON D'VUE Hair Elixir travel size in cobalt frosted glass with matte gold cap, labeled Hair Elixir Voyage">
           </div>
-          <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Full reveal coming soon</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:16px;flex:1">
-          <div style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.45)">Anhydrous · Travel Allocation</div>
-          <div style="font-family:'Bodoni Moda',serif;font-size:22px">The Voyage</div>
-          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.5)">10ml · 0.33 fl oz</div>
-          <sc-if value="{{ showPricing }}" hint-placeholder-val="{{ true }}">
-            <div style="font-family:'Bodoni Moda',serif;font-size:19px;color:#8A6C2E">$68</div>
-          </sc-if>
-        </div>
-        <!-- TODO: confirm with client whether "Purchase the Elixir" is still correct on a card marked "coming soon", or whether this should be a waitlist/notify action instead -->
-        <a href="#reserve" style="margin-top:auto;text-align:center;padding:14px;border:1px solid #14141A;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#14141A" style-hover="background:#14141A;color:#fff">Purchase the Elixir</a>
-      </div>
-    </div>
-    <div data-reveal style="text-align:center;margin-top:28px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.42)">Complimentary shipping within the United States</div>
-  </div>
-</section>
-
-<section id="composition" style="padding:clamp(90px,11vh,140px) clamp(20px,5vw,64px);background:#fff">
-  <div style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:clamp(40px,5vw,64px)">
-    <div data-reveal style="display:flex;flex-direction:column;gap:22px">
-      <div style="position:relative;aspect-ratio:5/4;background:#F5F1E8">
-        <!-- TODO: no real "14 essences on dark linen" flatlay has been delivered yet. Using a blue-lit product macro as the nearest real stand-in per the asset map — replace with an actual ingredients flatlay once the client/videographer supplies one. -->
-        <image-slot id="mdv-editorial-1" shape="rect" fit="cover" placeholder="The 14 essences laid out on dark linen, overhead" src="photos/editorial-essences.jpeg"></image-slot>
-      </div>
-      <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#8A6C2E">The Composition</div>
-      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,3vw,38px);line-height:1.15">Selection over addition.</h2>
-      <p style="margin:0;font-size:14.5px;line-height:1.8;color:rgba(20,20,26,.66);max-width:440px">Fourteen rare botanical essences, held in an anhydrous composition — no water, no filler, nothing to dilute the intent.</p>
-      <a href="#shop" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #8A6C2E;width:fit-content">Discover the Elixir</a>
-    </div>
-    <div data-reveal style="display:flex;flex-direction:column;gap:22px">
-      <div style="position:relative;aspect-ratio:5/4;background:#F5F1E8">
-        <!-- TODO: no real "Masiela at her writing desk" photo has been delivered yet. Using a solo studio portrait as the nearest real stand-in per the asset map — replace once a proper desk/candid shot arrives. -->
-        <image-slot id="mdv-editorial-2" shape="rect" fit="cover" placeholder="Masiela Lusha at her writing desk, candid" src="photos/editorial-founder-desk.jpeg"></image-slot>
-      </div>
-      <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#8A6C2E">The House</div>
-      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,3vw,38px);line-height:1.15">Written before it was formulated.</h2>
-      <p style="margin:0;font-size:14.5px;line-height:1.8;color:rgba(20,20,26,.66);max-width:440px">Founder Masiela Lusha brings the same discipline of selection — six books of poetry, one composition of botany — to MAISON D'VUE.</p>
-      <a href="#house" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #8A6C2E;width:fit-content">Meet the Founder</a>
-    </div>
-  </div>
-</section>
-
-<section style="position:relative;height:82vh;min-height:520px;overflow:hidden;background:#0A0A0C">
-  <div style="position:absolute;inset:0">
-    <image-slot id="mdv-banner-product" class="dv-kenburns" shape="rect" fit="cover" placeholder="MAISON D'VUE Hair Elixir, water reflection, studio" src="photos/banner-product.jpg" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
-  </div>
-  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,12,.72) 0%,rgba(10,10,12,.15) 55%,rgba(10,10,12,0) 100%)"></div>
-  <div data-reveal style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;max-width:560px;padding:0 clamp(24px,5vw,72px) clamp(48px,7vh,80px);color:#EFE9DF">
-    <h3 style="margin:0 0 14px;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,3.4vw,42px);line-height:1.15">Âme de Vue™</h3>
-    <p style="margin:0 0 18px;font-size:14.5px;line-height:1.8;color:rgba(239,233,223,.82);max-width:440px">Sandalwood at the base, rose lifted above it. The scent thread that will carry through every chapter of the maison.</p>
-    <a href="#shop" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#EFE9DF;border-bottom:1px solid rgba(239,233,223,.5)" style-hover="border-color:#C2A15B;color:#C2A15B">Discover more</a>
-  </div>
-</section>
-
-<section style="padding:clamp(80px,10vh,120px) clamp(20px,5vw,64px);background:#F5F1E8">
-  <div style="max-width:1180px;margin:0 auto">
-    <div data-reveal style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;margin-bottom:clamp(44px,6vh,72px)">
-      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">The Ritual</div>
-      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,4vw,46px);line-height:1.15">Five drops. Three motions.</h2>
-      <p style="margin:0;max-width:500px;font-size:14px;line-height:1.8;color:rgba(20,20,26,.6)">Worn on damp lengths after washing, or dry through the day. The composition asks nothing of your schedule.</p>
-    </div>
-    <div style="position:relative">
-      <div class="dv-ritual-scroll" style="display:flex;gap:clamp(20px,3vw,32px);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 4px clamp(20px,3vw,28px);margin:0 -4px;scrollbar-width:none">
-        <div data-reveal style="flex:0 0 auto;width:min(400px,80vw);scroll-snap-align:center;background:#fff">
-          <div style="position:relative;aspect-ratio:4/5">
-            <image-slot id="mdv-ritual-01" class="dv-kenburns" shape="rect" fit="cover" placeholder="Dropper releasing a bead above the bottle neck" src="photos/ritual-five-drops.jpg"></image-slot>
-            <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Real still — motion cut coming</div>
-          </div>
-          <div style="padding:24px">
-            <div style="font-family:'Bodoni Moda',serif;font-size:32px;color:#8A6C2E;line-height:1">I</div>
-            <div style="font-family:'Bodoni Moda',serif;font-size:21px;margin:12px 0 8px">Five drops</div>
-            <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.62)">Into the palm. The dropper meters the composition so you never over-give.</p>
+          <div class="card-body">
+            <p class="card-tag">The Voyage</p>
+            <p class="card-name">Travel Edition</p>
+            <p class="card-size">10 ml &middot; 0.33 fl oz</p>
+            <p class="card-price">$68</p>
+            <form class="card-cta-form" method="post" action="https://shop.maisondvue.com/cart/add">
+              <input type="hidden" name="id" value="49653578531064">
+              <input type="hidden" name="quantity" value="1">
+              <input type="hidden" name="return_to" value="/checkout">
+              <button type="submit" class="card-cta">Reserve</button>
+            </form>
           </div>
         </div>
-        <div data-reveal style="flex:0 0 auto;width:min(400px,80vw);scroll-snap-align:center;background:#fff">
-          <div style="position:relative;aspect-ratio:4/5">
-            <image-slot id="mdv-ritual-02" class="dv-kenburns" shape="rect" fit="cover" placeholder="Hands in motion, warming the composition" src="photos/ritual-warm-palms.jpg"></image-slot>
-            <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Editorial still — motion cut coming</div>
-          </div>
-          <div style="padding:24px">
-            <div style="font-family:'Bodoni Moda',serif;font-size:32px;color:#8A6C2E;line-height:1">II</div>
-            <div style="font-family:'Bodoni Moda',serif;font-size:21px;margin:12px 0 8px">Warm between palms</div>
-            <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.62)">Body heat opens the essences. Sandalwood arrives first, rose lifts behind it.</p>
-          </div>
-        </div>
-        <div data-reveal style="flex:0 0 auto;width:min(400px,80vw);scroll-snap-align:center;background:#fff">
-          <div style="position:relative;aspect-ratio:4/5">
-            <image-slot id="mdv-ritual-03" class="dv-kenburns" shape="rect" fit="cover" placeholder="Hair in motion, drawing through the lengths" src="photos/ritual-draw-through.jpg"></image-slot>
-            <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Editorial still — motion cut coming</div>
-          </div>
-          <div style="padding:24px">
-            <div style="font-family:'Bodoni Moda',serif;font-size:32px;color:#8A6C2E;line-height:1">III</div>
-            <div style="font-family:'Bodoni Moda',serif;font-size:21px;margin:12px 0 8px">Draw through</div>
-            <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.62)">Mid-length to ends, then whatever remains over the surface. Nothing to rinse.</p>
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.4);margin-top:8px">Scroll to see all three</div>
-    </div>
-  </div>
-</section>
 
-<section id="house" style="padding:clamp(80px,10vh,120px) clamp(20px,5vw,64px);background:#fff">
-  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:clamp(44px,6vw,80px);align-items:center">
-    <div data-reveal style="position:relative;aspect-ratio:4/5;background:#F5F1E8;overflow:hidden">
-      <image-slot id="mdv-founder-main" shape="rect" fit="cover" placeholder="Masiela Lusha, Founder &amp; Creative Director" src="photos/founder-portrait-light.jpg"></image-slot>
-    </div>
-    <div data-reveal style="display:flex;flex-direction:column;gap:22px">
-      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">The House &amp; Founder</div>
-      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(32px,4vw,52px);line-height:1.1;color:#14141A">Written before it was formulated.</h2>
-      <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(20,20,26,.5)">Masiela Lusha — Founder &amp; Creative Director</div>
-      <blockquote style="margin:8px 0 0;padding-left:22px;border-left:1px solid #8A6C2E;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,2.4vw,28px);line-height:1.55;color:rgba(20,20,26,.88);text-wrap:pretty">A poem is what remains after everything unnecessary is removed. So is a composition.</blockquote>
-      <p style="margin:6px 0 0;font-size:14.5px;line-height:1.8;color:rgba(20,20,26,.65);max-width:520px">Author of seven published works and first UN-affiliated Goodwill Ambassador, founder Masiela Lusha brings the same discipline of selection — six books of poetry, one composition of botany — to MAISON D'VUE.</p>
-    </div>
-  </div>
-</section>
+      </div>
 
-<section style="padding:clamp(80px,10vh,120px) clamp(20px,5vw,64px);background:#F5F1E8">
-  <div style="max-width:1180px;margin:0 auto">
-    <div data-reveal style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;margin-bottom:clamp(44px,6vh,72px)">
-      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">The Face of the House</div>
-      <p style="margin:0;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(20,20,26,.5)">Founder &amp; Creative Director</p>
+      <p class="purchase-provenance">Hand-sealed &middot; Beverly Hills</p>
+
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(20px,3vw,32px)">
-      <div data-reveal style="position:relative;aspect-ratio:4/5">
-        <image-slot id="mdv-founder-campaign-01" shape="rect" fit="cover" placeholder="Masiela Lusha, studio portrait, tweed jacket, holding the Elixir" src="photos/founder-campaign-01.jpg"></image-slot>
-      </div>
-      <div data-reveal style="position:relative;aspect-ratio:4/5">
-        <image-slot id="mdv-founder-campaign-02" shape="rect" fit="cover" placeholder="Masiela Lusha, studio close-up, holding the Elixir" src="photos/founder-campaign-02.jpg"></image-slot>
-      </div>
-      <div data-reveal style="position:relative;aspect-ratio:4/5">
-        <image-slot id="mdv-founder-campaign-03" shape="rect" fit="cover" placeholder="Masiela Lusha, candid studio moment, holding the Elixir" src="photos/founder-campaign-03.jpg"></image-slot>
+  </section>
+
+  <!-- ═══ THE WALL — testimonial film + real reviews ═══ -->
+  <section class="wall mdv-reveal" id="testimonials">
+    <div class="wall-head">
+      <p class="wall-eyebrow">In Their Words</p>
+      <h2 class="wall-title">From the maison&rsquo;s clients.</h2>
+      <div class="wall-summary">
+        <span>In her clients&rsquo; own words</span>
       </div>
     </div>
-  </div>
-</section>
 
-<section id="reviews" style="padding:clamp(90px,11vh,140px) clamp(20px,5vw,64px);background:#fff">
-  <div style="max-width:1180px;margin:0 auto">
-    <div data-reveal style="text-align:center;max-width:640px;margin:0 auto clamp(44px,6vh,72px);display:flex;flex-direction:column;gap:16px">
-      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#8A6C2E">In Her Words</div>
-      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.15">The Reviews Wall</h2>
-      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(20,20,26,.6)">Real testimonials only. Click a card to read the full review, sound on.</p>
-    </div>
-    <!-- TODO: real testimonials from the client — no content has been delivered yet. Do not fabricate quotes or attribute them to real customers; these two cards are structural placeholders only. -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(24px,3vw,40px)">
-      <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="2">
-        <div data-reveal onClick="{{ r.toggle }}" style="border:1px solid rgba(20,20,26,.12);padding:clamp(26px,3vw,36px);display:flex;flex-direction:column;gap:16px;cursor:pointer;background:#F5F1E8">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-            <div style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,20,26,.4)">{{ r.name }}</div>
-            <span aria-label="Sound on" title="Sound on" style="flex:none;width:26px;height:26px;border-radius:50%;border:1px solid rgba(20,20,26,.25);display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(20,20,26,.5)">♪)</span>
-          </div>
-          <p style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;line-height:1.6;color:rgba(20,20,26,.85)">{{ r.quote }}</p>
-          <sc-if value="{{ r.expanded }}" hint-placeholder-val="{{ false }}">
-            <p style="margin:0;font-size:13.5px;line-height:1.8;color:rgba(20,20,26,.55)">Full testimonial — text, or video with sound — replaces this once the client delivers her approved review.</p>
-          </sc-if>
-          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8A6C2E">{{ r.toggleLabel }}</div>
-        </div>
-      </sc-for>
-    </div>
-  </div>
-</section>
+    <div class="wall-grid">
 
-<section id="films" style="padding:clamp(90px,11vh,140px) clamp(20px,5vw,64px);background:#0A0A0C">
-  <div style="max-width:1320px;margin:0 auto">
-    <div data-reveal style="text-align:center;max-width:640px;margin:0 auto clamp(44px,6vh,72px);display:flex;flex-direction:column;gap:16px;color:#EFE9DF">
-      <div style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#C2A15B">The House Films</div>
-      <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.15">Two films, one composition</h2>
-    </div>
-    <!-- Everyday/paparazzi content Masiela asked for — deliberately NOT part of the hero (that's a separate, single continuous macro/intimate sequence). These are approved stills with a slow Ken Burns pan standing in for real motion until video clips are generated for them (prompts for that already exist in "Founder Fragments Hero - Video Generation Prompts.md" — Video 4 and Video 5). -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(24px,3vw,40px)">
-      <div data-reveal style="position:relative;aspect-ratio:16/10;background:#000;overflow:hidden">
-        <image-slot id="mdv-film-street" class="dv-kenburns" shape="rect" fit="cover" placeholder="Everyday / paparazzi — night street walk" src="photos/film-street.jpg"></image-slot>
-        <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Candid still — motion cut coming</div>
+      <div class="wall-tile wall-tile--full-review">
+        <video class="wall-video" id="testimonial-6-video" src="testimonial-6.mp4?v=1" poster="testimonial-6-poster.jpg?v=1"
+          autoplay muted loop playsinline webkit-playsinline="true" preload="metadata"
+          disablepictureinpicture aria-hidden="true" onerror="this.style.display='none';"></video>
+        <button type="button" class="wall-sound-btn" data-video-target="testimonial-6-video" aria-label="Play full review with sound">
+          <span class="wall-sound-icon">&#9658;</span> Watch full review
+        </button>
       </div>
-      <div data-reveal style="position:relative;aspect-ratio:16/10;background:#000;overflow:hidden">
-        <!-- TODO: this is the best available take of the backstage/car candid shot, but internal review flagged it as still reading slightly more "editorial" than a genuine paparazzi catch — see the "-v3" retry prompt in the Image Generation Prompts doc before treating this as the final pick. -->
-        <image-slot id="mdv-film-backstage" class="dv-kenburns" shape="rect" fit="cover" placeholder="Everyday / paparazzi — backstage / car candid" src="photos/film-backstage.jpg"></image-slot>
-        <div style="position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#EFE9DF;background:rgba(10,10,12,.65);padding:6px 10px;pointer-events:none">Candid still — pending final pick</div>
+
+      <div class="wall-tile wall-tile--full-review">
+        <video class="wall-video" id="testimonial-7-video" src="testimonial-7.mp4?v=1" poster="testimonial-7-poster.jpg?v=1"
+          autoplay muted loop playsinline webkit-playsinline="true" preload="metadata"
+          disablepictureinpicture aria-hidden="true" onerror="this.style.display='none';"></video>
+        <button type="button" class="wall-sound-btn" data-video-target="testimonial-7-video" aria-label="Play full review with sound">
+          <span class="wall-sound-icon">&#9658;</span> Watch full review
+        </button>
       </div>
+
+      <div class="wall-tile wall-cta">
+        <p class="wall-cta-label">Lived with the elixir?</p>
+        <a class="wall-cta-btn" href="product.html#reviews">Share Your Story</a>
+      </div>
+
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="reserve" style="position:relative;padding:clamp(96px,13vh,168px) clamp(20px,5vw,64px);background:#0F1738;overflow:hidden">
-  <div style="position:absolute;inset:0;opacity:.16;mix-blend-mode:soft-light;pointer-events:none">
-    <image-slot shape="rect" fit="cover" placeholder="Wax seal macro, subtle background texture" src="photos/wax-seal-detail.jpg" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
-  </div>
-  <div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 0%,rgba(194,161,91,.14),rgba(15,23,56,0) 70%);pointer-events:none"></div>
-  <div style="position:relative;max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px;color:#EFE9DF">
-    <div data-reveal style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#C2A15B">{{ allocationLabel }}</div>
-    <h2 data-reveal style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(32px,5vw,60px);line-height:1.1">Composed in small allocations</h2>
-    <p data-reveal style="margin:0;max-width:520px;font-size:14.5px;line-height:1.85;color:rgba(239,233,223,.72)">The maison releases in monthly batches rather than continuous inventory. Purchase within the open allocation, or leave your name and we will write to you the moment the next one opens.</p>
+  <!-- ═══ DESTINATION SLIDES ═══ -->
+  <div class="slides">
 
-    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-      <form onSubmit="{{ onSubmit }}" data-reveal style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;width:min(560px,100%);margin-top:14px">
-        <input type="email" required placeholder="Your email address" value="{{ email }}" onChange="{{ onEmail }}" style="flex:1 1 260px;background:transparent;border:1px solid rgba(239,233,223,.28);color:#EFE9DF;padding:17px 20px;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.06em;outline:none" style-focus="border-color:#C2A15B">
-        <button type="submit" style="padding:17px 34px;background:#C2A15B;color:#0A0A0C;border:none;font-family:'Jost',sans-serif;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;cursor:pointer" style-hover="background:#EFE9DF">Join the List</button>
-      </form>
-    </sc-if>
-    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
-      <div data-reveal style="margin-top:18px;border:1px solid rgba(194,161,91,.45);padding:28px 34px;max-width:520px">
-        <div style="font-family:'Bodoni Moda',serif;font-size:23px;margin-bottom:10px">Your place is held.</div>
-        <p style="margin:0;font-size:13.5px;line-height:1.8;color:rgba(239,233,223,.7)">We will write to <span style="color:#C2A15B">{{ email }}</span> before the allocation opens. Nothing else — the maison writes rarely.</p>
-      </div>
-    </sc-if>
-  </div>
-</section>
+    <section class="slide" id="slide-matrix">
+      <img class="slide-media" src="slide-affinity-matrix.jpg?v=1" alt="" aria-hidden="true">
+      <div class="slide-scrim" aria-hidden="true"></div>
+      <a class="slide-label" href="product.html#formulation">
+        <span class="slide-title">Vue Affinity Matrix<sup class="slide-tm">&trade;</sup></span>
+        <span class="slide-cue">Patent Pending<br>Tap to Read</span>
+      </a>
+    </section>
 
+    <section class="slide" id="slide-ritual">
+      <img class="slide-media" src="slide-ritual.jpg?v=1" alt="" aria-hidden="true">
+      <div class="slide-scrim" aria-hidden="true"></div>
+      <a class="slide-label" href="product.html#ritual">
+        <span class="slide-title">The Ritual</span>
+        <span class="slide-cue">Discover</span>
+      </a>
+    </section>
+
+    <section class="slide" id="slide-house">
+      <img class="slide-media" src="slide-house.jpg?v=1" alt="" aria-hidden="true">
+      <div class="slide-scrim" aria-hidden="true"></div>
+      <a class="slide-label" href="about.html">
+        <span class="slide-title">The House</span>
+        <span class="slide-cue">Enter</span>
+      </a>
+    </section>
+
+    <section class="slide" id="slide-world">
+      <video class="slide-media" src="world-banner.mp4?v=1" poster="world-banner-poster.jpg?v=1"
+        autoplay muted loop playsinline webkit-playsinline="true" preload="metadata"
+        disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
+        aria-hidden="true" onerror="this.style.display='none';"></video>
+      <div class="slide-scrim" aria-hidden="true"></div>
+      <a class="slide-label" href="gallery.html">
+        <span class="slide-title">World</span>
+        <span class="slide-cue">Discover</span>
+      </a>
+    </section>
+
+  </div>
+
+</main>
+
+<!-- ═══ LUXURY EDITORIAL FOOTER ═══ -->
 <footer style="background:#fff;padding:clamp(64px,8vh,96px) clamp(20px,5vw,64px) 44px;border-top:1px solid rgba(20,20,26,.1)">
   <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:44px;align-items:start">
     <div style="display:flex;flex-direction:column;gap:16px">
-      <div style="font-family:'Bodoni Moda',serif;font-weight:500;font-size:17px;letter-spacing:.2em;text-transform:uppercase">Maison D'Vue</div>
-      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(20,20,26,.45);line-height:2">The House of Affinity Compositions™</div>
+      <div style="font-family:'Bodoni Moda',serif;font-weight:500;font-size:17px;letter-spacing:.2em;text-transform:uppercase;color:#14141A">Maison D'Vue</div>
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(20,20,26,.45);line-height:2">The House of Affinity Compositions&trade;</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:12px;font-size:13px;color:rgba(20,20,26,.62);line-height:1.9">
       <div style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,20,26,.4)">The Maison</div>
-      <a href="mailto:hello@maisondvue.com" style="color:#8A6C2E">hello@maisondvue.com</a>
-      <a href="tel:+13109851449" style="color:rgba(20,20,26,.62)" style-hover="color:#8A6C2E">+1 (310) 985-1449</a>
+      <a href="mailto:hello@maisondvue.com" style="color:#8A6C2E;text-decoration:none">hello@maisondvue.com</a>
+      <a href="tel:+13109851449" style="color:rgba(20,20,26,.62);text-decoration:none">+1 (310) 985-1449</a>
       <div>132 S Lasky Dr, Floor 2<br>Beverly Hills, CA 90212</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:12px;font-size:13px;color:rgba(20,20,26,.62);line-height:1.9">
       <div style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,20,26,.4)">Follow</div>
-      <a href="https://instagram.com/maisondvue" style="color:rgba(20,20,26,.62)" style-hover="color:#8A6C2E">Instagram — @maisondvue</a>
-      <a href="https://instagram.com/masielalusha" style="color:rgba(20,20,26,.62)" style-hover="color:#8A6C2E">@masielalusha</a>
-      <a href="https://shop.maisondvue.com" style="color:rgba(20,20,26,.62)" style-hover="color:#8A6C2E">The Boutique</a>
+      <a href="https://instagram.com/maisondvue" target="_blank" rel="noopener" style="color:rgba(20,20,26,.62);text-decoration:none">Instagram &mdash; @maisondvue</a>
+      <a href="https://instagram.com/masielalusha" target="_blank" rel="noopener" style="color:rgba(20,20,26,.62);text-decoration:none">@masielalusha</a>
+      <a href="https://shop.maisondvue.com" style="color:rgba(20,20,26,.62);text-decoration:none">The Boutique</a>
     </div>
     <div style="display:flex;flex-direction:column;gap:12px;font-size:13px;color:rgba(20,20,26,.62);line-height:1.9">
       <div style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,20,26,.4)">Care</div>
       <div>Complimentary US shipping, 5–10 business days</div>
-      <div>Express, $25 flat — 1–2 business days</div>
+      <div>Express, $25 flat &mdash; 1–2 business days</div>
       <div>All sales final except damage or defect</div>
     </div>
   </div>
   <div style="max-width:1180px;margin:52px auto 0;padding-top:24px;border-top:1px solid rgba(20,20,26,.08);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(20,20,26,.4)">
-    <div>© MMXXVI Maison D'Vue — Beverly Hills</div>
-    <div>Âme de Vue™ · VUE Affinity Matrix™ · Affinity Compositions™</div>
+    <div>&copy; MMXXVI Maison D'Vue &mdash; Beverly Hills</div>
+    <div>&Acirc;me de Vue&trade; &middot; VUE Affinity Matrix&trade; &middot; Affinity Compositions&trade;</div>
   </div>
 </footer>
 
-<!-- Fast newsletter prompt: appears a few seconds after load, dismissible, shares the same email/sent state as the #reserve form so a conversion here also resolves that section. Mailchimp is NOT wired — this is a working front-end capture only, per the client's "not yet" on credentials. -->
-<sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
-  <div data-reveal class="dv-toast" style="background:#0F1738;color:#EFE9DF;border:1px solid rgba(194,161,91,.3);padding:22px;box-shadow:0 12px 32px rgba(0,0,0,.35)">
-    <button onClick="{{ closeToast }}" aria-label="Dismiss" style="position:absolute;top:10px;right:10px;background:none;border:none;color:rgba(239,233,223,.5);font-size:14px;cursor:pointer;line-height:1;padding:4px">✕</button>
-    <div style="font-family:'Bodoni Moda',serif;font-size:17px;margin-bottom:8px;padding-right:20px">Join the composition.</div>
-    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-      <p style="margin:0 0 14px;font-size:12.5px;line-height:1.7;color:rgba(239,233,223,.7)">Be first to know when the next allocation opens.</p>
-      <form onSubmit="{{ onSubmit }}" style="display:flex;gap:8px">
-        <input type="email" required placeholder="Email address" value="{{ email }}" onChange="{{ onEmail }}" style="flex:1;min-width:0;background:transparent;border:1px solid rgba(239,233,223,.28);color:#EFE9DF;padding:10px 12px;font-family:'Jost',sans-serif;font-size:12px;outline:none" style-focus="border-color:#C2A15B">
-        <button type="submit" style="flex:none;padding:10px 16px;background:#C2A15B;color:#0A0A0C;border:none;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer">Join</button>
-      </form>
-    </sc-if>
-    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
-      <p style="margin:0;font-size:12.5px;line-height:1.7;color:rgba(239,233,223,.75)">You're on the list. The maison writes rarely.</p>
-    </sc-if>
-  </div>
-</sc-if>
+<script>
+  document.querySelectorAll('.reveal').forEach(function(el, i){
+    setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
+  });
 
-<!-- AI concierge affordance: visual placeholder per the signed proposal (restyled black & soft white). No live backend yet. -->
-<div class="dv-chat-wrap">
-  <sc-if value="{{ chatOpen }}" hint-placeholder-val="{{ false }}">
-    <div data-reveal style="position:absolute;bottom:64px;right:0;width:min(300px,80vw);background:#14141A;color:#F5F1E8;border:1px solid rgba(245,241,232,.15);padding:20px;font-size:13px;line-height:1.7;box-shadow:0 12px 32px rgba(0,0,0,.35)">
-      <div style="font-family:'Bodoni Moda',serif;font-size:16px;margin-bottom:8px">MdV Concierge</div>
-      <p style="margin:0;color:rgba(245,241,232,.7)">The maison's AI concierge arrives with the full site. For now, write to <a href="mailto:hello@maisondvue.com" style="color:#C2A15B">hello@maisondvue.com</a>.</p>
-    </div>
-  </sc-if>
-  <button onClick="{{ toggleChat }}" aria-label="Chat with the maison" style="width:54px;height:54px;border-radius:50%;background:#14141A;color:#F5F1E8;border:1px solid rgba(245,241,232,.2);font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.32)" style-hover="background:#252530">✦</button>
-</div>
+  /* Slide navigation + firm snapping are handled by CSS scroll-snap (mandatory)
+     plus native in-page anchor scrolling — no JS needed. Cue links that point to
+     other pages (patent, founder) navigate normally via the shared fade. */
 
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;allocationMonth&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;August&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;reserveOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showPricing&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
-// Hero scroll-scrub engine — ported essentially as-is from the original site's MdvHeroEngine
-// (../MAISON D'VUE/Maison D'Vue luxury website design/index.html). Only the constants below were
-// re-pointed at V2's real hero footage; the class body is unmodified from the proven original.
-//
-// Source: "Generated Videos - Hero Sequence (Aug 2026)/PREVIEW - Face-Eye-Hands-Mirror (rough assembly).mp4"
-// (1920x1080, 24fps, 12.04s) — extracted via ffprobe -count_frames to the exact number below, not
-// assumed. This preview is an unmatched rough assembly (three clips, no color pass, no audio) — when
-// the polished final export lands, re-run the same ffmpeg commands against the new filename and update
-// only MDV_HERO_TOTAL_FRAMES (re-verify with ffprobe, don't hand-edit the number) — no rebuild needed:
-//   ffmpeg -i "<final.mp4>" -vsync 0 -c:v libwebp -q:v 82 "assets/hero-frames-webp/frame-%04d.webp"
-//   ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of csv=p=0 "<final.mp4>"
-//   cp assets/hero-frames-webp/frame-0001.webp assets/hero-poster/hero-poster.webp
-//   ffmpeg -i "<final.mp4>" -vf "scale=960:-2" -c:v libx264 -b:v 2500k -an "assets/hero-fallback/hero-mobile.mp4"
-const MDV_HERO_TOTAL_FRAMES = 289;
-const MDV_HERO_FRAME_PATH = (n) => "assets/hero-frames-webp/frame-" + String(n).padStart(4, "0") + ".webp";
-const MDV_HERO_MOBILE_VIDEO_SRC = "assets/hero-fallback/hero-mobile.mp4";
-// Roughly half the original site's clamp(2400px,440vh,6200px) — that pacing suited the original's much
-// longer overall page; V2 is shorter and Masiela's own direction was "let's just get into it," so the
-// scrub should read as responsive within a screen or two of scrolling, not take 3-4 screens to notice.
-const MDV_HERO_SCROLL_HEIGHT = "clamp(1400px, 220vh, 3000px)";
-const MDV_HERO_PRELOAD_CONCURRENCY = 16;
-// Simple/persistent-overlay option (see the hero markup comment above #top): V2's hero copy is one
-// always-visible block, not staged narrative beats like the original's six — so this stays empty.
-// updateNarrative()/beatEls handle an empty array safely (no-op), which is exactly what "no staging"
-// needs. To switch to the staged option later, populate this with { id, from, to } ranges lined up to
-// where the footage actually changes scene (face -> eye -> hands+product -> mirror) in the 289-frame
-// sequence, and give each range's target element the id it names.
-const MDV_HERO_BEATS = [];
+  /* ─── HERO VIDEO — force autoplay where possible ─── */
+  (function(){
+    var heroVideo = document.querySelector('.hero-video') || document.querySelector('.slide-media');
+    if (!heroVideo) return;
 
-class MdvHeroEngine {
-  constructor(stickyEl) {
-    this.sticky = stickyEl;
-    this.section = stickyEl.closest("[data-hero-region]");
-    this.canvas = stickyEl.querySelector("#heroCanvas");
-    this.video = stickyEl.querySelector("#heroMobileVideo");
-    this.poster = stickyEl.querySelector("#heroStaticPoster");
-    this.ctx = this.canvas ? this.canvas.getContext("2d", { alpha: false, desynchronized: true }) : null;
-    this.frameBitmaps = new Array(MDV_HERO_TOTAL_FRAMES + 1);
-    this.lastDrawnFrame = 0;
-    this.targetProgress = 0;
-    this.drawRafId = null;
-    this.resizeRafId = null;
-    this.lenis = null;
-    this.lenisRafId = null;
-    this.beatEls = [];
-    this.ctaEl = null;
-    this.activeBeatId = null;
-    this.destroyed = false;
-  }
+    // Try to play immediately (some browsers need the explicit call)
+    var attemptPlay = function(){
+      var p = heroVideo.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function(){
+          // Autoplay was blocked. Try again on first user interaction.
+          var unlock = function(){
+            heroVideo.play().catch(function(){});
+            document.removeEventListener('touchstart', unlock);
+            document.removeEventListener('click', unlock);
+            document.removeEventListener('scroll', unlock);
+          };
+          document.addEventListener('touchstart', unlock, { passive: true, once: true });
+          document.addEventListener('click', unlock, { once: true });
+          document.addEventListener('scroll', unlock, { passive: true, once: true });
+        });
+      }
+    };
 
-  isMobilePhone() {
-    const ua = navigator.userAgent || "";
-    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-    const narrow = window.innerWidth <= 820;
-    const uaMobile = /Android|iPhone|iPod|Mobile/i.test(ua);
-    return uaMobile || (isTouch && narrow);
-  }
-
-  async init() {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reducedMotion) {
-      this.showStaticPoster();
-      return;
+    if (heroVideo.readyState >= 2) {
+      attemptPlay();
+    } else {
+      heroVideo.addEventListener('loadeddata', attemptPlay, { once: true });
+      heroVideo.addEventListener('canplay', attemptPlay, { once: true });
     }
-    if (this.isMobilePhone()) {
-      this.showMobileVideo();
-      return;
-    }
+  })();
 
-    this.runCanvasEngine();
+  /* ─── PROMO RIBBON DISMISS ─── */
+  function dismissPromoRibbon(){
+    var ribbon = document.getElementById('promoRibbon');
+    ribbon.classList.add('dismissed');
+    setRibbonCookie('mdv_ribbon_dismissed', '1', 30);
   }
 
-  showStaticPoster() {
-    if (this.canvas) this.canvas.style.display = "none";
-    if (this.video) this.video.style.display = "none";
-    if (this.poster) this.poster.style.display = "block";
+  function setRibbonCookie(name, value, days){
+    var d = new Date();
+    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
   }
 
-  showMobileVideo() {
-    if (this.canvas) this.canvas.style.display = "none";
-    if (this.poster) this.poster.style.display = "none";
-    if (!this.video) return;
-    this.video.src = MDV_HERO_MOBILE_VIDEO_SRC;
-    this.video.style.display = "block";
-    this.video.play().catch(() => {});
-  }
-
-  async runCanvasEngine() {
-    if (!this.canvas || !this.ctx) return;
-    if (this.section) this.section.style.height = MDV_HERO_SCROLL_HEIGHT;
-
-    this.beatEls = MDV_HERO_BEATS.map((b) => ({ ...b, el: this.sticky.querySelector("#" + b.id) }));
-    this.ctaEl = this.sticky.querySelector("#heroCta");
-    this.activeBeatId = null;
-
-    this.onResize = () => this.scheduleResize();
-    window.addEventListener("resize", this.onResize);
-    this.resizeCanvas();
-
-    await this.loadFrame(1);
-    this.drawFrame(1, true);
-
-    this.setupLenis();
-    this.onScroll = () => this.updateTargetProgress();
-    window.addEventListener("scroll", this.onScroll, { passive: true });
-    window.addEventListener("touchmove", this.onScroll, { passive: true });
-    this.updateTargetProgress();
-
-    this.preloadAll();
-  }
-
-  scheduleResize() {
-    if (this.resizeRafId) return;
-    this.resizeRafId = requestAnimationFrame(() => {
-      this.resizeRafId = null;
-      this.resizeCanvas();
-    });
-  }
-
-  resizeCanvas() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    const box = this.sticky.getBoundingClientRect();
-    this.canvas.width = Math.round(box.width * dpr);
-    this.canvas.height = Math.round(box.height * dpr);
-    if (this.lastDrawnFrame) this.drawFrame(this.lastDrawnFrame, true);
-  }
-
-  loadFrame(n) {
-    if (this.frameBitmaps[n]) return Promise.resolve(this.frameBitmaps[n]);
-    return fetch(MDV_HERO_FRAME_PATH(n))
-      .then((r) => r.blob())
-      .then((b) => createImageBitmap(b))
-      .then((bmp) => {
-        this.frameBitmaps[n] = bmp;
-        return bmp;
-      })
-      .catch(() => null);
-  }
-
-  findNearestLoadedFrame(requested) {
-    if (this.frameBitmaps[requested]) return requested;
-    for (let d = 1; d < MDV_HERO_TOTAL_FRAMES; d++) {
-      const lo = requested - d;
-      const hi = requested + d;
-      if (lo >= 1 && this.frameBitmaps[lo]) return lo;
-      if (hi <= MDV_HERO_TOTAL_FRAMES && this.frameBitmaps[hi]) return hi;
-    }
+  function getRibbonCookie(name){
+    var value = '; ' + document.cookie;
+    var parts = value.split('; ' + name + '=');
+    if (parts.length === 2) return parts.pop().split(';').shift();
     return null;
   }
 
-  drawFrame(n, force) {
-    const target = this.frameBitmaps[n] ? n : this.findNearestLoadedFrame(n);
-    if (target === null || target === undefined) return;
-    if (!force && target === this.lastDrawnFrame) return;
-    const bmp = this.frameBitmaps[target];
-    if (!bmp) return;
-
-    const cw = this.canvas.width;
-    const ch = this.canvas.height;
-    const canvasRatio = cw / ch;
-    const imgRatio = bmp.width / bmp.height;
-    let dw, dh, dx, dy;
-    if (imgRatio > canvasRatio) {
-      dh = ch; dw = ch * imgRatio; dx = (cw - dw) / 2; dy = 0;
-    } else {
-      dw = cw; dh = cw / imgRatio; dx = 0; dy = 0;
-    }
-    this.ctx.clearRect(0, 0, cw, ch);
-    this.ctx.drawImage(bmp, dx, dy, dw, dh);
-    this.lastDrawnFrame = target;
+  if (getRibbonCookie('mdv_ribbon_dismissed')){
+    document.getElementById('promoRibbon').classList.add('dismissed');
   }
 
-  setupLenis() {
-    if (typeof Lenis === "undefined") return;
-    this.lenis = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.6
-    });
-    const raf = (time) => {
-      if (this.destroyed) return;
-      this.lenis.raf(time);
-      this.lenisRafId = requestAnimationFrame(raf);
-    };
-    this.lenisRafId = requestAnimationFrame(raf);
-  }
+  /* Product card carousel — arrows, dots, touch & mouse swipe, keyboard */
+  (function () {
+    document.querySelectorAll('[data-carousel]').forEach(function (root) {
+      var track = root.querySelector('.carousel-track');
+      if (!track) return;
+      var slides = Array.prototype.slice.call(track.children);
+      if (slides.length < 2) return;
 
-  updateTargetProgress() {
-    if (!this.section) return;
-    const rect = this.section.getBoundingClientRect();
-    const heroTop = rect.top + window.scrollY;
-    const heroHeight = this.section.offsetHeight;
-    const viewportH = window.innerHeight;
-    const raw = (window.scrollY - heroTop) / (heroHeight - viewportH);
-    this.targetProgress = Math.min(1, Math.max(0, raw || 0));
-    this.scheduleDraw();
-  }
+      var dotsWrap = root.querySelector('.carousel-dots');
+      var prev = root.querySelector('.carousel-arrow.prev');
+      var next = root.querySelector('.carousel-arrow.next');
+      var index = 0, startX = 0, dx = 0, dragging = false, width = 0;
 
-  scheduleDraw() {
-    if (this.drawRafId || this.destroyed) return;
-    this.drawRafId = requestAnimationFrame(() => {
-      this.drawRafId = null;
-      const frame = Math.min(MDV_HERO_TOTAL_FRAMES, Math.max(1, Math.round(this.targetProgress * (MDV_HERO_TOTAL_FRAMES - 1)) + 1));
-      this.drawFrame(frame);
-      this.updateNarrative(this.targetProgress);
-    });
-  }
-
-  updateNarrative(progress) {
-    const beat = this.beatEls.find((b) => progress >= b.from && progress < b.to) || this.beatEls[this.beatEls.length - 1];
-    if (!beat || beat.id === this.activeBeatId) return;
-    this.activeBeatId = beat.id;
-    this.beatEls.forEach((b) => {
-      if (b.el) b.el.classList.toggle("mdv-hero-beat-active", b.id === beat.id);
-    });
-    if (this.ctaEl) this.ctaEl.classList.toggle("mdv-hero-cta-hidden", beat.id === "heroBeat5");
-  }
-
-  preloadAll() {
-    const order = [];
-    for (let i = 1; i <= MDV_HERO_TOTAL_FRAMES; i += 4) order.push(i);
-    for (let i = 1; i <= MDV_HERO_TOTAL_FRAMES; i++) if (i % 4 !== 1) order.push(i);
-
-    let idx = 0;
-    const worker = () => {
-      if (this.destroyed || idx >= order.length) return;
-      const n = order[idx++];
-      this.loadFrame(n).finally(worker);
-    };
-    for (let i = 0; i < MDV_HERO_PRELOAD_CONCURRENCY; i++) worker();
-  }
-
-  destroy() {
-    this.destroyed = true;
-    if (this.drawRafId) cancelAnimationFrame(this.drawRafId);
-    if (this.resizeRafId) cancelAnimationFrame(this.resizeRafId);
-    if (this.lenisRafId) cancelAnimationFrame(this.lenisRafId);
-    if (this.onResize) window.removeEventListener("resize", this.onResize);
-    if (this.onScroll) {
-      window.removeEventListener("scroll", this.onScroll);
-      window.removeEventListener("touchmove", this.onScroll);
-    }
-    this.lenis?.destroy();
-  }
-}
-
-class Component extends DCLogic {
-  state = { active: 0, email: '', sent: false, annOpen: true, toastOpen: false, toastDismissed: false, chatOpen: false, expandedReview: null };
-
-  essences = [
-    { name: "Ungurahua", latin: "Oenocarpus bataua", origin: "Amazon Rainforest, Ecuador", note: "Oleic-rich and close in profile to the hair's own lipids — it enters rather than sits." },
-    { name: "Bulgarian Rose", latin: "Rosa damascena", origin: "Valley of Roses, Bulgaria", note: "Gathered before the heat of the day. The lift and light of Âme de Vue™." },
-    { name: "Camellia", latin: "Camellia japonica", origin: "Japan", note: "Carried for centuries in the geisha's comb. Weightless slip, high oleic clarity." },
-    { name: "Prickly Pear", latin: "Opuntia ficus-indica", origin: "Atlas Mountains, Morocco", note: "One of the highest tocopherol concentrations in the botanical world — from a fruit that survives drought." },
-    { name: "Rosehip", latin: "Rosa moschata", origin: "Andes & Southern Chile", note: "Linoleic and restorative. It softens the memory of heat." },
-    { name: "Meadowfoam", latin: "Limnanthes alba", origin: "Pacific Northwest", note: "Extraordinarily stable long-chain esters. It seals what the others deliver." },
-    { name: "Sweet Almond", latin: "Prunus dulcis", origin: "Mediterranean Basin", note: "Ancient, uncomplicated, quietly conditioning — the oldest name on the list." },
-    { name: "Argan", latin: "Argania spinosa", origin: "Sous Valley, Morocco", note: "Cold-pressed from the kernel by hand. Shine without weight." },
-    { name: "Pomegranate", latin: "Punica granatum", origin: "Persia & Anatolia", note: "Punicic acid — rare, conjugated, protective at the cuticle." },
-    { name: "Sea Buckthorn", latin: "Hippophae rhamnoides", origin: "Himalayan Foothills", note: "Carotenoid-dense. Colour held longer, warmth kept." },
-    { name: "Black Seed", latin: "Nigella sativa", origin: "Nile Delta", note: "Thymoquinone — calm at the root, balance at the scalp." },
-    { name: "Castor", latin: "Ricinus communis", origin: "Indian Subcontinent", note: "Ricinoleic viscosity. It gives the composition its body." },
-    { name: "Vitamin E Complex", latin: "α-, β-, γ-, δ-tocopherol", origin: "Full-spectrum tocopherols", note: "The composition's own guardian — it protects the other thirteen." },
-    { name: "Australian Sandalwood", latin: "Santalum spicatum", origin: "Western Australia", note: "Warmth and depth. The base note of Âme de Vue™, and the thread through every chapter to come." }
-  ];
-
-  reviews = [
-    { name: "Verified client — copy pending" },
-    { name: "Verified client — copy pending" }
-  ];
-
-  componentDidMount() {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(en => {
-        if (en.isIntersecting) {
-          en.target.classList.add('dv-in');
-          io.unobserve(en.target);
-        }
+      var dots = slides.map(function (_, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        b.setAttribute('aria-label', 'Go to photo ' + (i + 1));
+        b.addEventListener('click', function () { go(i); });
+        if (dotsWrap) dotsWrap.appendChild(b);
+        return b;
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
-    const observeAll = () => document.querySelectorAll('[data-reveal]:not(.dv-in)').forEach(el => io.observe(el));
-    observeAll();
-    this._observeAll = observeAll;
-    this._io = io;
 
-    // Instant-ish newsletter prompt per Masiela's feedback ("within a couple seconds") — dismissible, doesn't block, and defers if she's already subscribed via the main #reserve form.
-    this._toastTimer = setTimeout(() => {
-      if (!this.state.sent && !this.state.toastDismissed) this.setState({ toastOpen: true });
-    }, 3000);
+      function render(animate) {
+        track.style.transition = animate ? '' : 'none';
+        track.style.transform = 'translateX(' + (-index * 100) + '%)';
+        dots.forEach(function (d, i) { d.classList.toggle('active', i === index); });
+      }
+      function go(i) { index = (i + slides.length) % slides.length; render(true); }
 
-    // .dv-hero-sticky pins just below the sticky nav (not raw top:0), same approach as the original —
-    // measure the nav's real rendered height rather than hardcoding it, so it stays correct if the nav
-    // wraps to two rows (see the dv-navbar mobile media query) or its content changes.
-    //
-    // BUG FIXED HERE: a single synchronous measurement at mount runs before the Google Fonts (Bodoni
-    // Moda / Cormorant Garamond) finish loading — verified this was capturing ~294-318px instead of the
-    // real ~126px, which broke .dv-hero-sticky's calc(100vh - var(--mdv-header-h)) and made the
-    // scroll-scrub hero read as static / leave a blank gap. Re-measure after fonts settle, on resize, and
-    // via ResizeObserver so a wrong one-time snapshot can't stick.
-    const navEl = document.getElementById('siteNav');
-    const setHeaderH = () => {
-      if (navEl) document.documentElement.style.setProperty('--mdv-header-h', navEl.getBoundingClientRect().height + 'px');
-    };
-    setHeaderH();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(setHeaderH);
-    this._onHeaderResize = setHeaderH;
-    window.addEventListener('resize', this._onHeaderResize);
-    if (navEl && window.ResizeObserver) {
-      this._navRO = new ResizeObserver(setHeaderH);
-      this._navRO.observe(navEl);
+      if (prev) prev.addEventListener('click', function () { go(index - 1); });
+      if (next) next.addEventListener('click', function () { go(index + 1); });
+
+      root.setAttribute('tabindex', '0');
+      root.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') { go(index - 1); }
+        else if (e.key === 'ArrowRight') { go(index + 1); }
+      });
+
+      function onMouseMove(e) { move(e.clientX); }
+      function onMouseUp() {
+        end();
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+      }
+
+      function start(x) {
+        dragging = true; startX = x; dx = 0; width = root.clientWidth || 1; track.style.transition = 'none';
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+      }
+      function move(x) {
+        if (!dragging) return;
+        dx = x - startX;
+        track.style.transform = 'translateX(calc(' + (-index * 100) + '% + ' + dx + 'px))';
+      }
+      function end() {
+        if (!dragging) return;
+        dragging = false;
+        if (Math.abs(dx) > width * 0.18) { go(index + (dx < 0 ? 1 : -1)); }
+        else render(true);
+      }
+
+      root.addEventListener('touchstart', function (e) { start(e.touches[0].clientX); }, { passive: true });
+      root.addEventListener('touchmove', function (e) { move(e.touches[0].clientX); }, { passive: true });
+      root.addEventListener('touchend', end);
+      root.addEventListener('touchcancel', end);
+
+      root.addEventListener('mousedown', function (e) { start(e.clientX); e.preventDefault(); });
+    });
+  })();
+
+  /* ─── SCROLL-SCRUB HERO ENGINE (PORTED FROM V2) ─── */
+  /* TODO: replace hero-frames-webp + hero-poster + hero-mobile.mp4 with the final color-graded export once delivered; re-run the ffmpeg/ffprobe commands documented in the JS comment above MdvHeroEngine to regenerate frames and update MDV_HERO_TOTAL_FRAMES */
+  const MDV_HERO_TOTAL_FRAMES = 289;
+  const MDV_HERO_FRAME_PATH = (n) => "assets/hero-frames-webp/frame-" + String(n).padStart(4, "0") + ".webp";
+  const MDV_HERO_MOBILE_VIDEO_SRC = "assets/hero-fallback/hero-mobile.mp4";
+  const MDV_HERO_SCROLL_HEIGHT = "clamp(1400px, 220vh, 3000px)";
+  const MDV_HERO_PRELOAD_CONCURRENCY = 8;
+  const MDV_HERO_BEATS = [];
+
+  class MdvHeroEngine {
+    constructor(stickyEl) {
+      this.sticky = stickyEl;
+      this.section = stickyEl.closest("[data-hero-region]");
+      this.canvas = stickyEl.querySelector("#heroCanvas");
+      this.video = stickyEl.querySelector("#heroMobileVideo");
+      this.poster = stickyEl.querySelector("#heroStaticPoster");
+      this.ctx = this.canvas ? this.canvas.getContext("2d", { alpha: false, desynchronized: true }) : null;
+      this.frameBitmaps = new Array(MDV_HERO_TOTAL_FRAMES + 1);
+      this.loadingPromises = {};
+      this.lastDrawnFrame = 0;
+      this.targetProgress = 0;
+      this.drawRafId = null;
+      this.resizeRafId = null;
+      this.lenis = null;
+      this.lenisRafId = null;
+      this.beatEls = [];
+      this.ctaEl = null;
+      this.activeBeatId = null;
+      this.destroyed = false;
     }
 
-    const heroSticky = document.getElementById('heroSticky');
+    isMobilePhone() {
+      const ua = navigator.userAgent || "";
+      const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      const narrow = window.innerWidth <= 820;
+      const uaMobile = /Android|iPhone|iPod|Mobile/i.test(ua);
+      return uaMobile || (isTouch && narrow);
+    }
+
+    async init() {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reducedMotion) {
+        this.showStaticPoster();
+        return;
+      }
+      if (this.isMobilePhone()) {
+        this.showMobileVideo();
+        return;
+      }
+
+      this.runCanvasEngine();
+    }
+
+    showStaticPoster() {
+      if (this.canvas) this.canvas.style.display = "none";
+      if (this.video) this.video.style.display = "none";
+      if (this.poster) this.poster.style.display = "block";
+    }
+
+    showMobileVideo() {
+      if (this.canvas) this.canvas.style.display = "none";
+      if (this.poster) this.poster.style.display = "none";
+      if (!this.video) return;
+      this.video.src = MDV_HERO_MOBILE_VIDEO_SRC;
+      this.video.style.display = "block";
+      this.video.play().catch(() => {});
+    }
+
+    async runCanvasEngine() {
+      if (!this.canvas || !this.ctx) return;
+      if (this.section) this.section.style.height = MDV_HERO_SCROLL_HEIGHT;
+
+      this.beatEls = MDV_HERO_BEATS.map((b) => ({ ...b, el: this.sticky.querySelector("#" + b.id) }));
+      this.ctaEl = this.sticky.querySelector("#heroCta");
+      this.activeBeatId = null;
+
+      this.onResize = () => this.scheduleResize();
+      window.addEventListener("resize", this.onResize);
+      this.resizeCanvas();
+
+      await this.loadFrame(1);
+      this.drawFrame(1, true);
+
+      this.setupLenis();
+      this.onScroll = () => this.updateTargetProgress();
+      window.addEventListener("scroll", this.onScroll, { passive: true });
+      window.addEventListener("touchmove", this.onScroll, { passive: true });
+      this.updateTargetProgress();
+
+      this.preloadAll();
+    }
+
+    scheduleResize() {
+      if (this.resizeRafId) return;
+      this.resizeRafId = requestAnimationFrame(() => {
+        this.resizeRafId = null;
+        this.resizeCanvas();
+      });
+    }
+
+    resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const box = this.sticky.getBoundingClientRect();
+      this.canvas.width = Math.round(box.width * dpr);
+      this.canvas.height = Math.round(box.height * dpr);
+      if (this.lastDrawnFrame) this.drawFrame(this.lastDrawnFrame, true);
+    }
+
+    loadFrame(n) {
+      if (this.frameBitmaps[n]) return Promise.resolve(this.frameBitmaps[n]);
+      if (this.loadingPromises[n]) return this.loadingPromises[n];
+
+      this.loadingPromises[n] = fetch(MDV_HERO_FRAME_PATH(n))
+        .then((r) => r.blob())
+        .then((b) => createImageBitmap(b))
+        .then((bmp) => {
+          this.frameBitmaps[n] = bmp;
+          delete this.loadingPromises[n];
+          return bmp;
+        })
+        .catch(() => {
+          delete this.loadingPromises[n];
+          return null;
+        });
+      return this.loadingPromises[n];
+    }
+
+    findNearestLoadedFrame(requested) {
+      if (this.frameBitmaps[requested]) return requested;
+      for (let d = 1; d < MDV_HERO_TOTAL_FRAMES; d++) {
+        const lo = requested - d;
+        const hi = requested + d;
+        if (lo >= 1 && this.frameBitmaps[lo]) return lo;
+        if (hi <= MDV_HERO_TOTAL_FRAMES && this.frameBitmaps[hi]) return hi;
+      }
+      return null;
+    }
+
+    drawFrame(n, force) {
+      const target = this.frameBitmaps[n] ? n : this.findNearestLoadedFrame(n);
+      if (target === null || target === undefined) return;
+      if (!force && target === this.lastDrawnFrame) return;
+      const bmp = this.frameBitmaps[target];
+      if (!bmp) return;
+
+      const cw = this.canvas.width;
+      const ch = this.canvas.height;
+      const canvasRatio = cw / ch;
+      const imgRatio = bmp.width / bmp.height;
+      let dw, dh, dx, dy;
+      if (imgRatio > canvasRatio) {
+        dh = ch; dw = ch * imgRatio; dx = (cw - dw) / 2; dy = 0;
+      } else {
+        dw = cw; dh = cw / imgRatio; dx = 0; dy = 0;
+      }
+      this.ctx.clearRect(0, 0, cw, ch);
+      this.ctx.drawImage(bmp, dx, dy, dw, dh);
+      this.lastDrawnFrame = target;
+    }
+
+    setupLenis() {
+      if (typeof Lenis === "undefined") return;
+      this.lenis = new Lenis({
+        lerp: 0.1,
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.6
+      });
+      this.lenis.on('scroll', () => {
+        this.updateTargetProgress();
+      });
+      const raf = (time) => {
+        if (this.destroyed) return;
+        this.lenis.raf(time);
+        this.lenisRafId = requestAnimationFrame(raf);
+      };
+      this.lenisRafId = requestAnimationFrame(raf);
+    }
+
+    updateTargetProgress() {
+      if (!this.section) return;
+      const rect = this.section.getBoundingClientRect();
+      const heroTop = rect.top + window.scrollY;
+      const heroHeight = this.section.offsetHeight;
+      const viewportH = window.innerHeight;
+      const raw = (window.scrollY - heroTop) / (heroHeight - viewportH);
+      this.targetProgress = Math.min(1, Math.max(0, raw || 0));
+      this.scheduleDraw();
+    }
+
+    scheduleDraw() {
+      if (this.drawRafId || this.destroyed) return;
+      this.drawRafId = requestAnimationFrame(() => {
+        this.drawRafId = null;
+        const frame = Math.min(MDV_HERO_TOTAL_FRAMES, Math.max(1, Math.round(this.targetProgress * (MDV_HERO_TOTAL_FRAMES - 1)) + 1));
+        this.drawFrame(frame);
+        this.updateNarrative(this.targetProgress);
+      });
+    }
+
+    updateNarrative(progress) {
+      const beat = this.beatEls.find((b) => progress >= b.from && progress < b.to) || this.beatEls[this.beatEls.length - 1];
+      if (!beat || beat.id === this.activeBeatId) return;
+      this.activeBeatId = beat.id;
+      this.beatEls.forEach((b) => {
+        if (b.el) b.el.classList.toggle("mdv-hero-beat-active", b.id === beat.id);
+      });
+      if (this.ctaEl) this.ctaEl.classList.toggle("mdv-hero-cta-hidden", beat.id === "heroBeat5");
+    }
+
+    preloadAll() {
+      const order = [];
+      for (let i = 1; i <= MDV_HERO_TOTAL_FRAMES; i += 4) order.push(i);
+      for (let i = 1; i <= MDV_HERO_TOTAL_FRAMES; i++) if (i % 4 !== 1) order.push(i);
+
+      let idx = 0;
+      const worker = () => {
+        if (this.destroyed || idx >= order.length) return;
+        const n = order[idx++];
+        this.loadFrame(n).finally(worker);
+      };
+      for (let i = 0; i < MDV_HERO_PRELOAD_CONCURRENCY; i++) worker();
+    }
+
+    destroy() {
+      this.destroyed = true;
+      if (this.drawRafId) cancelAnimationFrame(this.drawRafId);
+      if (this.resizeRafId) cancelAnimationFrame(this.resizeRafId);
+      if (this.lenisRafId) cancelAnimationFrame(this.lenisRafId);
+      if (this.onResize) window.removeEventListener("resize", this.onResize);
+      if (this.onScroll) {
+        window.removeEventListener("scroll", this.onScroll);
+        window.removeEventListener("touchmove", this.onScroll);
+      }
+      this.lenis?.destroy();
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var heroSticky = document.getElementById("heroSticky");
     if (heroSticky) {
-      this._heroEngine = new MdvHeroEngine(heroSticky);
-      this._heroEngine.init();
+      var heroEngine = new MdvHeroEngine(heroSticky);
+      heroEngine.init();
     }
-  }
 
-  componentDidUpdate() { if (this._observeAll) this._observeAll(); }
-  componentWillUnmount() {
-    if (this._io) this._io.disconnect();
-    if (this._toastTimer) clearTimeout(this._toastTimer);
-    if (this._onHeaderResize) window.removeEventListener('resize', this._onHeaderResize);
-    this._navRO?.disconnect();
-    this._heroEngine?.destroy();
-  }
+    document.querySelectorAll('.wall-sound-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var video = document.getElementById(btn.getAttribute('data-video-target'));
+        if(!video) return;
+        video.loop = false;
+        video.muted = false;
+        video.controls = true;
+        video.currentTime = 0;
+        video.play();
+        btn.closest('.wall-tile--full-review').classList.add('is-playing-full');
+      });
+    });
+  });
 
-  renderVals() {
-    const month = this.props.allocationMonth ?? 'August';
-    const open = this.props.reserveOpen ?? true;
-    const i = this.state.active;
-    const a = this.essences[i];
-    return {
-      annOpen: this.state.annOpen,
-      closeAnn: () => this.setState({ annOpen: false }),
-      allocationLabel: open ? month + ' allocation — open' : month + ' allocation — closed',
-      allocationMonth: month,
-      showPricing: this.props.showPricing ?? true,
-      essences: this.essences.map((e, n) => ({
-        name: e.name,
-        num: String(n + 1).padStart(2, '0'),
-        isActive: n === i,
-        select: () => this.setState({ active: n })
-      })),
-      active: { name: a.name, latin: a.latin, origin: a.origin, note: a.note, num: String(i + 1).padStart(2, '0') },
-      reviews: this.reviews.map((r, n) => ({
-        name: r.name,
-        quote: "Real client testimony to be inserted here once received — do not fabricate a quote or attribute one to a real customer.",
-        expanded: this.state.expandedReview === n,
-        toggle: () => this.setState({ expandedReview: this.state.expandedReview === n ? null : n }),
-        toggleLabel: this.state.expandedReview === n ? 'Show less' : 'Read the full review'
-      })),
-      email: this.state.email,
-      sent: this.state.sent,
-      notSent: !this.state.sent,
-      onEmail: (ev) => this.setState({ email: ev.target.value }),
-      onSubmit: (ev) => { ev.preventDefault(); if (this.state.email) this.setState({ sent: true, toastOpen: false }); },
-      toastOpen: this.state.toastOpen && !this.state.sent,
-      closeToast: () => this.setState({ toastOpen: false, toastDismissed: true }),
-      chatOpen: this.state.chatOpen,
-      toggleChat: () => this.setState({ chatOpen: !this.state.chatOpen })
-    };
-  }
-}
 </script>
-<script src="assets/chat.js" defer></script>
+
+<script src="assets/letters.js?v=3" defer></script>
+<script src="assets/chat.js?v=5" defer></script>
+<script src="assets/menu.js?v=10" defer></script>
+<script src="assets/house.js?v=1" defer></script>
+<script src="assets/cart.js?v=1" defer></script>
+
 </body>
 </html>
