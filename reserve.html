@@ -45,7 +45,17 @@
   /* ══ CINEMATIC BANNER — placeholder; swap the media with a film or full-bleed image ══ */
   /* The frame holds the whole video at its native 16:9 — nothing cropped. */
   .shop-banner{ position:relative; background:var(--navy-deep); }
-  .shop-banner-frame{ position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; }
+  .shop-banner-frame{
+    position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+    background:var(--navy-deep);
+    background-image:url('reserve-banner-poster-alt.jpg?v=1');
+    background-size:cover;
+    background-position:center center;
+  }
+  .shop-banner-poster{
+    position:absolute; inset:0; z-index:0;
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
   .shop-banner-media{
     position:absolute; inset:0; z-index:1;
     width:100%; height:100%; object-fit:cover; display:block;
@@ -158,14 +168,14 @@
 <!-- ═══ UNIFIED NAV — transparent over the banner, solid on scroll ═══ -->
 <nav class="mdv-nav mdv-nav-split" id="mdvNav">
   <div class="nav-group nav-group-left">
-    <a href="product.html">The Elixir</a>
-    <a href="product.html#ritual">The Ritual</a>
+    <a href='/product'>The Elixir</a>
+    <a href='/product#ritual'>The Ritual</a>
   </div>
-  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+  <a class='nav-logo' href='/'>MAISON D&rsquo;VUE</a>
   <div class="nav-right-cluster">
     <div class="nav-group nav-group-right">
-      <a href="about.html">The House</a>
-      <a href="gallery.html">World</a>
+      <a href='/about'>The House</a>
+      <a href='/gallery'>World</a>
     </div>
     <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
   </div>
@@ -177,10 +187,55 @@
        full-bleed image or looping video when the final banner is ready ═══ -->
   <section class="shop-banner">
     <div class="shop-banner-frame">
-      <video class="shop-banner-media" src="signature-banner.mp4?v=1" poster="reserve-banner-poster-alt.jpg?v=1"
+      <img class="shop-banner-poster" src="reserve-banner-poster-alt.jpg?v=1" alt="" aria-hidden="true">
+      <video class="shop-banner-media" id="reserveBannerVideo" src="signature-banner.mp4?v=1" poster="reserve-banner-poster-alt.jpg?v=1"
         muted loop autoplay playsinline webkit-playsinline="true" preload="auto"
-        disablepictureinpicture aria-hidden="true"
-        onloadedmetadata="this.currentTime=30"></video>
+        disablepictureinpicture aria-hidden="true"></video>
+      <script>
+        (function () {
+          var video = document.getElementById('reserveBannerVideo');
+          if (!video) return;
+          var targetTime = 30;
+          var hasSeeked = false;
+
+          function doSeek() {
+            if (hasSeeked) return;
+            try {
+              if (video.duration && video.duration >= targetTime) {
+                video.currentTime = targetTime;
+                hasSeeked = true;
+              }
+            } catch (err) {
+              console.warn('Could not seek reserve banner video:', err);
+            }
+          }
+
+          video.addEventListener('timeupdate', function () {
+            if (hasSeeked && video.currentTime < 1 && !video.seeking) {
+              try { video.currentTime = targetTime; } catch (e) {}
+            }
+          });
+
+          video.addEventListener('canplaythrough', function () {
+            doSeek();
+          }, { once: true });
+
+          if (video.readyState >= 4) {
+            doSeek();
+          }
+
+          video.addEventListener('error', function (e) {
+            console.warn('Reserve banner video error, keeping poster visible:', e);
+            video.style.opacity = '0';
+          });
+
+          setTimeout(function () {
+            if (video.readyState < 2 || video.error) {
+              console.warn('Reserve banner video load timeout, poster remains visible');
+            }
+          }, 3000);
+        })();
+      </script>
     </div>
     <div class="shop-banner-inner">
       <p class="shop-banner-eyebrow">The Collection</p>
@@ -194,30 +249,28 @@
     <div class="shop-grid">
 
       <article class="shop-card">
-        <a class="shop-card-media" href="elixir-signature.html" aria-label="The Signature">
+        <a aria-label='The Signature' class='shop-card-media' href='/elixir-signature'>
           <img src="maison-dvue-elixir-studio.jpg" alt="The Signature — 30ml MAISON D'VUE Hair Elixir in cobalt frosted glass with matte gold cap">
           <img class="shop-card-media-hover" src="maison-dvue-elixir-dropper-drop.jpg" alt="A single drop of MAISON D'VUE Hair Elixir suspended from the gold dropper" aria-hidden="true">
         </a>
         <div class="shop-card-info">
-          <h2 class="shop-card-name"><a href="elixir-signature.html">The Signature</a></h2>
+          <h2 class="shop-card-name"><a href='/elixir-signature'>The Signature</a></h2>
           <p class="shop-card-sub">Hair Elixir &middot; 30 ml &middot; 1 fl oz</p>
-          <span class="shop-card-rating"><span class="shop-card-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span>5.0 &middot; 28 reviews</span></span>
           <p class="shop-card-price">$125</p>
-          <a class="shop-card-cta" href="elixir-signature.html">View &amp; Reserve</a>
+          <a class='shop-card-cta' href='/elixir-signature'>View &amp; Reserve</a>
         </div>
       </article>
 
       <article class="shop-card">
-        <a class="shop-card-media" href="elixir-voyage.html" aria-label="The Voyage">
+        <a aria-label='The Voyage' class='shop-card-media' href='/elixir-voyage'>
           <img src="maison-dvue-elixir-voyage.jpg" alt="The Voyage — 10ml MAISON D'VUE Hair Elixir travel size in cobalt frosted glass">
           <img class="shop-card-media-hover" src="voyage-hermes-bag.jpg" alt="The Voyage tucked in the pocket of a Hermès leather bag" aria-hidden="true">
         </a>
         <div class="shop-card-info">
-          <h2 class="shop-card-name"><a href="elixir-voyage.html">The Voyage</a></h2>
+          <h2 class="shop-card-name"><a href='/elixir-voyage'>The Voyage</a></h2>
           <p class="shop-card-sub">Hair Elixir &middot; 10 ml &middot; 0.33 fl oz</p>
-          <span class="shop-card-rating"><span class="shop-card-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span>5.0 &middot; 11 reviews</span></span>
           <p class="shop-card-price">$68</p>
-          <a class="shop-card-cta" href="elixir-voyage.html">View &amp; Reserve</a>
+          <a class='shop-card-cta' href='/elixir-voyage'>View &amp; Reserve</a>
         </div>
       </article>
 
