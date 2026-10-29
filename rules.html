@@ -181,14 +181,14 @@
 <!-- ═══ UNIFIED NAVIGATION BAR ═══ -->
 <nav class="mdv-nav mdv-nav--light" id="mdvNav">
   <div class="nav-group nav-group-left">
-    <a href="product.html">The Elixir</a>
-    <a href="product.html#ritual">The Ritual</a>
+    <a href='/product'>The Elixir</a>
+    <a href='/product#ritual'>The Ritual</a>
   </div>
-  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+  <a class='nav-logo' href='/'>MAISON D&rsquo;VUE</a>
   <div class="nav-right-cluster">
     <div class="nav-group nav-group-right">
-      <a href="about.html">The House</a>
-      <a href="gallery.html">World</a>
+      <a href='/about'>The House</a>
+      <a href='/gallery'>World</a>
     </div>
     <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
   </div>
@@ -197,11 +197,11 @@
 <!-- ═══ MOBILE MENU ═══ -->
 <nav class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" type="button" aria-label="Close menu" onclick="closeMobileMenu()">&times;</button>
-  <a href="about.html" onclick="closeMobileMenu()">The House</a>
-  <a href="product.html" onclick="closeMobileMenu()">The Elixir</a>
-  <a href="gallery.html" onclick="closeMobileMenu()">The Story</a>
-  <a href="product.html#formulation" onclick="closeMobileMenu()">The Formula</a>
-  <a href="product.html#origins" onclick="closeMobileMenu()">Origins</a>
+  <a href='/about' onclick='closeMobileMenu()'>The House</a>
+  <a href='/product' onclick='closeMobileMenu()'>The Elixir</a>
+  <a href='/gallery' onclick='closeMobileMenu()'>The Story</a>
+  <a href='/product#formulation' onclick='closeMobileMenu()'>The Formula</a>
+  <a href='/product#origins' onclick='closeMobileMenu()'>Origins</a>
 </nav>
 
 <!-- ═══ HERO ═══ -->
@@ -247,20 +247,63 @@
       <span class="section-number">03 &middot; Entry Period</span>
       <h2 class="section-title">3. Entry Period</h2>
       <div class="section-body">
-        <p>The Drawing begins at 12:00 AM Pacific Time on September 3, 2026 and ends at 11:59 PM Pacific Time on November 23, 2026 (the “Entry Period”).</p>
+        <p>The Drawing begins at 12:00 AM Pacific Time on September 3, 2026 and ends at 11:59 PM Pacific Time on November 22, 2026 (the “Entry Period”).</p>
         <p>Sponsor’s computer is the official time-keeping device for this Drawing.</p>
       </div>
     </div>
 
     <!-- 4. HOW TO ENTER -->
-    <div class="rules-section">
+    <div class="rules-section" id="enter">
       <span class="section-number">04 &middot; Entry Methods</span>
       <h2 class="section-title">4. How to Enter</h2>
       <div class="section-body">
         <p>Entry is free. There are three (3) methods of entry, each carrying equal weight:</p>
         <p><strong>(a) Instagram.</strong> Follow @maisondvue and leave a comment on the designated Drawing post during the Entry Period.</p>
-        <p><strong>(b) Email.</strong> Subscribe to the MAISON D’VUE mailing list at maisondvue.com during the Entry Period. Existing subscribers as of the start of the Entry Period are automatically entered.</p>
-        <p><strong>(c) Mail-in.</strong> Hand-print your full name, complete mailing address, daytime telephone number, email address, and date of birth on a 3″ &times; 5″ card and mail it in a #10 envelope with sufficient postage to: MAISON D’VUE Sapphire Necklace Drawing, 132 S Lasky Dr, Floor 2, Unit #523, Beverly Hills, CA 90212. Mail-in entries must be postmarked by November 23, 2026 and received by November 30, 2026.</p>
+        <p><strong>(b) Email (Online Entry).</strong> Subscribe to the MAISON D’VUE mailing list below or at maisondvue.com during the Entry Period. Existing subscribers as of the start of the Entry Period are automatically entered.</p>
+        
+        <!-- Online Sapphire Entry Form -->
+        <div class="sapphire-inline-form" style="margin: 20px 0 28px; padding: 24px; background: #FAF8F4; border: 1px solid rgba(10, 10, 12, 0.12); max-width: 520px;">
+          <p style="font-family: var(--font-display, 'Bodoni Moda', serif); font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; color: #0A0A0C;">Enter the Sapphire Drawing</p>
+          <p style="font-size: 12px; color: #62584E; margin-bottom: 16px;">Submit your name and email to enter the official drawing for the sapphire necklace.</p>
+          <form id="sapphireInlineForm" onsubmit="handleSapphireSubmit(event)">
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <input type="text" id="sapphireInlineName" placeholder="First Name" required style="padding: 10px 14px; border: 1px solid rgba(10,10,12,0.2); font-family: inherit; font-size: 13px; background: #fff;">
+              <input type="email" id="sapphireInlineEmail" placeholder="Email Address" required style="padding: 10px 14px; border: 1px solid rgba(10,10,12,0.2); font-family: inherit; font-size: 13px; background: #fff;">
+              <button type="submit" id="sapphireInlineBtn" style="padding: 12px 20px; background: #0A0A0C; color: #fff; border: 0; font-family: var(--font-display, 'Bodoni Moda', serif); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s;">Submit Entry &gt;</button>
+            </div>
+            <p id="sapphireInlineFeedback" style="margin-top: 10px; font-size: 12px; min-height: 18px; color: #0A0A0C;"></p>
+          </form>
+          <script>
+            async function handleSapphireSubmit(e) {
+              e.preventDefault();
+              var name = document.getElementById('sapphireInlineName').value.trim();
+              var email = document.getElementById('sapphireInlineEmail').value.trim();
+              var btn = document.getElementById('sapphireInlineBtn');
+              var fb = document.getElementById('sapphireInlineFeedback');
+              if (!name || !email) return;
+              btn.disabled = true;
+              btn.textContent = 'Submitting...';
+              fb.textContent = '';
+              try {
+                var res = await fetch('https://maisondvue-chat.masiela23.workers.dev/', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ action: 'subscribe', profile: { email: email, firstName: name, source: 'sapphire_rules_form' } })
+                });
+                fb.textContent = 'Thank you. Your entry into the sapphire drawing has been recorded.';
+                fb.style.color = '#2d6a4f';
+                btn.textContent = 'Entered';
+              } catch (err) {
+                fb.textContent = 'Unable to submit at this time. Please try again.';
+                fb.style.color = '#b00';
+                btn.disabled = false;
+                btn.textContent = 'Submit Entry >';
+              }
+            }
+          </script>
+        </div>
+
+        <p><strong>(c) Mail-in.</strong> Hand-print your full name, complete mailing address, daytime telephone number, email address, and date of birth on a 3″ &times; 5″ card and mail it in a #10 envelope with sufficient postage to: MAISON D’VUE Sapphire Necklace Drawing, 132 S Lasky Dr, Floor 2, Unit #523, Beverly Hills, CA 90212. Mail-in entries must be postmarked by November 22, 2026 and received by November 29, 2026.</p>
         <p><strong>Limit:</strong> one (1) entry per person per method, for a maximum of three (3) entries per person for the full Entry Period.</p>
         <p>Entries generated by script, macro, bot, or other automated means are void. Multiple accounts operated by a single individual are void. Entries that are incomplete, illegible, late, or that do not conform to these Official Rules are void.</p>
         <p>All entries become the property of Sponsor and will not be acknowledged or returned.</p>
@@ -388,16 +431,16 @@
       <div class="footer-nav">
         <div class="footer-col">
           <div class="footer-col-label">The House</div>
-          <a href="about.html#founder">Masiela Lusha</a>
-          <a href="about.html#house">The House of Vue</a>
-          <a href="about.html#inside">Inside MAISON D&rsquo;VUE</a>
+          <a href='/about#founder'>Masiela Lusha</a>
+          <a href='/about#house'>The House of Vue</a>
+          <a href='/about#inside'>Inside MAISON D&rsquo;VUE</a>
         </div>
         <div class="footer-col">
           <div class="footer-col-label">The Product</div>
-          <a href="gallery.html">The Story</a>
-          <a href="product.html#formulation">The Formula</a>
-          <a href="product.html#ritual">The Ritual</a>
-          <a href="product.html#origins">Origins</a>
+          <a href='/gallery'>The Story</a>
+          <a href='/product#formulation'>The Formula</a>
+          <a href='/product#ritual'>The Ritual</a>
+          <a href='/product#origins'>Origins</a>
         </div>
         <div class="footer-col">
           <div class="footer-col-label">Soundtrack</div>
@@ -407,8 +450,8 @@
         </div>
         <div class="footer-col">
           <div class="footer-col-label">Access</div>
-          <a href="product.html#buy">Reserve</a>
-          <a href="founders-circle.html">Founder&rsquo;s Circle</a>
+          <a href='/product#buy'>Reserve</a>
+          <a href='/founders-circle'>Founder&rsquo;s Circle</a>
           <a href="mailto:hello@maisondvue.com">Contact</a>
         </div>
       </div>

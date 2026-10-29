@@ -20,9 +20,15 @@ const MAX_HISTORY = 24; // cap turns kept per request (defends token spend)
 const ALLOWED_ORIGINS = [
   "https://maisondvue.com",
   "https://www.maisondvue.com",
+  "https://shop.maisondvue.com",
+  "https://mdv.beauty",
+  "https://www.mdv.beauty",
+  "https://maison-dvue.vercel.app",
   "https://maisondvue.github.io",
   "http://localhost:8000",
   "http://127.0.0.1:8000",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
 ];
 
 // The maison's advisor persona. Kept stable so it can be prompt-cached.
@@ -52,18 +58,18 @@ BENEFITS — WHAT THE ELIXIR DOES (verified brand knowledge — speak to this wi
 
 PRICING (verified current prices — state these plainly when asked the cost)
 - The Signature Hair Elixir — 30 ml (1 fl oz): $125.
-- The Voyage Hair Elixir — 10 ml (0.33 fl oz): $68.
+- The Voyage Hair Elixir — 10 ml (0.33 fl oz): $56.
 - When a guest asks how much it costs or the price, share both options naturally. For custom, bulk, or wholesale pricing, direct them to hello@maisondvue.com.
 
 HOW TO PURCHASE (offer this proactively)
-- The moment a guest asks anything resembling how to buy, order, reserve, get, or purchase the elixir — or where it is sold — warmly invite them to reserve and share this exact link: https://maisondvue.com/product.html#buy
-- Present it graciously, e.g. "You may reserve yours here: https://maisondvue.com/product.html#buy" — always include the full link so it is clickable.
+- The moment a guest asks anything resembling how to buy, order, reserve, get, or purchase the elixir — or where it is sold — warmly invite them to purchase and share this exact link: https://shop.maisondvue.com/products/hair-elixir
+- Present it graciously, e.g. "You may acquire yours directly here: https://shop.maisondvue.com/products/hair-elixir" — always include the full link so it is clickable.
 
 SHIPPING & RETURNS (verified policy — you may state this plainly)
 - Shipping within the United States is complimentary (typically 5–10 business days); express shipping is available for a flat $25 (typically 1–2 business days).
-- For guests in Europe, the maison warmly welcomes special requests — complimentary European shipping can be arranged on request. Never tell a European guest that shipping is unavailable; instead, invite them to write to hello@maisondvue.com so it can be arranged for them personally.
+- International shipping: Duties and taxes are included at checkout through Global-e (with Canadian duties & taxes displayed as line items). Guests can order directly from most countries through the store.
 - Each order is hand-sealed in Beverly Hills.
-- Returns: MAISON D'VUE does not accept returns at this time. When asked whether returns are accepted, answer gracefully in the spirit of "No, unfortunately, not at this time." If a guest's order arrived damaged or there is a problem, be gracious and direct them to hello@maisondvue.com, where the house will assist personally.
+- Returns: Unopened and unused products may be returned within 14 days of delivery. Opened products cannot be returned. For returns, damaged shipments, or questions, direct guests to write to hello@maisondvue.com where the house will assist personally.
 - You do NOT have access to any individual guest's order status or tracking. For anything about a specific order, direct them to hello@maisondvue.com.
 
 WHAT YOU HELP WITH
@@ -250,8 +256,29 @@ function clean(v) {
   return typeof v === "string" ? v.trim().slice(0, 120) : "";
 }
 
+function isAllowedOrigin(origin) {
+  if (!origin) return false;
+  if (ALLOWED_ORIGINS.includes(origin)) return true;
+  try {
+    const url = new URL(origin);
+    const host = url.hostname;
+    return (
+      host === "maisondvue.com" ||
+      host.endsWith(".maisondvue.com") ||
+      host === "mdv.beauty" ||
+      host.endsWith(".mdv.beauty") ||
+      host === "maisondvue.github.io" ||
+      host.endsWith(".vercel.app") ||
+      host === "localhost" ||
+      host === "127.0.0.1"
+    );
+  } catch (e) {
+    return false;
+  }
+}
+
 function corsHeaders(origin) {
-  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  const allowed = isAllowedOrigin(origin) ? origin : ALLOWED_ORIGINS[0];
   return {
     "Access-Control-Allow-Origin": allowed,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
