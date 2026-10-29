@@ -9,11 +9,11 @@
      so the logo and nav never land on an outdated version of the site. */
   window.addEventListener('pageshow', function (e) { if (e.persisted) window.location.reload(); });
 </script>
-<script src="https://unpkg.com/lenis/dist/lenis.min.js" defer></script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="assets/lenis.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="facebook-domain-verification" content="xovk96y253pwkwx7uffhiztogf5oob" />
 <title>MAISON D&rsquo;VUE &mdash; The House of Affinity Compositions&trade;</title>
-<meta name="description" content="MAISON D'VUE. The house of Affinity Compositions&trade;. A ritual of fourteen rare essences, scented in &Acirc;me de Vue&trade;. Composed in Beverly Hills.">
+<meta name="description" content="VUE 14™ Hair Élixir by MAISON D'VUE. 14 rare oils from 6 continents. Skin-grade and lip-safe daily hair treatment. Hand-sealed in Beverly Hills.">
 
 <link rel="canonical" href="https://maisondvue.com/">
 
@@ -128,6 +128,22 @@
     padding:0;
   }
 
+  /* ─── LENIS BUTTERY SMOOTH SCROLL ENGINE CSS ─── */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
   /* No smooth-scroll on html element — smooth scroll is managed by Lenis JS engine. */
   html{ scroll-behavior:auto !important; }
 
@@ -139,12 +155,21 @@
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     min-height:100vh;
+    width:100% !important;
+    max-width:100vw !important;
+    overflow-x: clip !important;
+    position:relative;
+    -webkit-text-size-adjust:100%;
   }
 
   body{
-    position:relative;
     font-size:16px;
     line-height:1.65;
+  }
+
+  main, section, footer, header, nav, .slides, .slide {
+    max-width:100vw;
+    box-sizing:border-box;
   }
 
   a{ color:inherit; text-decoration:none; }
@@ -409,8 +434,7 @@
     height:100vh; height:100svh;
     overflow:hidden; background:var(--navy-deep);
     display:flex; align-items:flex-end; justify-content:center;
-    /* Full-screen snap: each slide fills the view and locks firmly into place. */
-    scroll-snap-align:start; scroll-snap-stop:always;
+    /* Full-screen slide display */
   }
   .slide-media{
     position:absolute; inset:0; width:100%; height:100%;
@@ -460,9 +484,8 @@
     padding:100px 56px;
     background:var(--paper);
     box-shadow:0 -22px 60px -10px rgba(0,0,0,0.42);
-    scroll-snap-align:start;
   }
-  footer{ scroll-snap-align:start; }
+  footer{ }
 
   .reservation-pane::before{
     display:none;
@@ -1066,10 +1089,6 @@
      ═══════════════════════════════════════════════════════════ */
   .wall{
     background:var(--paper); padding:100px 0 96px;
-    /* Register the wall's own top as a snap point — otherwise the page's
-       mandatory y-snap jumps straight from the reservation pane to the
-       footer, cutting off the wall's head and its first row of tiles. */
-    scroll-snap-align:start; scroll-snap-stop:always;
   }
   .wall-head{ max-width:720px; margin:0 auto 48px; padding:0 24px; text-align:center; }
   .wall-eyebrow{
@@ -1182,10 +1201,78 @@
     background: radial-gradient(ellipse at 50% 25%, #FAF8F4 0%, #F1EBE0 100%);
     padding: clamp(64px, 8vh, 96px) 0 clamp(80px, 10vh, 120px);
     text-align: center;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
     position: relative;
     border-top: 1px solid rgba(194, 161, 91, 0.18);
+  }
+
+  /* ══ LUXURY PERFORMANCE: DEFER OFF-SCREEN PAINT & LAYOUT ══ */
+  .purchase-section, .reviews-section, .wall, .slides, .slide-soundtrack, .founder-spotlight, .site-footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  /* ═══ FOUNDER SPOTLIGHT LUXURY RESPONSIVE ═══ */
+  .founder-spotlight {
+    position: relative;
+    padding: clamp(64px, 10vh, 140px) clamp(20px, 5vw, 64px);
+    background: #0A0A0C;
+    color: #EFE9DF;
+    border-top: 1px solid rgba(194, 161, 91, 0.2);
+  }
+  .founder-grid-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  @media (max-width: 860px) {
+    .founder-spotlight {
+      padding: 56px 20px !important;
+    }
+    .founder-grid-inner {
+      grid-template-columns: 1fr !important;
+      gap: 36px !important;
+    }
+  }
+
+  /* ═══ LUXURY EDITORIAL FOOTER RESPONSIVE ═══ */
+  .site-footer {
+    background: #FFFFFF;
+    padding: clamp(56px, 8vh, 96px) clamp(20px, 5vw, 64px) 44px;
+    border-top: 1px solid rgba(20, 20, 26, 0.1);
+  }
+  .site-footer-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: clamp(28px, 4vw, 44px);
+    align-items: start;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  @media (max-width: 960px) {
+    .site-footer-inner {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 36px 24px !important;
+    }
+  }
+  @media (max-width: 560px) {
+    .site-footer {
+      padding: 48px 20px 36px !important;
+    }
+    .site-footer-inner {
+      grid-template-columns: 1fr !important;
+      gap: 32px !important;
+    }
   }
 
   .purchase-inner {
@@ -1327,6 +1414,11 @@
     object-fit: cover;
     -webkit-user-drag: none;
     user-select: none;
+    cursor: zoom-in;
+  }
+
+  .card-carousel:active .carousel-track img {
+    cursor: grabbing;
   }
 
   .carousel-arrow {
@@ -1382,6 +1474,139 @@
 
   @media (hover: none) {
     .carousel-arrow { width: 34px; height: 34px; font-size: 20px; }
+  }
+
+  /* ─── CARD CAROUSEL EXPAND / LIGHTBOX ─── */
+  .mdv-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+  }
+  .mdv-lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .mdv-lightbox__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 8, 10, 0.94);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    cursor: zoom-out;
+  }
+  .mdv-lightbox__stage {
+    position: relative;
+    z-index: 2;
+    max-width: 90vw;
+    max-height: 86vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+  }
+  .mdv-lightbox__img {
+    max-width: 90vw;
+    max-height: 86vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    transform: scale(0.96);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    opacity: 0;
+  }
+  .mdv-lightbox.is-open .mdv-lightbox__img {
+    transform: scale(1);
+    opacity: 1;
+  }
+  .mdv-lightbox__close {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FAF8F4;
+    font-size: 28px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    padding: 0;
+  }
+  .mdv-lightbox__close:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: scale(1.08);
+    color: #C2A15B;
+  }
+  .mdv-lightbox__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FAF8F4;
+    font-family: 'Bodoni Moda', 'Didot', Georgia, serif;
+    font-size: 26px;
+    line-height: 1;
+    padding-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+  .mdv-lightbox__arrow:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.08);
+    color: #C2A15B;
+  }
+  .mdv-lightbox__prev { left: 24px; }
+  .mdv-lightbox__next { right: 24px; }
+
+  .mdv-lightbox__counter {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-family: 'Jost', 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(250, 248, 244, 0.65);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .mdv-lightbox__close { top: 16px; right: 16px; width: 38px; height: 38px; font-size: 24px; }
+    .mdv-lightbox__arrow { width: 40px; height: 40px; font-size: 22px; }
+    .mdv-lightbox__prev { left: 12px; }
+    .mdv-lightbox__next { right: 12px; }
+    .mdv-lightbox__img { max-width: 95vw; max-height: 80vh; }
   }
 
   .card-body {
@@ -1540,6 +1765,9 @@
     height: 100%;
     display: block;
     background: url('assets/hero-poster/hero-poster.webp') center/cover no-repeat;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
   .dv-hero-fallback-media {
     position: absolute;
@@ -1558,11 +1786,138 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    z-index: 2;
+    gap: 10px;
+    z-index: 6;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity .35s ease, transform .35s ease;
+    user-select: none;
+  }
+  .dv-cue:hover {
+    opacity: 1;
+    transform: translateX(-50%) translateY(3px);
+  }
+  .dv-cue:hover .dv-cue-text {
+    color: #C2A15B !important;
   }
   @keyframes dvDrift { 0%,100% { transform:translateY(0); opacity:.55 } 50% { transform:translateY(9px); opacity:1 } }
-  @media (max-height: 780px) { .dv-cue { display:none !important } }
+  @media (max-height: 640px) { .dv-cue { bottom: 18px; } }
+
+  /* ═══ LUXURY HERO SKIP ACTION (APPLE / CHANEL SCROLL-BYPASS UX) ═══ */
+  .dv-hero-skip {
+    position: absolute;
+    bottom: 26px;
+    right: 92px;
+    z-index: 8;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 18px 9px 14px;
+    background: rgba(10, 10, 12, 0.68);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(194, 161, 91, 0.32);
+    border-radius: 999px;
+    text-decoration: none;
+    color: #EFE9DF;
+    font-family: var(--font-display);
+    font-size: 9.5px;
+    font-weight: 400;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0.82;
+    user-select: none;
+  }
+  .dv-hero-skip:hover {
+    opacity: 1;
+    background: rgba(20, 18, 16, 0.88);
+    border-color: rgba(194, 161, 91, 0.75);
+    color: #C2A15B;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(194, 161, 91, 0.22);
+  }
+  .dv-hero-skip-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #C2A15B;
+    box-shadow: 0 0 8px rgba(194, 161, 91, 0.85);
+    transition: transform 0.3s ease;
+  }
+  .dv-hero-skip:hover .dv-hero-skip-dot {
+    transform: scale(1.3);
+  }
+  .dv-hero-skip-arrow {
+    width: 11px;
+    height: 11px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dv-hero-skip:hover .dv-hero-skip-arrow {
+    transform: translateY(2px);
+  }
+
+  /* Compact screens & Mobile */
+  @media (max-width: 768px) {
+    .dv-hero-skip {
+      bottom: 22px;
+      right: 76px;
+      padding: 7px 14px 7px 11px;
+      font-size: 8.5px;
+      letter-spacing: 0.2em;
+      gap: 7px;
+    }
+  }
+  @media (max-height: 640px) {
+    .dv-hero-skip { bottom: 18px; right: 76px; }
+  }
+
+  /* Fullscreen preloader gate */
+  .hero-loader {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    z-index: 9999;
+    transition: opacity .65s cubic-bezier(.16,1,.3,1), visibility .65s cubic-bezier(.16,1,.3,1);
+    user-select: none;
+  }
+  .hero-loader.loaded { opacity: 0; visibility: hidden; pointer-events: none; }
+  .hero-loader-inner { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 480px; padding: 0 24px; }
+  .hero-loader-rule { width: 34px; height: 1px; background: rgba(239,233,223,.4); margin-bottom: 22px; }
+  .hero-loader-brand {
+    font-family: var(--font-display); font-weight: 400; font-size: 13px; line-height: 1.1;
+    letter-spacing: .32em; text-transform: uppercase; color: #EFE9DF; margin-bottom: 20px;
+  }
+  .hero-loader-status {
+    font-family: var(--font-italic); font-style: italic; font-weight: 400;
+    font-size: clamp(15px, 1.6vw, 18px); letter-spacing: .01em; color: rgba(239,233,223,.72);
+    min-height: 24px; margin-bottom: 26px; transition: opacity .25s ease; line-height: 1.4;
+  }
+  .hero-loader-track { width: clamp(180px, 25vw, 260px); height: 1px; background: rgba(239,233,223,.16); overflow: hidden; position: relative; }
+  .hero-loader-fill { width: 0%; height: 100%; background: #EFE9DF; transition: width .12s ease-out; }
+  .hero-loader-percent { font-family: var(--font-sans); font-weight: 400; font-size: 10px; color: rgba(239,233,223,.6); letter-spacing: .18em; margin-top: 16px; }
+
+  /* Choreographed narrative beats (opacity only) */
+  .dv-hero-beats { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+  .dv-hero-beat {
+    position: absolute; inset: 0; opacity: 0; display: flex; align-items: flex-end; justify-content: center;
+    padding: 0 clamp(20px,4vw,64px) clamp(70px,10vh,140px);
+    transition: opacity .4s cubic-bezier(.2,.7,.2,1);
+  }
+  .dv-hero-beat.is-active { opacity: 1; }
+  .dv-hero-beat p {
+    font-family: var(--font-italic); font-style: italic; font-weight: 400; color: #EFE9DF;
+    font-size: clamp(20px, 2.6vw, 30px); line-height: 1.35; max-width: 620px; text-align: center; margin: 0;
+    text-shadow: 0 2px 24px rgba(0,0,0,.5);
+  }
 </style>
 <link rel="stylesheet" href="assets/nav.css?v=13">
 <link rel="stylesheet" href="assets/house.css?v=4">
@@ -1639,18 +1994,47 @@
 
 
   <!-- ═══ SCROLL-SCRUB HERO REGION (PORTED FROM V2) ═══ -->
-  <section id="slide-elixir" data-hero-region style="position:relative;height:100vh;background:#0A0A0C;scroll-snap-align:start;scroll-snap-stop:always;">
+  <section id="slide-elixir" data-hero-region style="position:relative;height:clamp(2800px, 460vh, 6200px);background:#0A0A0C;">
     <div id="heroSticky" class="dv-hero-sticky">
+      <!-- Fullscreen luxury preloader gate -->
+      <div id="hero-loader" class="hero-loader" aria-live="polite" aria-label="Loading experience">
+        <div class="hero-loader-inner">
+          <div class="hero-loader-rule"></div>
+          <div class="hero-loader-brand">MAISON D&rsquo;VUE</div>
+          <div id="hero-loader-status" class="hero-loader-status">Beverly Hills &middot; the ritual begins</div>
+          <div class="hero-loader-track"><div id="hero-loader-fill" class="hero-loader-fill"></div></div>
+          <div id="hero-loader-percent" class="hero-loader-percent">0%</div>
+        </div>
+      </div>
+
       <canvas id="heroCanvas" class="dv-hero-canvas" aria-hidden="true"></canvas>
       <video id="heroMobileVideo" class="dv-hero-fallback-media" muted loop playsinline preload="none" aria-hidden="true"></video>
-      <img id="heroStaticPoster" class="dv-hero-fallback-media" src="assets/hero-poster/hero-poster.webp" alt="MAISON D'VUE Hair Elixir — face, eye, hands with the elixir, mirror reveal">
+      <img id="heroStaticPoster" class="dv-hero-fallback-media" src="assets/hero-poster/hero-poster.webp?v=4k" alt="MAISON D'VUE Hair Elixir — signature video sequence">
 
       <div class="slide-scrim" aria-hidden="true"></div>
 
-      <div class="dv-cue">
-        <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(239,233,223,.42);font-family:var(--font-display)">Scroll</div>
-        <div style="width:1px;height:52px;background:linear-gradient(180deg,rgba(194,161,91,.85),rgba(194,161,91,0));animation:dvDrift 3.4s ease-in-out infinite"></div>
+      <!-- Choreographed narrative beats -->
+      <div class="dv-hero-beats">
+        <div class="dv-hero-beat" data-start="0.05" data-end="0.18"><p>Beverly Hills. Where the ritual begins.</p></div>
+        <div class="dv-hero-beat" data-start="0.28" data-end="0.40"><p><em>&Acirc;me de Vue</em> &mdash; our signature scent, sealed within.</p></div>
+        <div class="dv-hero-beat" data-start="0.48" data-end="0.60"><p>A single dropper, warmed between the palms.</p></div>
+        <div class="dv-hero-beat" data-start="0.68" data-end="0.80"><p>Drawn through hair, strand by strand.</p></div>
+        <div class="dv-hero-beat" data-start="0.88" data-end="0.98"><p>The Hair Elixir.</p></div>
       </div>
+
+      <a href="#buy" class="dv-cue" id="heroCueBtn" aria-label="Scroll or click to discover product allocations">
+        <div class="dv-cue-text" style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(239,233,223,.42);font-family:var(--font-display);transition:color .3s ease">Scroll</div>
+        <div style="width:1px;height:48px;background:linear-gradient(180deg,rgba(194,161,91,.85),rgba(194,161,91,0));animation:dvDrift 3.4s ease-in-out infinite"></div>
+      </a>
+
+      <!-- Direct luxury skip affordance (Apple / Chanel / Hermès UX) -->
+      <a href="#buy" id="heroSkipBtn" class="dv-hero-skip" aria-label="Skip ritual film and jump directly to product allocations">
+        <span class="dv-hero-skip-dot" aria-hidden="true"></span>
+        <span class="dv-hero-skip-label">Skip Ritual</span>
+        <svg class="dv-hero-skip-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+          <path d="M6 2v7.5M2.5 6.5L6 9.5l3.5-3"/>
+        </svg>
+      </a>
     </div>
   </section>
 
@@ -1666,9 +2050,11 @@
 
         <div class="purchase-card featured">
           <span class="card-badge">Flagship Edition</span>
-          <div class="card-image card-carousel" data-carousel aria-roledescription="carousel" aria-label="The Signature Hair Elixir photographs">
+          <div class="card-image card-carousel" data-carousel data-carousel-link="elixir-signature.html" aria-roledescription="carousel" aria-label="The Signature Hair Elixir photographs">
             <div class="carousel-track">
-              <img src="maison-dvue-elixir-studio.jpg" alt="The Signature &mdash; 30ml MAISON D'VUE Hair Elixir in cobalt frosted glass with matte gold cap on a dark studio background" draggable="false">
+              <img src="maison-dvue-elixir-studio.jpg" alt="The Signature — 30ml MAISON D'VUE Hair Elixir in cobalt frosted glass with matte gold cap on a dark studio background" draggable="false">
+              <img src="photos/ritual-apply-dropper.jpg" alt="Applying MAISON D'VUE Hair Elixir to hair with dropper" loading="lazy" draggable="false">
+              <img src="photos/ritual-dropper-macro.jpg" alt="Macro closeup of MAISON D'VUE Hair Elixir dropper" loading="lazy" draggable="false">
               <img src="maison-dvue-elixir-dropper-drop.jpg" alt="A single golden drop of MAISON D'VUE Hair Elixir suspended from the dropper above the bottle's gold cap" loading="lazy" draggable="false">
               <img src="signature-open-poster.jpg" alt="Opening the box on the MAISON D'VUE Hair Elixir" loading="lazy" draggable="false">
               <img src="signature-apply-poster.jpg" alt="Applying the MAISON D'VUE Hair Elixir" loading="lazy" draggable="false">
@@ -1694,13 +2080,12 @@
 
         <div class="purchase-card">
           <span class="card-badge card-badge--light">Travel Edition</span>
-          <div class="card-image card-carousel" data-carousel aria-roledescription="carousel" aria-label="The Voyage Hair Elixir photographs">
+          <div class="card-image card-carousel" data-carousel data-carousel-link="elixir-voyage.html" aria-roledescription="carousel" aria-label="The Voyage Hair Elixir photographs">
             <div class="carousel-track">
-              <img src="maison-dvue-elixir-voyage.jpg" alt="The Voyage &mdash; 10ml MAISON D'VUE Hair Elixir travel bottle in front of royal blue coffret box with wax seal" draggable="false">
-              <img src="ritual-holding-voyage.jpg" alt="Hand holding The Voyage 10ml travel bottle of MAISON D'VUE Hair Elixir" loading="lazy" draggable="false">
-              <img src="shop-voyage-5.jpg" alt="The Voyage 10ml travel bottle closeup view" loading="lazy" draggable="false">
-              <img src="packaging-gift-box.jpg" alt="The closed royal blue luxury coffret box standing upright showing the wax seal" loading="lazy" draggable="false">
-              <img src="wax-seal-detail.jpg" alt="Macro detail of the royal blue wax seal" loading="lazy" draggable="false">
+              <img src="photos/ritual-holding-voyage.jpg" alt="The Voyage &mdash; gloved hand holding the 10ml MAISON D'VUE Hair Elixir travel bottle on white background" draggable="false">
+              <img src="photos/ritual-apply-dropper.jpg" alt="Applying MAISON D'VUE Hair Elixir to hair with dropper" loading="lazy" draggable="false">
+              <img src="photos/ritual-dropper-macro.jpg" alt="Macro closeup of MAISON D'VUE Hair Elixir dropper" loading="lazy" draggable="false">
+              <img src="photos/shop-voyage-studio.jpg" alt="The Voyage &mdash; 10ml MAISON D'VUE Hair Elixir travel bottle studio photograph on white background" loading="lazy" draggable="false">
             </div>
             <button type="button" class="carousel-arrow prev" aria-label="Previous photo">&#8249;</button>
             <button type="button" class="carousel-arrow next" aria-label="Next photo">&#8250;</button>
@@ -1741,7 +2126,7 @@
 
       <div class="wall-tile wall-tile--full-review">
         <video class="wall-video" id="testimonial-6-video" src="testimonial-6.mp4" poster="testimonial-6-poster.jpg"
-          autoplay muted loop playsinline webkit-playsinline="true" preload="auto"
+          muted loop playsinline webkit-playsinline="true" preload="none"
           disablepictureinpicture aria-hidden="true"></video>
         <button type="button" class="wall-sound-btn" data-video-target="testimonial-6-video" aria-label="Play full review with sound">
           <span class="wall-sound-icon">&#9658;</span> Watch full review
@@ -1750,7 +2135,7 @@
 
       <div class="wall-tile wall-tile--full-review">
         <video class="wall-video" id="testimonial-7-video" src="testimonial-7.mp4" poster="testimonial-7-poster.jpg"
-          autoplay muted loop playsinline webkit-playsinline="true" preload="auto"
+          muted loop playsinline webkit-playsinline="true" preload="none"
           disablepictureinpicture aria-hidden="true"></video>
         <button type="button" class="wall-sound-btn" data-video-target="testimonial-7-video" aria-label="Play full review with sound">
           <span class="wall-sound-icon">&#9658;</span> Watch full review
@@ -1769,7 +2154,7 @@
   <div class="slides">
 
     <section class="slide" id="slide-matrix">
-      <video class="slide-media" src="matrix-generated-video.mp4?v=100" poster="slide-affinity-matrix.jpg"
+      <video class="slide-media" src="matrix-generated-video.mp4?v=101" poster="slide-affinity-matrix.jpg?v=101"
         autoplay muted loop playsinline webkit-playsinline="true" preload="auto"
         disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
         aria-hidden="true"></video>
@@ -1781,7 +2166,7 @@
     </section>
 
     <section class="slide" id="slide-ritual">
-      <video class="slide-media" src="ritual-generated-video.mp4?v=100" poster="slide-ritual.jpg"
+      <video class="slide-media" src="ritual-generated-video.mp4?v=101" poster="slide-ritual.jpg?v=101"
         autoplay muted loop playsinline webkit-playsinline="true" preload="auto"
         disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
         aria-hidden="true"></video>
@@ -1793,7 +2178,7 @@
     </section>
 
     <section class="slide" id="slide-house">
-      <video class="slide-media" src="hf_20260901_211626.mp4?v=100" poster="slide-house.jpg"
+      <video class="slide-media" src="hf_20260901_211626.mp4?v=101" poster="slide-house.jpg?v=101"
         autoplay muted loop playsinline webkit-playsinline="true" preload="auto"
         disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
         aria-hidden="true"></video>
@@ -1805,7 +2190,7 @@
     </section>
 
     <section class="slide" id="slide-world">
-      <video class="slide-media" src="world-banner.mp4?v=100" poster="world-banner-poster.jpg"
+      <video class="slide-media" src="world-banner.mp4?v=101" poster="world-banner-poster.jpg?v=101"
         autoplay muted loop playsinline webkit-playsinline="true" preload="auto"
         disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
         aria-hidden="true"></video>
@@ -1846,9 +2231,40 @@
   <!-- ═══ ABOUT THE FOUNDER SPOTLIGHT ═══ -->
   <section class="founder-spotlight" id="founder" style="position:relative;padding:clamp(80px,10vh,140px) clamp(24px,5vw,64px);background:#0A0A0C;color:#EFE9DF;border-top:1px solid rgba(194,161,91,.2);overflow:hidden">
     <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(40px,6vw,80px);align-items:center">
-      <div style="position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:2px;box-shadow:0 20px 50px rgba(0,0,0,0.6)">
-        <img src="masiela-lusha-founder-portrait.jpg" alt="Masiela Lusha — Founder & Creative Director of MAISON D'VUE" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.92) contrast(1.05);transition:transform 0.6s ease">
+      <div class="founder-video-frame" style="position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:2px;box-shadow:0 20px 50px rgba(0,0,0,0.6)">
+        <video
+          class="founder-video"
+          src="videos/founder-masiela-intro.mp4"
+          poster="masiela-lusha-founder-portrait.jpg"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline="true"
+          preload="metadata"
+          disablepictureinpicture
+          controlslist="nodownload nofullscreen noremoteplayback"
+          style="width:100%;height:100%;object-fit:cover;filter:brightness(0.92) contrast(1.05)">
+        </video>
+        <button type="button" class="founder-sound-toggle" aria-label="Turn sound on" aria-pressed="false" onclick="
+          var v=this.previousElementSibling;
+          v.muted=!v.muted;
+          this.setAttribute('aria-pressed', String(!v.muted));
+          this.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off');
+          this.classList.toggle('is-on', !v.muted);
+        " style="position:absolute;bottom:20px;right:20px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(239,233,223,.4);background:rgba(10,10,12,.45);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s ease,background .3s ease;padding:0;z-index:2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EFE9DF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="4,9 8,9 13,4.5 13,19.5 8,15 4,15" fill="#EFE9DF" stroke="none"></polygon>
+            <path class="sound-off-lines" d="M17 9l5 6M22 9l-5 6"></path>
+            <path class="sound-on-lines" d="M16.5 8.5a5 5 0 0 1 0 7M19.5 6a9 9 0 0 1 0 12" style="display:none"></path>
+          </svg>
+        </button>
       </div>
+      <style>
+        .founder-sound-toggle:hover{border-color:#C2A15B;background:rgba(10,10,12,.65)}
+        .founder-sound-toggle.is-on .sound-off-lines{display:none}
+        .founder-sound-toggle.is-on .sound-on-lines{display:block}
+      </style>
       <div style="display:flex;flex-direction:column;gap:24px">
         <div style="font-size:10.5px;letter-spacing:.38em;text-transform:uppercase;color:#C2A15B;font-family:'Jost',sans-serif;font-weight:500">About The Founder</div>
         <h2 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(32px,4.3vw,52px);line-height:1.08;color:#FAF8F4">
@@ -1865,7 +2281,7 @@
           &ldquo;A poem is what remains after everything unnecessary is removed. So is a composition.&rdquo;
         </blockquote>
         <div style="margin-top:12px">
-          <a href="about.html" style="display:inline-block;padding:15px 32px;border:1px solid #C2A15B;color:#C2A15B;text-decoration:none;font-family:'Jost',sans-serif;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;transition:all 0.3s ease;border-radius:2px" onmouseover="this.style.background='#C2A15B';this.style.color='#0A0A0C';" onmouseout="this.style.background='transparent';this.style.color='#C2A15B';">Read Full Biography &rarr;</a>
+          <a href="/about" style="display:inline-block;padding:15px 32px;border:1px solid #C2A15B;color:#C2A15B;text-decoration:none;font-family:'Jost',sans-serif;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;transition:all 0.3s ease;border-radius:2px" onmouseover="this.style.background='#C2A15B';this.style.color='#0A0A0C';" onmouseout="this.style.background='transparent';this.style.color='#C2A15B';">Read Full Biography &rarr;</a>
         </div>
       </div>
     </div>
@@ -1874,8 +2290,8 @@
 </main>
 
 <!-- ═══ LUXURY EDITORIAL FOOTER ═══ -->
-<footer style="background:#fff;padding:clamp(64px,8vh,96px) clamp(20px,5vw,64px) 44px;border-top:1px solid rgba(20,20,26,.1)">
-  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:44px;align-items:start">
+<footer class="site-footer">
+  <div class="site-footer-inner">
     <div style="display:flex;flex-direction:column;gap:16px">
       <div style="font-family:'Bodoni Moda',serif;font-weight:500;font-size:17px;letter-spacing:.2em;text-transform:uppercase;color:#14141A">Maison D'Vue</div>
       <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(20,20,26,.45);line-height:2">The House of Affinity Compositions&trade;</div>
@@ -1911,7 +2327,8 @@
       <div style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,20,26,.4)">Care</div>
       <div>Complimentary US shipping, 5–10 business days</div>
       <div>Express, $25 flat &mdash; 1–2 business days</div>
-      <div>All sales final except damage or defect</div>
+      <div>International: Duties & taxes included via Global-e</div>
+      <div>Unopened items returnable within 14 days</div>
     </div>
   </div>
   <div style="max-width:1180px;margin:52px auto 0;padding-top:24px;border-top:1px solid rgba(20,20,26,.08);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(20,20,26,.4)">
@@ -1929,33 +2346,50 @@
      plus native in-page anchor scrolling — no JS needed. Cue links that point to
      other pages (patent, founder) navigate normally via the shared fade. */
 
-  /* ─── ALL VIDEOS — force autoplay where possible ─── */
+  /* ─── INTELLIGENT PERFORMANCE VIDEO CONTROLLER ─── */
   (function(){
-    var vids = document.querySelectorAll('video');
-    vids.forEach(function(v){
-      var attemptPlay = function(){
+    var vids = document.querySelectorAll('video:not(#heroMobileVideo)');
+    if (!vids.length) return;
+
+    function safePlay(v) {
+      if (v.paused) {
         var p = v.play();
         if (p && typeof p.catch === 'function') {
-          p.catch(function(){
-            var unlock = function(){
-              v.play().catch(function(){});
-              document.removeEventListener('touchstart', unlock);
-              document.removeEventListener('click', unlock);
-              document.removeEventListener('scroll', unlock);
-            };
-            document.addEventListener('touchstart', unlock, { passive: true, once: true });
-            document.addEventListener('click', unlock, { once: true });
-            document.addEventListener('scroll', unlock, { passive: true, once: true });
-          });
+          p.catch(function(){});
         }
-      };
-      if (v.readyState >= 2) {
-        attemptPlay();
-      } else {
-        v.addEventListener('loadeddata', attemptPlay, { once: true });
-        v.addEventListener('canplay', attemptPlay, { once: true });
       }
-    });
+    }
+
+    // Proactively preload and warm slide videos on first user interaction or scroll
+    function unlockMedia() {
+      document.querySelectorAll('.slide-media').forEach(function(v) {
+        if (v.preload !== 'auto') v.preload = 'auto';
+        safePlay(v);
+      });
+      window.removeEventListener('scroll', unlockMedia);
+      window.removeEventListener('touchstart', unlockMedia);
+      window.removeEventListener('click', unlockMedia);
+    }
+    window.addEventListener('scroll', unlockMedia, { passive: true, once: true });
+    window.addEventListener('touchstart', unlockMedia, { passive: true, once: true });
+    window.addEventListener('click', unlockMedia, { passive: true, once: true });
+
+    if ('IntersectionObserver' in window) {
+      var videoObserver = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          var v = entry.target;
+          if (entry.isIntersecting) {
+            if (v.preload !== 'auto') v.preload = 'auto';
+            safePlay(v);
+          } else {
+            v.pause();
+          }
+        });
+      }, { rootMargin: '600px 0px', threshold: 0.05 });
+      vids.forEach(function(v){
+        videoObserver.observe(v);
+      });
+    }
   })();
 
   /* ─── PROMO RIBBON DISMISS ─── */
@@ -1982,8 +2416,118 @@
     document.getElementById('promoRibbon').classList.add('dismissed');
   }
 
-  /* Product card carousel — arrows, dots, touch & mouse swipe, keyboard */
+  /* Product card carousel — arrows, dots, touch & mouse swipe, keyboard, click-to-expand lightbox */
   (function () {
+    /* Shared Fullscreen Lightbox */
+    var lightboxEl = null;
+    var lbImg = null, lbCurrent = null, lbTotal = null;
+    var lbSlides = [];
+    var lbIndex = 0;
+    var lbOnNavigate = null;
+
+    function initLightbox() {
+      if (lightboxEl) return;
+      lightboxEl = document.createElement('div');
+      lightboxEl.className = 'mdv-lightbox';
+      lightboxEl.id = 'mdvLightbox';
+      lightboxEl.setAttribute('aria-hidden', 'true');
+      lightboxEl.setAttribute('role', 'dialog');
+      lightboxEl.setAttribute('aria-modal', 'true');
+      lightboxEl.setAttribute('aria-label', 'Photo preview');
+      lightboxEl.innerHTML =
+        '<div class="mdv-lightbox__backdrop"></div>' +
+        '<button type="button" class="mdv-lightbox__close" aria-label="Close photo preview">&times;</button>' +
+        '<button type="button" class="mdv-lightbox__arrow mdv-lightbox__prev" aria-label="Previous photo">&#8249;</button>' +
+        '<button type="button" class="mdv-lightbox__arrow mdv-lightbox__next" aria-label="Next photo">&#8250;</button>' +
+        '<div class="mdv-lightbox__stage">' +
+          '<img class="mdv-lightbox__img" src="" alt="">' +
+        '</div>' +
+        '<div class="mdv-lightbox__counter"><span class="mdv-lightbox__current">1</span> / <span class="mdv-lightbox__total">1</span></div>';
+      document.body.appendChild(lightboxEl);
+
+      lbImg = lightboxEl.querySelector('.mdv-lightbox__img');
+      lbCurrent = lightboxEl.querySelector('.mdv-lightbox__current');
+      lbTotal = lightboxEl.querySelector('.mdv-lightbox__total');
+
+      lbImg.addEventListener('click', function (e) { e.stopPropagation(); });
+      lightboxEl.querySelector('.mdv-lightbox__stage').addEventListener('click', function (e) {
+        if (e.target === this) closeLightbox();
+      });
+
+      lightboxEl.querySelector('.mdv-lightbox__close').addEventListener('click', closeLightbox);
+      lightboxEl.querySelector('.mdv-lightbox__backdrop').addEventListener('click', closeLightbox);
+      lightboxEl.querySelector('.mdv-lightbox__prev').addEventListener('click', function (e) {
+        e.stopPropagation();
+        showLightboxSlide(lbIndex - 1);
+      });
+      lightboxEl.querySelector('.mdv-lightbox__next').addEventListener('click', function (e) {
+        e.stopPropagation();
+        showLightboxSlide(lbIndex + 1);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightboxEl || !lightboxEl.classList.contains('is-open')) return;
+        if (e.key === 'Escape') {
+          closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+          showLightboxSlide(lbIndex - 1);
+        } else if (e.key === 'ArrowRight') {
+          showLightboxSlide(lbIndex + 1);
+        }
+      });
+
+      var lbStartX = 0, lbDx = 0;
+      lightboxEl.addEventListener('touchstart', function (e) {
+        lbStartX = e.touches[0].clientX;
+        lbDx = 0;
+      }, { passive: true });
+      lightboxEl.addEventListener('touchmove', function (e) {
+        lbDx = e.touches[0].clientX - lbStartX;
+      }, { passive: true });
+      lightboxEl.addEventListener('touchend', function () {
+        if (Math.abs(lbDx) > 40) {
+          showLightboxSlide(lbIndex + (lbDx < 0 ? 1 : -1));
+        }
+      });
+    }
+
+    function openLightbox(slides, startIndex, onNavigate) {
+      initLightbox();
+      lbSlides = slides;
+      lbTotal.textContent = slides.length;
+      lbOnNavigate = onNavigate;
+      showLightboxSlide(startIndex);
+      lightboxEl.classList.add('is-open');
+      lightboxEl.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      if (!lightboxEl) return;
+      lightboxEl.classList.remove('is-open');
+      lightboxEl.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function showLightboxSlide(idx) {
+      if (!lbSlides.length) return;
+      lbIndex = (idx + lbSlides.length) % lbSlides.length;
+      var slide = lbSlides[lbIndex];
+      lbImg.style.opacity = '0';
+      lbImg.src = slide.src;
+      lbImg.alt = slide.alt || '';
+      lbCurrent.textContent = lbIndex + 1;
+      if (lbImg.complete) {
+        lbImg.style.opacity = '1';
+      } else {
+        lbImg.onload = function () { lbImg.style.opacity = '1'; };
+      }
+      if (typeof lbOnNavigate === 'function') {
+        lbOnNavigate(lbIndex);
+      }
+    }
+
+    /* Initialize each card carousel */
     document.querySelectorAll('[data-carousel]').forEach(function (root) {
       var track = root.querySelector('.carousel-track');
       if (!track) return;
@@ -1993,14 +2537,23 @@
       var dotsWrap = root.querySelector('.carousel-dots');
       var prev = root.querySelector('.carousel-arrow.prev');
       var next = root.querySelector('.carousel-arrow.next');
-      var index = 0, startX = 0, dx = 0, dragging = false, width = 0;
+      var index = 0, startX = 0, dx = 0, dragging = false, moved = false, width = 0;
+      var downTarget = null;
+
+      // Prevent default image drag
+      slides.forEach(function (img) {
+        img.addEventListener('dragstart', function (e) { e.preventDefault(); });
+      });
 
       var dots = slides.map(function (_, i) {
         var b = document.createElement('button');
         b.type = 'button';
         b.className = 'carousel-dot' + (i === 0 ? ' active' : '');
         b.setAttribute('aria-label', 'Go to photo ' + (i + 1));
-        b.addEventListener('click', function () { go(i); });
+        b.addEventListener('click', function (e) {
+          e.stopPropagation();
+          go(i);
+        });
         if (dotsWrap) dotsWrap.appendChild(b);
         return b;
       });
@@ -2012,293 +2565,612 @@
       }
       function go(i) { index = (i + slides.length) % slides.length; render(true); }
 
-      if (prev) prev.addEventListener('click', function () { go(index - 1); });
-      if (next) next.addEventListener('click', function () { go(index + 1); });
+      if (prev) prev.addEventListener('click', function (e) {
+        e.stopPropagation();
+        go(index - 1);
+      });
+      if (next) next.addEventListener('click', function (e) {
+        e.stopPropagation();
+        go(index + 1);
+      });
 
       root.setAttribute('tabindex', '0');
       root.addEventListener('keydown', function (e) {
+        if (lightboxEl && lightboxEl.classList.contains('is-open')) return;
         if (e.key === 'ArrowLeft') { go(index - 1); }
         else if (e.key === 'ArrowRight') { go(index + 1); }
       });
 
       function onMouseMove(e) { move(e.clientX); }
-      function onMouseUp() {
-        end();
-        window.removeEventListener('mousemove', onMouseMove);
-        window.removeEventListener('mouseup', onMouseUp);
-      }
+      function onMouseUp() { end(); }
 
-      function start(x) {
-        dragging = true; startX = x; dx = 0; width = root.clientWidth || 1; track.style.transition = 'none';
+      function start(x, target) {
+        dragging = true;
+        moved = false;
+        startX = x;
+        dx = 0;
+        downTarget = target;
+        width = root.clientWidth || 1;
+        track.style.transition = 'none';
         window.addEventListener('mousemove', onMouseMove);
         window.addEventListener('mouseup', onMouseUp);
       }
       function move(x) {
         if (!dragging) return;
         dx = x - startX;
+        if (Math.abs(dx) > 6) {
+          moved = true;
+        }
         track.style.transform = 'translateX(calc(' + (-index * 100) + '% + ' + dx + 'px))';
       }
       function end() {
         if (!dragging) return;
         dragging = false;
-        if (Math.abs(dx) > width * 0.18) { go(index + (dx < 0 ? 1 : -1)); }
-        else render(true);
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+
+        if (moved && Math.abs(dx) > width * 0.18) {
+          go(index + (dx < 0 ? 1 : -1));
+        } else if (moved) {
+          render(true);
+        } else {
+          // Intentional click/tap without dragging -> open lightbox or navigate
+          render(true);
+          var link = root.getAttribute('data-carousel-link');
+          if (link) {
+            window.location.href = link;
+            return;
+          }
+          if (downTarget && track.contains(downTarget)) {
+            var img = downTarget.closest ? downTarget.closest('img') : (downTarget.tagName === 'IMG' ? downTarget : null);
+            if (img && track.contains(img)) {
+              var clickedIdx = slides.indexOf(img);
+              if (clickedIdx === -1) clickedIdx = index;
+              var slideData = slides.map(function (s) {
+                return { src: s.getAttribute('src'), alt: s.getAttribute('alt') || '' };
+              });
+              openLightbox(slideData, clickedIdx, function (newIdx) {
+                go(newIdx);
+              });
+            }
+          }
+        }
       }
 
-      root.addEventListener('touchstart', function (e) { start(e.touches[0].clientX); }, { passive: true });
-      root.addEventListener('touchmove', function (e) { move(e.touches[0].clientX); }, { passive: true });
-      root.addEventListener('touchend', end);
-      root.addEventListener('touchcancel', end);
+      track.addEventListener('touchstart', function (e) {
+        start(e.touches[0].clientX, e.target);
+      }, { passive: true });
+      track.addEventListener('touchmove', function (e) {
+        move(e.touches[0].clientX);
+      }, { passive: true });
+      track.addEventListener('touchend', end);
+      track.addEventListener('touchcancel', end);
 
-      root.addEventListener('mousedown', function (e) { start(e.clientX); e.preventDefault(); });
+      track.addEventListener('mousedown', function (e) {
+        start(e.clientX, e.target);
+      });
+
+      render(false);
     });
   })();
 
-  /* ─── SCROLL-SCRUB HERO ENGINE (PORTED FROM V2) ─── */
-  /* TODO: replace hero-frames-webp + hero-poster + hero-mobile.mp4 with the final color-graded export once delivered; re-run the ffmpeg/ffprobe commands documented in the JS comment above MdvHeroEngine to regenerate frames and update MDV_HERO_TOTAL_FRAMES */
-  const MDV_HERO_TOTAL_FRAMES = 289;
-  const MDV_HERO_FRAME_PATH = (n) => "assets/hero-frames-webp/frame-" + String(n).padStart(4, "0") + ".webp";
-  const MDV_HERO_MOBILE_VIDEO_SRC = "assets/hero-fallback/hero-mobile.mp4";
-  const MDV_HERO_SCROLL_HEIGHT = "clamp(1400px, 220vh, 3000px)";
-  const MDV_HERO_PRELOAD_CONCURRENCY = 8;
-  const MDV_HERO_BEATS = [];
+  /* ═════════════════════════════════════════════════════════════════
+     MAISON D'VUE — ULTRA-FLUID 60FPS HERO CANVAS ENGINE
+     Directly ported from Shubham's TPL Clinic Architecture
+     ═════════════════════════════════════════════════════════════════ */
+  const MDV_HERO_POSTER_SRC = "assets/hero-poster/hero-poster.webp?v=4k";
+  const MDV_HERO_MOBILE_VIDEO_SRC = "assets/hero-fallback/hero-mobile.mp4?v=1080p";
 
-  class MdvHeroEngine {
-    constructor(stickyEl) {
-      this.sticky = stickyEl;
-      this.section = stickyEl.closest("[data-hero-region]");
-      this.canvas = stickyEl.querySelector("#heroCanvas");
-      this.video = stickyEl.querySelector("#heroMobileVideo");
-      this.poster = stickyEl.querySelector("#heroStaticPoster");
-      this.ctx = this.canvas ? this.canvas.getContext("2d", { alpha: false, desynchronized: true }) : null;
-      this.frameBitmaps = new Array(MDV_HERO_TOTAL_FRAMES + 1);
-      this.loadingPromises = {};
-      this.lastDrawnFrame = 0;
-      this.targetProgress = 0;
-      this.drawRafId = null;
-      this.resizeRafId = null;
-      this.lenis = null;
-      this.lenisRafId = null;
-      this.beatEls = [];
-      this.ctaEl = null;
-      this.activeBeatId = null;
-      this.destroyed = false;
-    }
+  class MdvHeroCanvasEngine {
+    constructor() {
+      this.hero = document.getElementById('slide-elixir');
+      this.sticky = document.getElementById('heroSticky');
+      this.canvas = document.getElementById('heroCanvas');
+      this.video = document.getElementById('heroMobileVideo');
+      this.poster = document.getElementById('heroStaticPoster');
+      this.loader = document.getElementById('hero-loader');
+      this.fill = document.getElementById('hero-loader-fill');
+      this.percentEl = document.getElementById('hero-loader-percent');
+      this.statusEl = document.getElementById('hero-loader-status');
+      this.beatEls = Array.from(document.querySelectorAll('.dv-hero-beat'));
+      this.skipBtn = document.getElementById('heroSkipBtn');
+      this.cueBtn = document.getElementById('heroCueBtn');
 
-    isMobilePhone() {
-      const ua = navigator.userAgent || "";
-      const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      const ua = navigator.userAgent || '';
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
       const narrow = window.innerWidth <= 820;
-      const uaMobile = /Android|iPhone|iPod|Mobile/i.test(ua);
-      return uaMobile || (isTouch && narrow);
+      this.isMobile = /Android|iPhone|iPod|Mobile/i.test(ua) || (isTouch && narrow);
+      this.isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Shubham's dual tier LOD set: 100 frames on phones, 300 Full HD 1080p frames on desktop
+      this.heroSet = this.isMobile
+        ? { count: 100, dir: 'hero-frames-mobile' }
+        : { count: 300, dir: 'hero-frames' };
+
+      this.TOTAL_FRAMES = this.heroSet.count;
+      this.images = new Array(this.TOTAL_FRAMES + 1);
+
+      this.frameSrc = (n) => `assets/${this.heroSet.dir}/frame_${String(n).padStart(4, '0')}.webp?v=4`;
+      this.ctx = this.canvas ? this.canvas.getContext('2d', { alpha: false, desynchronized: true }) : null;
+
+      this.currentFrame = 1;
+      this.targetFrame = 1;
+      this.lastDrawnFrame = -1;
+      this.scrollDir = 1;
+      this.ticking = false;
+      this.isScrolling = false;
+      this.scrollTimeout = null;
+      this.destroyed = false;
+      this.loaderDismissed = false;
+      this.lenis = null;
+      this.heroVisible = true;
+      this.heroObserver = null;
+
+      this.markScrolling = this.markScrolling.bind(this);
+      this.renderTick = this.renderTick.bind(this);
     }
 
-    async init() {
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    init() {
+      this.bindSkipActions();
 
-      if (reducedMotion) {
+      if (this.isReducedMotion) {
         this.showStaticPoster();
+        this.dismissLoadingScreen();
         return;
       }
-      if (this.isMobilePhone()) {
+
+      if (!this.canvas || !this.ctx) {
         this.showMobileVideo();
         return;
       }
 
-      this.runCanvasEngine();
+      // Universal Luxury Engine (Mobile + Tablet + Desktop):
+      // Hardware-accelerated canvas scrubbing synchronized 1:1 with user scroll
+      this.mountCanvas();
+      this.initScrollEngine();
+      this.initLenis();
+      this.preloadRunwayAndStream();
+    }
+
+    bindSkipActions() {
+      const handleHeroSkip = (e) => {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        const target = document.getElementById('buy');
+        if (!target) return;
+        if (this.lenis) {
+          this.lenis.scrollTo(target, {
+            offset: 0,
+            duration: 1.25,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+          });
+        } else {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+
+      if (this.skipBtn) {
+        this.skipBtn.addEventListener('click', handleHeroSkip);
+      }
+      if (this.cueBtn) {
+        this.cueBtn.addEventListener('click', handleHeroSkip);
+      }
     }
 
     showStaticPoster() {
-      if (this.canvas) this.canvas.style.display = "none";
-      if (this.video) this.video.style.display = "none";
-      if (this.poster) this.poster.style.display = "block";
+      if (this.canvas) this.canvas.style.display = 'none';
+      if (this.video) this.video.style.display = 'none';
+      if (this.poster) this.poster.style.display = 'block';
     }
 
     showMobileVideo() {
-      if (this.canvas) this.canvas.style.display = "none";
-      if (this.poster) this.poster.style.display = "none";
-      if (!this.video) return;
+      if (this.canvas) this.canvas.style.display = 'none';
+      if (this.poster) this.poster.style.display = 'none';
+      if (!this.video) {
+        this.dismissLoadingScreen();
+        return;
+      }
+
       this.video.src = MDV_HERO_MOBILE_VIDEO_SRC;
-      this.video.style.display = "block";
-      this.video.play().catch(() => {});
+      this.video.style.display = 'block';
+
+      const safety = setTimeout(() => this.dismissLoadingScreen(), 800);
+      const onReady = () => {
+        clearTimeout(safety);
+        this.dismissLoadingScreen();
+      };
+
+      if (this.video.readyState >= 1) onReady();
+      else {
+        this.video.addEventListener('loadedmetadata', onReady, { once: true });
+        this.video.addEventListener('loadeddata', onReady, { once: true });
+        this.video.addEventListener('error', onReady, { once: true });
+      }
+
+      const syncVideoScroll = () => {
+        if (!this.hero || !this.video) return;
+        const rect = this.hero.getBoundingClientRect();
+        const scrollable = Math.max(1, rect.height - window.innerHeight);
+        const p = Math.max(0, Math.min(1, -rect.top / scrollable));
+        this.syncBeats(p);
+        if (Number.isFinite(this.video.duration) && this.video.duration > 0) {
+          const maxT = Math.max(0, this.video.duration - 0.05);
+          this.video.currentTime = Math.min(maxT, p * maxT);
+        }
+      };
+      window.addEventListener('scroll', syncVideoScroll, { passive: true });
     }
 
-    async runCanvasEngine() {
-      if (!this.canvas || !this.ctx) return;
-      if (this.section) this.section.style.height = MDV_HERO_SCROLL_HEIGHT;
-
-      this.beatEls = MDV_HERO_BEATS.map((b) => ({ ...b, el: this.sticky.querySelector("#" + b.id) }));
-      this.ctaEl = this.sticky.querySelector("#heroCta");
-      this.activeBeatId = null;
-
-      this.onResize = () => this.scheduleResize();
-      window.addEventListener("resize", this.onResize);
-      this.resizeCanvas();
-
-      await this.loadFrame(1);
-      this.drawFrame(1, true);
-
-      this.setupLenis();
-      this.onScroll = () => this.updateTargetProgress();
-      window.addEventListener("scroll", this.onScroll, { passive: true });
-      window.addEventListener("touchmove", this.onScroll, { passive: true });
-      this.updateTargetProgress();
-
-      this.preloadAll();
+    mountCanvas() {
+      if (!this.canvas) return;
+      this.canvas.style.willChange = 'transform';
+      this.canvas.style.transform = 'translateZ(0)';
+      this.canvas.style.backfaceVisibility = 'hidden';
+      this.updateCanvasDimensions();
+      window.addEventListener('resize', () => this.updateCanvasDimensions(), { passive: true });
     }
 
-    scheduleResize() {
-      if (this.resizeRafId) return;
-      this.resizeRafId = requestAnimationFrame(() => {
-        this.resizeRafId = null;
-        this.resizeCanvas();
-      });
-    }
+    updateCanvasDimensions() {
+      if (!this.canvas) return;
+      const cssWidth = window.innerWidth;
+      const cssHeight = window.innerHeight;
+      if (cssWidth <= 0 || cssHeight <= 0) return;
 
-    resizeCanvas() {
+      // Clamp DPR to max 1.5 and width to max 1920 to keep GPU fill-rate ultra fast (120fps) on Retina displays
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      const box = this.sticky.getBoundingClientRect();
-      this.canvas.width = Math.round(box.width * dpr);
-      this.canvas.height = Math.round(box.height * dpr);
-      if (this.lastDrawnFrame) this.drawFrame(this.lastDrawnFrame, true);
-    }
-
-    loadFrame(n) {
-      if (this.frameBitmaps[n]) return Promise.resolve(this.frameBitmaps[n]);
-      if (this.loadingPromises[n]) return this.loadingPromises[n];
-
-      this.loadingPromises[n] = fetch(MDV_HERO_FRAME_PATH(n))
-        .then((r) => r.blob())
-        .then((b) => createImageBitmap(b))
-        .then((bmp) => {
-          this.frameBitmaps[n] = bmp;
-          delete this.loadingPromises[n];
-          return bmp;
-        })
-        .catch(() => {
-          delete this.loadingPromises[n];
-          return null;
-        });
-      return this.loadingPromises[n];
-    }
-
-    findNearestLoadedFrame(requested) {
-      if (this.frameBitmaps[requested]) return requested;
-      for (let d = 1; d < MDV_HERO_TOTAL_FRAMES; d++) {
-        const lo = requested - d;
-        const hi = requested + d;
-        if (lo >= 1 && this.frameBitmaps[lo]) return lo;
-        if (hi <= MDV_HERO_TOTAL_FRAMES && this.frameBitmaps[hi]) return hi;
+      const maxW = 1920;
+      let targetW = Math.round(cssWidth * dpr);
+      let targetH = Math.round(cssHeight * dpr);
+      if (targetW > maxW) {
+        targetH = Math.round(targetH * (maxW / targetW));
+        targetW = maxW;
       }
-      return null;
-    }
 
-    drawFrame(n, force) {
-      const target = this.frameBitmaps[n] ? n : this.findNearestLoadedFrame(n);
-      if (target === null || target === undefined) return;
-      if (!force && target === this.lastDrawnFrame) return;
-      const bmp = this.frameBitmaps[target];
-      if (!bmp) return;
+      if (this.canvas.width !== targetW || this.canvas.height !== targetH) {
+        this.canvas.width = targetW;
+        this.canvas.height = targetH;
+      }
+      this.targetW = targetW;
+      this.targetH = targetH;
+      this.canvasAspect = targetW / targetH;
 
-      const cw = this.canvas.width;
-      const ch = this.canvas.height;
-      const canvasRatio = cw / ch;
-      const imgRatio = bmp.width / bmp.height;
-      let dw, dh, dx, dy;
-      if (imgRatio > canvasRatio) {
-        dh = ch; dw = ch * imgRatio; dx = (cw - dw) / 2; dy = 0;
+      // 16:9 source aspect (1600x900)
+      const imgAspect = 16 / 9;
+      if (this.canvasAspect > imgAspect) {
+        this.drawW = targetW;
+        this.drawH = Math.round(targetW / imgAspect);
+        this.offsetX = 0;
+        this.offsetY = Math.round((targetH - this.drawH) / 2);
       } else {
-        dw = cw; dh = cw / imgRatio; dx = 0; dy = 0;
+        this.drawH = targetH;
+        this.drawW = Math.round(targetH * imgAspect);
+        this.offsetX = Math.round((targetW - this.drawW) / 2);
+        this.offsetY = 0;
       }
-      this.ctx.clearRect(0, 0, cw, ch);
-      this.ctx.drawImage(bmp, dx, dy, dw, dh);
-      this.lastDrawnFrame = target;
+
+      if (this.ctx) {
+        this.ctx.imageSmoothingEnabled = true;
+        this.ctx.imageSmoothingQuality = 'medium';
+      }
+
+      if (this.lastDrawnFrame > 0) {
+        this.drawSingleFrame(this.lastDrawnFrame);
+      }
     }
 
-    setupLenis() {
-      if (typeof Lenis === "undefined") return;
+    dismissLoadingScreen() {
+      if (this.loaderDismissed) return;
+      this.loaderDismissed = true;
+      if (this.fill) this.fill.style.width = '100%';
+      if (this.percentEl) this.percentEl.textContent = '100%';
+      if (this.statusEl) this.statusEl.textContent = 'Beverly Hills · the ritual begins';
+      if (this.loader) {
+        this.loader.classList.add('loaded');
+      }
+      document.documentElement.style.removeProperty('overflow');
+      document.body.style.removeProperty('overflow');
+      if (this.lenis) this.lenis.start();
+    }
+
+    preloadRunwayAndStream() {
+      let ready = false;
+      const releaseScroll = () => {
+        if (ready || this.destroyed) return;
+        ready = true;
+        this.dismissLoadingScreen();
+        if (typeof this.renderTick === 'function') this.renderTick();
+
+        // Controlled, prioritized window streaming:
+        // Prefetches frames in a calm sliding window (+/- 25 frames) around current position
+        let streamTimer = null;
+        const streamAhead = () => {
+          if (this.destroyed || !this.heroVisible) return;
+          const center = Math.round(this.currentFrame || 1);
+          const ahead = Math.min(this.TOTAL_FRAMES, center + 35);
+          for (let f = center; f <= ahead; f++) {
+            if (!this.images[f]) {
+              this.loadFrame(f, 'low');
+              break;
+            }
+          }
+          if (this.heroVisible && !this.destroyed) {
+            streamTimer = setTimeout(streamAhead, 50);
+          }
+        };
+        setTimeout(streamAhead, 250);
+      };
+
+      // Strict safety timeout (never leave user stranded)
+      const gateSafety = setTimeout(releaseScroll, 800);
+
+      // 1. Pristine Master Poster on millisecond 0
+      this.posterImg = new Image();
+      if ('fetchPriority' in this.posterImg) this.posterImg.fetchPriority = 'high';
+      this.posterImg.onload = () => {
+        if (this.lastDrawnFrame <= 2) {
+          this.drawPoster();
+        }
+      };
+      this.posterImg.src = MDV_HERO_POSTER_SRC;
+
+      const loadFrame = (idx, priority = 'low') => {
+        if (this.destroyed || this.images[idx]) return Promise.resolve(this.images[idx]);
+        return new Promise((resolve) => {
+          const img = new Image();
+          if (priority === 'high' && 'fetchPriority' in img) img.fetchPriority = 'high';
+          img.onload = () => {
+            this.images[idx] = img;
+            if (idx === 1 && this.lastDrawnFrame <= 2) {
+              this.drawSingleFrame(1);
+            }
+            resolve(img);
+          };
+          img.onerror = () => resolve(null);
+          img.src = this.frameSrc(idx);
+        });
+      };
+      this.loadFrame = loadFrame;
+
+      try {
+        // Lock scroll during brief runway gate
+        if (this.lenis) this.lenis.stop();
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+
+        // Fast 15-frame runway: Unlocks in <150ms
+        const RUNWAY = 15;
+        let loadedCount = 0;
+        for (let i = 1; i <= RUNWAY; i++) {
+          loadFrame(i, 'high').then(() => {
+            loadedCount++;
+            const pct = Math.round((loadedCount / RUNWAY) * 100);
+            if (this.fill) this.fill.style.width = pct + '%';
+            if (this.percentEl) this.percentEl.textContent = pct + '%';
+            if (loadedCount >= RUNWAY && !ready) {
+              clearTimeout(gateSafety);
+              releaseScroll();
+            }
+          });
+        }
+      } catch (e) {
+        console.warn('Hero preloader caught error, releasing gate:', e);
+        releaseScroll();
+      }
+    }
+
+    fetchUrgentFrameChunk(targetFrame) {
+      if (this.destroyed || !this.loadFrame) return;
+      const dir = this.scrollDir || 1;
+      const lo = dir > 0 ? targetFrame - 6 : targetFrame - 16;
+      const hi = dir > 0 ? targetFrame + 16 : targetFrame + 6;
+      for (let f = Math.max(1, lo); f <= Math.min(this.TOTAL_FRAMES, hi); f++) {
+        if (!this.images[f]) {
+          this.loadFrame(f, 'high');
+        }
+      }
+    }
+
+    posterReady() {
+      return !!(this.posterImg && this.posterImg.complete && (this.posterImg.naturalWidth || this.posterImg.width));
+    }
+
+    drawPoster() {
+      if (!this.ctx || !this.posterReady()) return;
+      const pw = this.posterImg.naturalWidth || this.posterImg.width;
+      const ph = this.posterImg.naturalHeight || this.posterImg.height;
+      this.ctx.drawImage(this.posterImg, 0, 0, pw, ph, this.offsetX, this.offsetY, this.drawW, this.drawH);
+    }
+
+    drawSingleFrame(frameNum) {
+      if (!this.ctx || !this.targetW) return;
+
+      if (frameNum <= 2 && this.posterReady()) {
+        this.drawPoster();
+        this.lastDrawnFrame = frameNum;
+        return;
+      }
+
+      const idx = Math.max(1, Math.min(this.TOTAL_FRAMES, frameNum));
+      const img = this.images ? this.images[idx] : null;
+
+      if (!img || !img.complete || !img.naturalWidth) {
+        // Monotonic zero-flicker fallback: find nearest loaded frame within +/- 18
+        if (this.images) {
+          for (let delta = 1; delta <= 18; delta++) {
+            const fPrev = idx - delta;
+            if (fPrev >= 1 && this.images[fPrev] && this.images[fPrev].complete && this.images[fPrev].naturalWidth) {
+              this.ctx.drawImage(this.images[fPrev], this.offsetX, this.offsetY, this.drawW, this.drawH);
+              return;
+            }
+            const fNext = idx + delta;
+            if (fNext <= this.TOTAL_FRAMES && this.images[fNext] && this.images[fNext].complete && this.images[fNext].naturalWidth) {
+              this.ctx.drawImage(this.images[fNext], this.offsetX, this.offsetY, this.drawW, this.drawH);
+              return;
+            }
+          }
+        }
+        if (this.posterReady()) this.drawPoster();
+        return;
+      }
+
+      try {
+        this.ctx.drawImage(img, this.offsetX, this.offsetY, this.drawW, this.drawH);
+        this.lastDrawnFrame = frameNum;
+      } catch (e) {
+        if (this.posterReady()) this.drawPoster();
+      }
+    }
+
+    markScrolling() {
+      this.isScrolling = true;
+      if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
+      this.scrollTimeout = setTimeout(() => {
+        this.isScrolling = false;
+      }, 150);
+    }
+
+    renderTick(y) {
+      if (y !== undefined && y !== null) this.scrollY = y;
+      else this.scrollY = window.scrollY;
+      if (!this.heroVisible) return; // Completely pause canvas work when hero is off-screen
+      if (!this.ticking) {
+        this.ticking = true;
+        requestAnimationFrame(this._performRender || (() => {}));
+      }
+    }
+
+    initLenis() {
+      if (typeof Lenis === 'undefined') return;
       this.lenis = new Lenis({
-        lerp: 0.1,
+        duration: 1.15,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
         smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 1.6
+        wheelMultiplier: 0.88,
+        touchMultiplier: 1.0,
+        infinite: false
       });
-      this.lenis.on('scroll', () => {
-        this.updateTargetProgress();
-      });
+
       const raf = (time) => {
         if (this.destroyed) return;
         this.lenis.raf(time);
-        this.lenisRafId = requestAnimationFrame(raf);
+        requestAnimationFrame(raf);
       };
-      this.lenisRafId = requestAnimationFrame(raf);
-    }
+      requestAnimationFrame(raf);
 
-    updateTargetProgress() {
-      if (!this.section) return;
-      const rect = this.section.getBoundingClientRect();
-      const heroTop = rect.top + window.scrollY;
-      const heroHeight = this.section.offsetHeight;
-      const viewportH = window.innerHeight;
-      const raw = (window.scrollY - heroTop) / (heroHeight - viewportH);
-      this.targetProgress = Math.min(1, Math.max(0, raw || 0));
-      this.scheduleDraw();
-    }
-
-    scheduleDraw() {
-      if (this.drawRafId || this.destroyed) return;
-      this.drawRafId = requestAnimationFrame(() => {
-        this.drawRafId = null;
-        const frame = Math.min(MDV_HERO_TOTAL_FRAMES, Math.max(1, Math.round(this.targetProgress * (MDV_HERO_TOTAL_FRAMES - 1)) + 1));
-        this.drawFrame(frame);
-        this.updateNarrative(this.targetProgress);
+      const self = this;
+      this.lenis.on('scroll', (e) => {
+        if (typeof self.markScrolling === 'function') self.markScrolling();
+        if (typeof self.renderTick === 'function') self.renderTick(e ? e.scroll : window.scrollY);
       });
     }
 
-    updateNarrative(progress) {
-      const beat = this.beatEls.find((b) => progress >= b.from && progress < b.to) || this.beatEls[this.beatEls.length - 1];
-      if (!beat || beat.id === this.activeBeatId) return;
-      this.activeBeatId = beat.id;
-      this.beatEls.forEach((b) => {
-        if (b.el) b.el.classList.toggle("mdv-hero-beat-active", b.id === beat.id);
-      });
-      if (this.ctaEl) this.ctaEl.classList.toggle("mdv-hero-cta-hidden", beat.id === "heroBeat5");
+    initScrollEngine() {
+      this.measureLayout = () => {
+        const vh = window.innerHeight;
+        const heroH = this.hero ? this.hero.offsetHeight : 0;
+        const heroTop = this.hero ? (this.hero.getBoundingClientRect().top + window.scrollY) : 0;
+        this.m = {
+          vh,
+          heroTop,
+          heroH,
+          heroScrollable: heroH - vh
+        };
+      };
+      this.measureLayout();
+      window.addEventListener('resize', this.measureLayout, { passive: true });
+      [300, 1000, 2500].forEach(ms => setTimeout(this.measureLayout, ms));
+
+      if ('IntersectionObserver' in window && this.hero) {
+        this.heroObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            this.heroVisible = entry.isIntersecting;
+            if (this.heroVisible) {
+              this.renderTick();
+            }
+          });
+        }, { rootMargin: '100px 0px' });
+        this.heroObserver.observe(this.hero);
+      }
+
+      this.getScrollProgress = () => {
+        const m = this.m;
+        if (!m || m.heroScrollable <= 0) return 0;
+        const curY = (this.scrollY !== undefined && this.scrollY !== null) ? this.scrollY : window.scrollY;
+        const raw = (curY - m.heroTop) / m.heroScrollable;
+        return Math.max(0, Math.min(1, raw || 0));
+      };
+
+      this._performRender = () => {
+        this.ticking = false;
+        if (!this.heroVisible) return;
+
+        const p = this.getScrollProgress();
+        const targetFrame = Math.max(1, Math.min(this.TOTAL_FRAMES, Math.round(p * (this.TOTAL_FRAMES - 1)) + 1));
+        this.scrollDir = targetFrame >= this.currentFrame ? 1 : -1;
+        this.currentFrame = targetFrame;
+
+        this.fetchUrgentFrameChunk(this.currentFrame);
+        this.drawSingleFrame(this.currentFrame);
+        this.syncBeats(p);
+      };
+
+      window.addEventListener('scroll', () => {
+        if (this.lenis) return;
+        this.markScrolling();
+        this.renderTick(window.scrollY);
+      }, { passive: true });
     }
 
-    preloadAll() {
-      const order = [];
-      for (let i = 1; i <= MDV_HERO_TOTAL_FRAMES; i += 4) order.push(i);
-      for (let i = 1; i <= MDV_HERO_TOTAL_FRAMES; i++) if (i % 4 !== 1) order.push(i);
+    syncBeats(p) {
+      if (this.beatEls.length) {
+        this.beatEls.forEach((el) => {
+          const start = parseFloat(el.dataset.start);
+          const end = parseFloat(el.dataset.end);
+          el.classList.toggle('is-active', p >= start && p <= end);
+        });
+      }
 
-      let idx = 0;
-      const worker = () => {
-        if (this.destroyed || idx >= order.length) return;
-        const n = order[idx++];
-        this.loadFrame(n).finally(worker);
-      };
-      for (let i = 0; i < MDV_HERO_PRELOAD_CONCURRENCY; i++) worker();
+      if (this.skipBtn) {
+        if (p >= 0.98) {
+          this.skipBtn.style.opacity = '0';
+          this.skipBtn.style.pointerEvents = 'none';
+        } else if (p >= 0.03) {
+          this.skipBtn.style.opacity = '1';
+          this.skipBtn.style.pointerEvents = 'auto';
+        } else {
+          this.skipBtn.style.opacity = '';
+          this.skipBtn.style.pointerEvents = 'auto';
+        }
+      }
+
+      if (this.cueBtn) {
+        if (p >= 0.15) {
+          this.cueBtn.style.opacity = '0';
+          this.cueBtn.style.pointerEvents = 'none';
+        } else {
+          this.cueBtn.style.opacity = '';
+          this.cueBtn.style.pointerEvents = 'auto';
+        }
+      }
     }
 
     destroy() {
       this.destroyed = true;
-      if (this.drawRafId) cancelAnimationFrame(this.drawRafId);
-      if (this.resizeRafId) cancelAnimationFrame(this.resizeRafId);
-      if (this.lenisRafId) cancelAnimationFrame(this.lenisRafId);
-      if (this.onResize) window.removeEventListener("resize", this.onResize);
-      if (this.onScroll) {
-        window.removeEventListener("scroll", this.onScroll);
-        window.removeEventListener("touchmove", this.onScroll);
-      }
+      if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
+      this.heroObserver?.disconnect();
       this.lenis?.destroy();
     }
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    var heroSticky = document.getElementById("heroSticky");
-    if (heroSticky) {
-      var heroEngine = new MdvHeroEngine(heroSticky);
-      heroEngine.init();
-    }
+  function startHeroEngine() {
+    if (window.heroCanvasEngine) return;
+    var heroCanvasEngine = new MdvHeroCanvasEngine();
+    window.heroCanvasEngine = heroCanvasEngine;
+    heroCanvasEngine.init();
 
     document.querySelectorAll('.wall-sound-btn').forEach(function(btn){
       btn.addEventListener('click', function(){
@@ -2312,7 +3184,13 @@
         btn.closest('.wall-tile--full-review').classList.add('is-playing-full');
       });
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener("DOMContentLoaded", startHeroEngine);
+  } else {
+    startHeroEngine();
+  }
 
 </script>
 
